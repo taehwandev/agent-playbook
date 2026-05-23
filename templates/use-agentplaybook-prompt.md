@@ -50,9 +50,10 @@ Rules:
    diff, manual check, or decision note. Do not reconstruct the ledger from
    memory at the end.
 7. If any required gate was not executed, stop before final report, commit,
-   release, or handoff. Roll back only agent-made changes from the failed
-   attempt when safe, preserve user-owned changes, restart from the first gate,
-   and run the retrospective workflow. Do not exceed two total attempts.
+   release, or handoff. Roll back only dependent agent-made changes after the
+   missed gate when safe, preserve user-owned changes, return to the first
+   missed gate only, and run the retrospective workflow. The missed gate gets
+   one retry; do not restart the whole route.
 8. When a gate is missed, the retrospective must include `AI mistake`,
    `Proposed fix`, and `Discussion result`. Write the discussion result in the
    user's language for the task.

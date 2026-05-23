@@ -184,12 +184,13 @@ Supported concerns are `accessibility`, `api`, `auth`, `background`, `billing`,
 `wiki`, and `worktree`.
 
 The route output contains `docs`, `gates`, `gate_ledger`, `attempt_limit`,
-`notes`, and `missing`. Agents should read the listed docs in order, use gates
-as the task checklist, mark each gate with evidence while working, and stop if
-any document is listed under `missing`. If a required gate is missed, the agent
-must stop finalization, roll back only agent-made changes from the failed
-attempt when safe, restart from the first gate, and run the retrospective
-workflow. The attempt limit is two.
+`retry_scope`, `notes`, and `missing`. Agents should read the listed docs in
+order, use gates as the task checklist, mark each gate with evidence while
+working, and stop if any document is listed under `missing`. If a required gate
+is missed, the agent must stop finalization, return to the first missed gate
+only, roll back dependent agent-made changes when safe, and run the
+retrospective workflow. The missed gate gets one retry; the whole route is not
+restarted.
 
 ## Structure
 

@@ -45,14 +45,16 @@ the file and can identify the lines you changed.
 - Treat generated files and lockfiles as user-visible diff noise unless the task
   or toolchain requires them.
 
-## Rollback Current Attempt
+## Rollback Missed Gate Scope
 
-Use when a workflow gate was missed or the current attempt must be abandoned.
+Use when a workflow gate was missed and the agent must retry that gate.
 
-- Roll back only changes made by the agent in the failed attempt.
+- Roll back only changes made by the agent that depend on the missed gate or
+  must be undone before retrying that gate.
 - Preserve pre-existing user changes, even in files the agent also touched.
 - Prefer a targeted reverse patch or explicit file edit over broad repository
   reset commands.
+- Do not roll back completed earlier gates or unrelated valid work.
 - Do not use destructive history or filesystem cleanup without a direct user
   request.
 - If safe rollback cannot be separated from user-owned changes, stop and report

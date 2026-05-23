@@ -107,8 +107,9 @@ For every runtime:
 10. Report verification and residual risk.
 
 If a required route gate was missed, the runtime must stop finalization, roll
-back only agent-made changes from the failed attempt when safe, restart from the
-first gate, and run the retrospective workflow. The route attempt limit is two.
+back only dependent agent-made changes after the missed gate when safe, return
+to the first missed gate only, and run the retrospective workflow. The missed
+gate gets one retry; the whole route is not restarted.
 
 ## Verification
 

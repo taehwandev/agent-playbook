@@ -227,6 +227,7 @@ def resolve_docs(command: str, platform: Optional[str], concerns: List[str]) -> 
         "docs": unique(docs),
         "gates": list(profile.gates),
         "attempt_limit": 2,
+        "retry_scope": "first_missed_gate",
         "gate_ledger": [
             {
                 "gate": gate,
@@ -260,15 +261,16 @@ def print_markdown(route: Dict[str, object]) -> None:
     print()
     print("## Gate Execution Ledger")
     print("Attempt limit: `2`")
+    print("Retry scope: `first_missed_gate`")
     print()
     print("Mark every gate before final report:")
     for item in route["gate_ledger"]:
         print(f"- [ ] `{item['gate']}` - evidence: ...")
     print()
-    print("If any required gate is not executed, stop finalization, roll back only")
-    print("agent-made changes from the failed attempt when safe, restart from the")
-    print("first gate, and run `workflows/retrospective-learning.md`. Do not exceed")
-    print("two total attempts.")
+    print("If any required gate is not executed, stop finalization, return to the")
+    print("first missed gate only, roll back only dependent agent-made changes when")
+    print("safe, and run `workflows/retrospective-learning.md`. The missed gate gets")
+    print("one retry; do not restart the whole route.")
     if route["notes"]:
         print()
         print("## Notes")
