@@ -9,6 +9,9 @@ type: human-reviewed-needed
 Paste this into an AI coding agent when you want it to connect a project to
 AgentPlaybook.
 
+Use `templates/use-agentplaybook-prompt.md` instead when you only want one task
+to follow AgentPlaybook without changing repo-local instruction files.
+
 ```text
 Apply AgentPlaybook to this project:
 https://github.com/taehwandev/AgentPlaybook

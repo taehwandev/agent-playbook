@@ -1,0 +1,125 @@
+---
+keyflow_id: sys_agent_runtime_integration
+status: review
+type: human-reviewed-needed
+---
+
+# Agent Runtime Integration
+
+Use this when connecting AgentPlaybook to Codex, Claude, Antigravity, or another
+AI coding agent runtime.
+
+## Model
+
+AgentPlaybook should be consumed through a small bridge, not copied wholesale:
+
+1. Reusable library: one AgentPlaybook root.
+2. Runtime bridge: repo-local instructions or a pasted prompt.
+3. Task route: `scripts/workflow.py` output for the current task.
+4. Safety gate: VibeGuard audit using AgentPlaybook as `--rules`.
+
+Repo-local instructions remain the source of truth for commands, paths,
+services, product policy, and domain language.
+
+## Long-Lived Repo Setup
+
+For repos that will keep using AgentPlaybook, add a short routing block to the
+instruction file each agent runtime reads:
+
+- Codex-style runtimes: `AGENTS.md` or `AGENTS.override.md`.
+- Claude-style runtimes: `CLAUDE.md`.
+- Codex-specific local docs: `CODEX.md` when the repo already uses it.
+- Antigravity or generic agents: the project instruction file the runtime
+  actually reads, or `.agents/README.md` when the repo uses a shared agent
+  folder.
+
+Use `templates/repo-agents-routing.md` as the source block. Keep the block
+short and point to:
+
+```text
+<AGENTPLAYBOOK_ROOT>/AGENTS.md
+<AGENTPLAYBOOK_ROOT>/index.md
+<AGENTPLAYBOOK_ROOT>/scripts/workflow.py
+```
+
+Do not paste the full playbook into runtime-specific files.
+
+## One-Shot Prompt Setup
+
+Use one-shot prompting when:
+
+- the target repo is not wired yet
+- the agent runtime does not automatically load repo instruction files
+- you are using a web chat or temporary session
+- you want Claude, Antigravity, or another agent to follow AgentPlaybook for one
+  task without changing repo files
+
+Paste `templates/use-agentplaybook-prompt.md` into the agent, replacing the
+target repo, task, AgentPlaybook root, and VibeGuard source placeholders.
+
+The prompt explicitly tells the runtime to read `AGENTS.md` and `index.md`,
+because not every agent automatically discovers Codex-style `AGENTS.md` files.
+
+## Runtime Notes
+
+Codex:
+
+- Prefer repo-local `AGENTS.md` / `AGENTS.override.md` plus the routing block.
+- Use the workflow router for multi-step work.
+- Keep Codex-specific commands or sandbox notes in the target repo, not in the
+  shared playbook.
+
+Claude:
+
+- Prefer `CLAUDE.md` with the routing block.
+- If Claude is operating from chat without repo instruction discovery, paste
+  `templates/use-agentplaybook-prompt.md`.
+- Tell Claude the exact AgentPlaybook root path or a repo-pinned submodule path.
+
+Antigravity:
+
+- Use the project instruction surface that Antigravity actually reads.
+- If that surface is unclear, paste `templates/use-agentplaybook-prompt.md` at
+  the start of the task.
+- Do not assume Antigravity has loaded Codex-specific `AGENTS.md`; instruct it
+  to read the AgentPlaybook root explicitly.
+
+Generic agents:
+
+- Use `.agents/README.md` or the runtime's documented project instruction file.
+- If file discovery is unavailable, use the one-shot prompt.
+
+## Required Flow
+
+For every runtime:
+
+1. Identify the target repo and repo-local instructions.
+2. Locate the AgentPlaybook root.
+3. Run VibeGuard audit with the selected root as `--rules`.
+4. Read AgentPlaybook `AGENTS.md`.
+5. Use `index.md` or `scripts/workflow.py` to select the smallest document set.
+6. Load only selected cards.
+7. Execute repo-local commands only from trusted repo-local instructions.
+8. Report verification and residual risk.
+
+## Verification
+
+After connecting a runtime, verify:
+
+- the target repo instruction file points to the selected AgentPlaybook root
+- `AGENTS.md`, `index.md`, and `scripts/workflow.py` exist under that root
+- VibeGuard setup/audit passed or stopped with a reported blocker
+- the agent can produce a route, such as:
+
+```text
+python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route task
+```
+
+## Stop If
+
+- The target runtime does not have file access and the user cannot paste the
+  one-shot prompt.
+- The AgentPlaybook root cannot be located.
+- VibeGuard cannot run from a local, pinned, or reviewed source.
+- Repo-local instructions conflict with AgentPlaybook on security, data,
+  deployment, cost, or verification behavior.

@@ -128,6 +128,23 @@ Full bootstrap instructions live in [docs/agent-bootstrap.md](docs/agent-bootstr
 A shorter reusable prompt lives in
 [templates/apply-agentplaybook-request.md](templates/apply-agentplaybook-request.md).
 
+## Use With Codex, Claude, And Antigravity
+
+AgentPlaybook is not tied to one runtime. Codex may discover `AGENTS.md`
+directly, while Claude, Antigravity, or generic agents may need a repo-local
+bridge file or a pasted prompt.
+
+- For long-lived repo setup, add the routing block from
+  [templates/repo-agents-routing.md](templates/repo-agents-routing.md) to the
+  instruction file the runtime reads, such as `AGENTS.md`,
+  `AGENTS.override.md`, `CLAUDE.md`, `CODEX.md`, or `.agents/README.md`.
+- For one-shot use, paste
+  [templates/use-agentplaybook-prompt.md](templates/use-agentplaybook-prompt.md)
+  into the agent with the target repo, task, AgentPlaybook root, and VibeGuard
+  source filled in.
+- For runtime-specific setup rules, read
+  [docs/agent-runtime-integration.md](docs/agent-runtime-integration.md).
+
 ## Distribution Modes
 
 - Existing local install: preferred when the user already has AgentPlaybook.

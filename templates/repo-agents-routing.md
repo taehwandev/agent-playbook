@@ -6,7 +6,10 @@ type: ai-generated
 
 # Repo Agent Routing Template
 
-Add this to repo-local agent instructions.
+Add this to repo-local agent instructions for Codex, Claude, Antigravity, or
+another coding agent runtime. Use the file the runtime actually reads, such as
+`AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `CODEX.md`, or
+`.agents/README.md`.
 
 ```text
 Shared AgentPlaybook library:
@@ -28,6 +31,9 @@ Replace `<AGENTPLAYBOOK_ROOT>` with an existing local install path,
 `${KEYFLOW_AGENT_ROOT}` only when the environment already provides it.
 Keep repo paths, commands, components, role matrices, and domain terms in this repo.
 ```
+
+For one-shot runtime prompting without editing repo instructions, use
+`templates/use-agentplaybook-prompt.md`.
 
 Core direct routes:
 

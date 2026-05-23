@@ -101,6 +101,10 @@ Use `index.md` as the full document map. Do not duplicate the full index in
 repo-local instructions. Start with these direct routes, then load only the
 specific cards selected by `index.md`.
 
+Release, versioning, platform, product-pattern, and other task-specific cards
+are intentionally selected through `index.md` or `scripts/workflow.py` instead
+of being listed as baseline direct routes here.
+
 ```text
 <AGENTPLAYBOOK_ROOT>/index.md
 <AGENTPLAYBOOK_ROOT>/common/stack-discovery.md

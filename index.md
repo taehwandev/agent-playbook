@@ -84,6 +84,8 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 
 ## Workflow
 
+- Workflow script command list:
+  `python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py list`
 - Agent task lifecycle: `workflows/agent-task-lifecycle.md`
 - Agent handoff/continuation: `workflows/agent-handoff-continuation.md`
 - Scripted workflow routing: `workflows/scripted-agent-workflow.md`

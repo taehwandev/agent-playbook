@@ -39,9 +39,50 @@ error. Do not paste secret values from logs.
 - If the same command fails twice for different reasons, repeat diagnosis from
   the new output instead of assuming the old cause.
 
+## Flaky Failures
+
+Treat a failure as flaky only when there is evidence of nondeterminism, such as
+intermittent pass/fail behavior, timeout, race, external service instability, or
+order-dependent tests.
+
+When flakiness is suspected:
+
+- Rerun the smallest failing test or command once to confirm the pattern.
+- Check whether the failure depends on time, random order, parallel execution,
+  network, filesystem state, cache, or shared external state.
+- Do not mark the work verified just because one retry passed.
+- Stabilize the test or isolate the nondeterministic boundary when it is in
+  scope.
+- If stabilization is out of scope, report the flaky signal, rerun count,
+  observed results, and residual risk.
+
+## Clean Build Or Cache Recovery
+
+Use clean rebuilds only after output suggests stale artifacts, corrupted cache,
+generated-file mismatch, dependency resolution drift, or build-system state.
+
+Before cleaning:
+
+- Prefer repo-local clean commands or documented wrappers.
+- Identify the cache or artifact being removed.
+- Avoid deleting global caches, user data, simulator state, derived data, or
+  dependency stores without approval.
+- Keep dependency reinstall, generated output, and lockfile changes separate
+  from code fixes unless the task requires them.
+
+Examples of acceptable local recovery paths when repo-local policy allows them:
+
+```text
+package-manager clean/build command from the repo
+project clean task or build wrapper
+targeted generated-client regeneration
+targeted local build output deletion
+```
+
 ## Do Not
 
 - Repeat the same failing command more than twice without a changed hypothesis.
+- Run broad cache deletion or reinstall commands without evidence and approval.
 - Delete tests, loosen assertions, or bypass lint rules only to make checks pass.
 - Catch and ignore runtime errors to hide a failing path.
 - Roll back broad files when a line-level correction is available.

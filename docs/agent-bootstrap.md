@@ -26,6 +26,12 @@ repo-specific commands, paths, services, product policy, and domain language in
 this repo.
 ```
 
+For one-shot task use without editing repo-local instructions, use
+`templates/use-agentplaybook-prompt.md`.
+
+For runtime-specific setup across Codex, Claude, Antigravity, and generic
+agents, use `docs/agent-runtime-integration.md`.
+
 ## Discovery Order
 
 1. Identify the target project from the user's request and current working
