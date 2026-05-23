@@ -69,7 +69,10 @@ npx --yes @taehwandev/vibeguard setup . --rules <AGENTPLAYBOOK_ROOT>
 npx --yes @taehwandev/vibeguard audit . --fix --rules <AGENTPLAYBOOK_ROOT>
 npx --yes @taehwandev/vibeguard audit . --rules <AGENTPLAYBOOK_ROOT>
 
-For full VibeGuard usage, use https://vibeguard.thdev.app/.
+For full VibeGuard usage, use https://vibeguard.thdev.app/ as a human
+reference. Do not block only because your browsing/fetch tool cannot read that
+site. Continue with the package command shape above, and use
+`npx --yes @taehwandev/vibeguard --help` if you need to confirm the CLI.
 
 If VibeGuard cannot run, stop and tell me the blocker.
 

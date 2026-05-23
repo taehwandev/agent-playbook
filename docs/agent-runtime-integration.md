@@ -122,8 +122,10 @@ For every runtime:
 4. Inspect existing VibeGuard files and agent instructions. Ask the application
    drill before running setup or update when the repo already has custom
    instructions or guardrails.
-5. Apply the selected VibeGuard mode from https://vibeguard.thdev.app/ with the
-   selected AgentPlaybook root as the rule source.
+5. Apply the selected VibeGuard mode with the published package command and the
+   selected AgentPlaybook root as the rule source. Treat
+   https://vibeguard.thdev.app/ as the human-facing reference, not a runtime
+   fetch dependency.
 6. Read AgentPlaybook `AGENTS.md`.
 7. Use `index.md` or `scripts/workflow.py` to select the smallest document set.
 8. When a scripted route is used, keep a gate execution ledger, mark each route
@@ -133,8 +135,9 @@ For every runtime:
 10. Execute repo-local commands only from trusted repo-local instructions.
 11. Before reporting completion, confirm every required route gate is `GREEN`
     with ledger evidence.
-12. When a VibeGuard execution evidence adapter is configured, follow
-    https://vibeguard.thdev.app/ and compare the summary with claimed commands.
+12. When a VibeGuard execution evidence adapter is configured, use the
+    VibeGuard CLI evidence command and compare the summary with claimed
+    commands.
 13. Report verification and residual risk.
 
 If a required route gate was missed, the runtime must stop finalization, roll
@@ -172,6 +175,6 @@ python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route task
 - The target runtime does not have file access and the user cannot paste the
   one-shot prompt.
 - The AgentPlaybook root cannot be located.
-- VibeGuard cannot run after following https://vibeguard.thdev.app/.
+- The VibeGuard command cannot run after using the published package command.
 - Repo-local instructions conflict with AgentPlaybook on security, data,
   deployment, cost, or verification behavior.

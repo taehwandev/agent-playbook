@@ -24,7 +24,7 @@ Task:
 AgentPlaybook root:
 <AGENTPLAYBOOK_ROOT>
 
-VibeGuard docs:
+VibeGuard human docs:
 https://vibeguard.thdev.app/
 
 Rules:
@@ -39,8 +39,10 @@ Rules:
    dependency, data, deployment, or credential surfaces, inspect existing
    VibeGuard files and agent instructions. If they already exist, ask the
    application drill before running setup or update. Then apply the selected
-   VibeGuard mode from https://vibeguard.thdev.app/ with <AGENTPLAYBOOK_ROOT>
-   as the rule source. If VibeGuard cannot run, stop and report the blocker.
+   VibeGuard mode with the published package command and <AGENTPLAYBOOK_ROOT>
+   as the rule source. The VibeGuard site is a human reference and does not
+   need to be fetched by the agent. If the VibeGuard command cannot run, stop
+   and report the blocker.
 5. For multi-step tasks, run:
    python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py list
    python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py classify "<USER_REQUEST>"

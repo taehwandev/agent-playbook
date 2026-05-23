@@ -48,10 +48,10 @@ https://github.com/taehwandev/AgentPlaybook
 - It is not meant to be copied wholesale into every project.
 
 VibeGuard is the required safety gate for applying and maintaining
-AgentPlaybook. AgentPlaybook does not duplicate full VibeGuard usage docs; use
-https://vibeguard.thdev.app/ for VibeGuard setup and usage. Agents should apply
-VibeGuard through the current VibeGuard flow and pass the selected
-AgentPlaybook root as the rule source.
+AgentPlaybook. Agents should apply VibeGuard with the published package command
+and pass the selected AgentPlaybook root as the rule source. The VibeGuard site
+is the human-facing reference, not a runtime dependency; do not block only
+because an agent browsing/fetch tool cannot read the site.
 
 Website:
 
@@ -176,7 +176,14 @@ npx --yes @taehwandev/vibeguard audit . --fix --rules "${AGENTPLAYBOOK_HOME}"
 npx --yes @taehwandev/vibeguard audit . --rules "${AGENTPLAYBOOK_HOME}"
 ```
 
-Full VibeGuard usage: `https://vibeguard.thdev.app/`
+Full VibeGuard usage for humans: `https://vibeguard.thdev.app/`
+
+If an agent cannot fetch that site, continue with the package command shape
+above. To confirm the current CLI surface, run:
+
+```bash
+npx --yes @taehwandev/vibeguard --help
+```
 
 When applying AgentPlaybook, use the selected AgentPlaybook root as the
 VibeGuard rule source. If VibeGuard cannot run, report the blocker instead of
@@ -245,8 +252,10 @@ Then use AgentPlaybook:
 <AGENTPLAYBOOK_ROOT>/index.md
 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py
 
-Apply the required VibeGuard safety gate from https://vibeguard.thdev.app/
-with <AGENTPLAYBOOK_ROOT> as the rule source before editing.
+Apply the required VibeGuard safety gate with <AGENTPLAYBOOK_ROOT> as the rule
+source before editing. Use the published VibeGuard package command; the
+VibeGuard site is a human reference and does not need to be fetched by the
+agent.
 For multi-step work, run the workflow route and follow its gate ledger.
 After each completed gate or task step, show:
 Gate signal: GREEN | gate: <gate> | evidence: <evidence> | next: <next gate>
@@ -293,11 +302,13 @@ bridge file or a pasted prompt.
   dependency when every teammate and agent must use the same reviewed version.
 
 In every mode, VibeGuard is mandatory. AgentPlaybook names that requirement and
-the selected rule source; VibeGuard owns the operating flow.
-Use https://vibeguard.thdev.app/. If VibeGuard cannot run, report the blocker
-instead of bypassing the gate. The target repo keeps its own commands, paths,
-services, product policy, and domain rules. AgentPlaybook provides shared
-defaults only.
+the selected rule source; VibeGuard owns the operating flow. Use the published
+VibeGuard package command, with https://vibeguard.thdev.app/ as the
+human-facing reference. If an agent browsing/fetch tool cannot read the site,
+do not treat that alone as a blocker. If the VibeGuard command itself cannot
+run, report the blocker instead of bypassing the gate. The target repo keeps
+its own commands, paths, services, product policy, and domain rules.
+AgentPlaybook provides shared defaults only.
 
 ## Workflow Router
 

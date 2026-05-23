@@ -24,9 +24,9 @@ CONTRIBUTING.md, task docs, PRD/ARD docs, or equivalent project docs.
 
 If AgentPlaybook already exists locally, link this repo to the existing copy.
 Do not clone, vendor, or copy a second copy unless no usable local copy exists.
-Apply the required VibeGuard safety gate by following
-https://vibeguard.thdev.app/ and use the selected AgentPlaybook root as the
-rule source.
+Apply the required VibeGuard safety gate with the selected AgentPlaybook root
+as the rule source. Use the published VibeGuard package command. The VibeGuard
+site is a human reference and does not need to be fetched by the agent.
 Update the repo-local agent instructions with a short routing block. Keep
 repo-specific commands, paths, services, product policy, and domain language in
 this repo.
@@ -129,14 +129,17 @@ npx --yes @taehwandev/vibeguard audit . --rules <AGENTPLAYBOOK_ROOT>
 ```
 
 Full VibeGuard setup, audit, fix, package, and evidence flow lives in VibeGuard
-docs:
+docs for humans:
 
 ```text
 https://vibeguard.thdev.app/
 ```
 
-If VibeGuard cannot run, stop and report the blocker. Do not continue as if the
-safety gate were optional.
+Do not block only because an agent browsing/fetch tool cannot read the
+VibeGuard site. Continue with the package command shape above, and use
+`npx --yes @taehwandev/vibeguard --help` if the current CLI surface must be
+checked. If the VibeGuard command itself cannot run, stop and report the
+blocker. Do not continue as if the safety gate were optional.
 
 ## Install If Missing
 
@@ -192,6 +195,6 @@ Before reporting success:
 - The target project is ambiguous.
 - The user asked only for advice and did not ask to edit the repo.
 - No usable local copy exists and network access is unavailable or not approved.
-- VibeGuard cannot run after following https://vibeguard.thdev.app/.
+- The VibeGuard command cannot run after using the published package command.
 - Existing repo-local instructions conflict with AgentPlaybook in a way that
   changes security, data handling, verification, deployment, or cost behavior.
