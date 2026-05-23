@@ -117,19 +117,13 @@ h1, h2, h3, p {
 }
 
 .brand-mark-img {
-  width: 38px;
-  height: 38px;
-  border: 1px solid rgba(var(--green-rgb), 0.35);
-  border-radius: 10px;
-  background: linear-gradient(135deg, rgba(var(--green-rgb), 0.1) 0%, rgba(var(--cyan-rgb), 0.05) 100%);
-  box-shadow: 0 0 15px rgba(var(--green-rgb), 0.15);
-  transition: all 0.3s ease;
+  width: 26px;
+  height: 26px;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .brand:hover .brand-mark-img {
-  transform: scale(1.05);
-  border-color: rgba(var(--green-rgb), 0.6);
-  box-shadow: 0 0 20px rgba(var(--green-rgb), 0.3);
+  transform: scale(1.08) rotate(3deg);
 }
 
 .brand-text {
