@@ -15,6 +15,13 @@ authorization, logging, diagnostics, and open-source repository safety rules.
 
 - Store secrets with Android Keystore-backed storage or an accepted repo-local secure storage wrapper.
 - Do not store access tokens, refresh tokens, private keys, or sensitive user data in plain SharedPreferences, logs, screenshots, or crash payloads.
+- Keep local developer keys in ignored files such as `local.properties` or the
+  repo-approved local config path; keep CI/release keys in the CI secret store.
+- Treat `BuildConfig`, resources, manifest placeholders, assets, and generated
+  config files as client-visible. They can hold restricted client keys, not
+  server-only secrets.
+- Restrict Android client keys by package name, signing certificate fingerprint,
+  quota, API scope, or provider-specific controls when available.
 - Treat `Activity`, `Service`, `Receiver`, and `Provider` export settings as security boundaries.
 - Validate deep links and app links before using embedded IDs, tokens, or redirect targets.
 - Use explicit intents for sensitive flows and check `PendingIntent` mutability.
