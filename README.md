@@ -249,6 +249,8 @@ python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" list
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" classify "Improve the X button in HomeScreen"
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route triage
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route product --platform web --concern security --concern ui
+python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform kmp --concern compose --concern state
+python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform flutter --concern widget --concern state
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route docs-review --concern wiki
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" validate
 ```
@@ -257,14 +259,14 @@ Supported commands are `ambiguity`, `bugfix`, `docs`, `docs-review`, `feature`,
 `multi-agent`, `planning`, `prd`, `product`, `refactor`, `release`,
 `retrospective`, `review`, `task`, and `triage`.
 
-Supported platforms are `android`, `application`, `ios`, `server`, and `web`.
-Supported concerns are `accessibility`, `api`, `auth`, `background`, `billing`,
-`asset`, `assets`, `cache`, `component`, `component-api`, `compose`,
-`defensive`, `dependency`, `desktop`, `discovery`, `effort`, `error`, `errors`,
-`failure`, `generated`, `intake`, `interaction`, `invite`, `module`,
-`observability`, `persistence`, `react`, `release`, `reusability`, `security`,
-`seo`, `stack`, `state`, `structure`, `swiftui`, `ui`, `uikit`, `wiki`, and
-`worktree`.
+Supported platforms are `android`, `application`, `flutter`, `ios`, `kmp`,
+`server`, and `web`. Supported concerns are `accessibility`, `api`, `auth`,
+`background`, `billing`, `asset`, `assets`, `cache`, `channel`, `component`,
+`component-api`, `compose`, `defensive`, `dependency`, `desktop`, `discovery`,
+`effort`, `error`, `errors`, `failure`, `generated`, `intake`, `interaction`,
+`invite`, `module`, `observability`, `persistence`, `platform`, `react`,
+`release`, `reusability`, `security`, `seo`, `stack`, `state`, `structure`,
+`swiftui`, `ui`, `uikit`, `widget`, `wiki`, and `worktree`.
 
 Use `classify` before route selection when the request may be vague or when the
 agent runtime can choose model/reasoning effort. The classifier is intentionally
@@ -290,7 +292,7 @@ the whole route is not restarted.
 AGENTS.md         Shared entrypoint for agent runtimes
 index.md          Routing map for selecting the smallest useful document set
 common/           Platform-neutral engineering guidance
-platforms/        Android, iOS, web, server, and application tracks
+platforms/        Android, KMP, Flutter, iOS, web, server, and application tracks
 product-patterns/ Reusable product mechanics such as auth, invite, and billing
 workflows/        Repeatable agent work paths
 scripts/          Executable workflow routers and validators
@@ -310,6 +312,17 @@ where state should live, and what evidence proves the work.
 - Android ViewModel/state: `platforms/android/android-viewmodel-state.md`
   covers ViewModel contracts, `StateFlow`, one-off events, use cases,
   repositories, persistence, and coroutine tests.
+- KMP/Compose Multiplatform: `platforms/kmp/kmp-architecture.md`,
+  `platforms/kmp/kmp-compose-ui.md`, `platforms/kmp/kmp-state-data.md`, and
+  `platforms/kmp/kmp-platform-integration.md` cover source sets,
+  `expect`/`actual`, shared Compose UI, state/data boundaries, adapters,
+  target capabilities, and verification across affected targets.
+- Flutter: `platforms/flutter/flutter-architecture.md`,
+  `platforms/flutter/flutter-widget-ui.md`,
+  `platforms/flutter/flutter-state-data.md`, and
+  `platforms/flutter/flutter-platform-integration.md` cover widget layers,
+  state management, repositories, platform channels, plugins, target
+  capabilities, lifecycle, and verification across affected targets.
 - iOS SwiftUI: `platforms/ios/ios-swiftui-ui.md` covers route/coordinator,
   screen/section/view splits, ViewModel contracts, `UiState`, clean
   architecture, previews, navigation effects, and tests.
@@ -344,6 +357,8 @@ python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform ios
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform ios --concern uikit
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform web --concern react --concern ui
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform android --concern compose
+python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform kmp --concern compose --concern platform
+python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform flutter --concern widget --concern channel
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform server --concern api --concern auth
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform application --concern desktop
 ```

@@ -80,6 +80,18 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - Android background work: `platforms/android/android-background-work.md`
 - Android security: `platforms/android/android-security.md`
 - Android review: `platforms/android/android-review.md`
+- KMP architecture: `platforms/kmp/kmp-architecture.md`
+- KMP Compose Multiplatform UI: `platforms/kmp/kmp-compose-ui.md`
+- KMP state/data: `platforms/kmp/kmp-state-data.md`
+- KMP platform integration: `platforms/kmp/kmp-platform-integration.md`
+- KMP security: `platforms/kmp/kmp-security.md`
+- KMP review: `platforms/kmp/kmp-review.md`
+- Flutter architecture: `platforms/flutter/flutter-architecture.md`
+- Flutter widget UI: `platforms/flutter/flutter-widget-ui.md`
+- Flutter state/data: `platforms/flutter/flutter-state-data.md`
+- Flutter platform integration: `platforms/flutter/flutter-platform-integration.md`
+- Flutter security: `platforms/flutter/flutter-security.md`
+- Flutter review: `platforms/flutter/flutter-review.md`
 - iOS architecture: `platforms/ios/ios-architecture.md`
 - iOS SwiftUI UI structure, ViewModel contracts, UiState, previews, packages:
   `platforms/ios/ios-swiftui-ui.md`
@@ -268,6 +280,22 @@ design-system promotion decisions.
 For Android ViewModel, `UiState`, Flow, repository, persistence, or one-off
 event work, load `platforms/android/android-viewmodel-state.md` before
 implementation.
+
+For KMP or Compose Multiplatform work, load
+`platforms/kmp/kmp-architecture.md`. For shared Compose UI, also load
+`platforms/kmp/kmp-compose-ui.md`; for shared state, repositories,
+coroutines, persistence, or adapters, load `platforms/kmp/kmp-state-data.md`;
+for source sets, `expect`/`actual`, native interop, files, shell, clipboard,
+permissions, or target capabilities, load
+`platforms/kmp/kmp-platform-integration.md`.
+
+For Flutter work, load `platforms/flutter/flutter-architecture.md`. For
+widgets, forms, routes, design-system components, or golden/widget tests, also
+load `platforms/flutter/flutter-widget-ui.md`; for state owners, streams,
+repositories, storage, or async effects, load
+`platforms/flutter/flutter-state-data.md`; for MethodChannel, EventChannel,
+plugins, permissions, lifecycle, isolates, desktop, mobile, or web target
+behavior, load `platforms/flutter/flutter-platform-integration.md`.
 
 For iOS SwiftUI screen or component work, load
 `platforms/ios/ios-swiftui-ui.md` before implementation. This includes
