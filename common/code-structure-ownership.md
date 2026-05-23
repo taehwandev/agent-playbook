@@ -12,6 +12,10 @@ contracts, `api`/`impl` splits, or where new code should live.
 Structure should make ownership, dependency direction, and review scope obvious.
 Do not create modules or packages just because a pattern exists elsewhere.
 
+The default choice is local or single-module code. Split only when the split
+protects a real caller-facing boundary, extension point, dependency edge, or
+ownership line.
+
 ## Ownership Levels
 
 Choose the lowest level that gives the code a clear owner:
@@ -31,6 +35,25 @@ file-private -> package/internal -> feature/module -> feature-api contract
 ## Module Split Choices
 
 Most multi-module designs choose between two shapes.
+
+## Decision Rule
+
+Choose a single module unless the answer to at least one of these questions is
+yes:
+
+- Does another module need to compile against this contract without depending on
+  the implementation?
+- Does navigation, deep linking, plugin loading, dependency injection, or feature
+  registration cross this boundary?
+- Is this an extension point where another implementation can reasonably replace
+  the current one?
+- Would implementation dependencies leak heavy, platform-specific, paid, test,
+  or optional dependencies to callers?
+- Does the split remove a circular dependency, reduce build coupling, or let
+  different owners change contract and implementation independently?
+
+If all answers are no, keep the code local or in one module and revisit the
+boundary when pressure appears.
 
 ### Single Module
 

@@ -22,6 +22,11 @@ For code that is being extracted, moved into shared modules, reused by multiple
 callers, or promoted to a package/API, also use
 `common/reusable-code-design.md`.
 
+For reusable component-like APIs, callbacks, slots, and controlled state, also
+use `common/component-api-design.md`. For state shape, source of truth, async
+states, and one-off effects, use `common/state-modeling.md`. For typed failures
+and retry/recovery behavior, use `common/error-modeling.md`.
+
 ## Priority
 
 1. Repo-local formatter, linter, compiler, and framework rules.
@@ -37,6 +42,8 @@ callers, or promoted to a package/API, also use
 - Prefer clear names over comments that explain unclear names.
 - Keep each function, component, class, hook, or service focused on one reason to change.
 - Keep UI, state, domain, data, and platform concerns separated at the nearest useful boundary.
+- Pick the smallest structure that protects a real boundary; do not create a
+  package or module only to mirror a preferred architecture.
 - Do not add a new abstraction for one call site unless it protects a risky boundary.
 - Do not scatter booleans for roles, permissions, entitlements, loading, or error states when a typed state or policy object would make behavior clearer.
 - Prefer typed errors, result objects, or framework error types over string matching.

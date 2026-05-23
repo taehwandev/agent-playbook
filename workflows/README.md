@@ -28,6 +28,7 @@ python3 scripts/workflow.py list
 - `agent-task-lifecycle.md`: route any agent task from intake to report.
 - `agent-handoff-continuation.md`: preserve state across interruption, resume, or handoff.
 - `scripted-agent-workflow.md`: define script-backed command routing for agents.
+- `request-triage.md`: classify request clarity, question-drill need, and effort before broad context loading.
 - `ambiguity-gate.md`: classify blockers, researchable unknowns, safe assumptions, and out-of-scope items before PRD, ARD, or implementation.
 - `prd-creation.md`: write a PRD or product requirements note before ARD or code.
 - `product-architecture-delivery.md`: run PRD -> ARD -> review -> code -> review -> tests -> UI tests -> commit readiness with `product`.

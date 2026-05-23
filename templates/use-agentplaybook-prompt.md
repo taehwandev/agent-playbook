@@ -43,8 +43,12 @@ Rules:
    automation. If VibeGuard cannot run, stop and report the blocker.
 5. For multi-step tasks, run:
    python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py list
+   python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py classify "<USER_REQUEST>"
    python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route <COMMAND> [--platform <PLATFORM>] [--concern <CONCERN>]
    Use the route output as the command manifest.
+   Use the lowest capable effort level. Do not use deep reasoning or a
+   specialist agent for clear, low-risk requests unless local evidence expands
+   the scope.
 6. Keep a gate execution ledger from the route output. Mark each required gate
    when it is executed, include concrete evidence such as a command, file, diff,
    manual check, or decision note, and assign a traffic-light signal:

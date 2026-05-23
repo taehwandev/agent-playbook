@@ -15,6 +15,8 @@ or task-specific workflow to load next.
 ## Read
 
 - `common/agent-operating-skill.md`
+- `common/task-intake-effort-routing.md` before loading broad context or using
+  deep effort
 - `common/stack-discovery.md` when commands, dependencies, runtime, or framework
   APIs matter
 - `common/agent-editing-safety.md`
@@ -27,7 +29,8 @@ or task-specific workflow to load next.
 ## Steps
 
 1. Intake: identify the user goal, target project, task type, constraints, and
-   whether the user asked for edits or only analysis.
+   whether the user asked for edits or only analysis. Classify request clarity
+   and effort before loading broad context.
 2. Local rules: read repo-local instructions before project-specific work.
 3. Stack discovery: inspect manifests, lockfiles, wrappers, and repo scripts
    before choosing commands or framework-specific APIs.
@@ -59,6 +62,7 @@ or task-specific workflow to load next.
 ## Route To
 
 - Product or feature delivery with PRD/ARD gates: `workflows/product-architecture-delivery.md`
+- Request clarity, effort routing, or question drill: `workflows/request-triage.md`
 - Lower-level coding work: `workflows/development-cycle.md`
 - Feature behavior: `workflows/feature-implementation.md`
 - Bug or regression: `workflows/bugfix-debugging.md`

@@ -13,6 +13,8 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - Agent operating baseline: `common/agent-operating-skill.md`
 - User questions, approvals, status updates, and handoff messages:
   `common/agent-interaction.md`
+- Request clarity, model/effort routing, token controls, question drill:
+  `common/task-intake-effort-routing.md`
 - All coding work: `common/llm-coding-discipline.md`
 - Code conventions, naming, comments, formatting: `common/code-conventions.md`
 - Code structure, file/module ownership, api/impl split:
@@ -116,6 +118,7 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - Workflow script command list:
   `python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py list`
 - Agent task lifecycle: `workflows/agent-task-lifecycle.md`
+- Request triage: `workflows/request-triage.md`
 - Agent handoff/continuation: `workflows/agent-handoff-continuation.md`
 - Scripted workflow routing: `workflows/scripted-agent-workflow.md`
 - Ambiguity gate: `workflows/ambiguity-gate.md`
@@ -140,6 +143,12 @@ When `scripts/workflow.py` is available, use it to generate the command route
 before manually selecting workflow documents. Treat the route's gate ledger as a
 required execution record, not a summary to reconstruct after the work. Show a
 short gate signal after each completed gate or task step.
+
+For any new request, first classify clarity and effort with
+`common/task-intake-effort-routing.md`. Do not use the strongest model, longest
+reasoning, or full-document loading by default. Use quick effort for exact
+low-risk requests, standard effort for scoped implementation, and deep effort
+only for ambiguous, broad, high-risk, or cross-boundary work.
 
 Before running project commands, adding dependencies, or using framework-specific
 APIs, use `common/stack-discovery.md`. When a command fails, use
@@ -197,6 +206,10 @@ For broad diffs, refactors, PR review, or commit preparation, also read
 the task includes commit preparation, also read `common/worktree-hygiene.md`.
 When deciding file layout, package layout, module ownership, public contracts,
 or `api`/`impl` splits, also read `common/code-structure-ownership.md`.
+Do not make `api`/`impl` modules by default. Choose that split only when a
+stable external contract, navigation/deep-link/registration boundary,
+implementation swap, dependency isolation, ownership split, or cycle/build
+coupling pressure exists.
 When code is extracted into shared modules, reused by multiple callers, or
 promoted into a package/API, also read `common/reusable-code-design.md`.
 When designing reusable UI components, hooks, widgets, controls, or other
@@ -220,8 +233,9 @@ user-provided values, read `common/defensive-boundaries.md`.
 For UI, application, async, cache, reducer, store, ViewModel, hook, or state
 machine work, read `common/state-modeling.md`.
 
-For error handling, typed failures, retries, user-visible failure states, logs,
-metrics, diagnostics, or audits, read `common/error-modeling.md`.
+For error handling, typed failures, retries, and user-visible failure states,
+read `common/error-modeling.md`. Add `common/observability-error-handling.md`
+when logs, metrics, diagnostics, support traces, or audits are touched.
 
 For UI layout, visible state, interaction, text overflow, responsive behavior,
 or accessibility-visible changes, read `common/ui-visual-verification.md`.

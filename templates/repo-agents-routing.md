@@ -47,6 +47,7 @@ Core direct routes:
 ```text
 Document index: <AGENTPLAYBOOK_ROOT>/index.md
 Agent operating skill: <AGENTPLAYBOOK_ROOT>/common/agent-operating-skill.md
+Task intake/effort routing: <AGENTPLAYBOOK_ROOT>/common/task-intake-effort-routing.md
 Stack discovery: <AGENTPLAYBOOK_ROOT>/common/stack-discovery.md
 LLM discipline: <AGENTPLAYBOOK_ROOT>/common/llm-coding-discipline.md
 Code conventions: <AGENTPLAYBOOK_ROOT>/common/code-conventions.md
@@ -74,6 +75,7 @@ Auth/RBAC implementation: <AGENTPLAYBOOK_ROOT>/product-patterns/auth-rbac-implem
 Invitation implementation: <AGENTPLAYBOOK_ROOT>/product-patterns/invitation-implementation.md
 Billing/entitlements implementation: <AGENTPLAYBOOK_ROOT>/product-patterns/billing-entitlements-implementation.md
 Agent task lifecycle: <AGENTPLAYBOOK_ROOT>/workflows/agent-task-lifecycle.md
+Request triage workflow: <AGENTPLAYBOOK_ROOT>/workflows/request-triage.md
 Agent handoff/continuation: <AGENTPLAYBOOK_ROOT>/workflows/agent-handoff-continuation.md
 Scripted agent workflow: <AGENTPLAYBOOK_ROOT>/workflows/scripted-agent-workflow.md
 Ambiguity gate: <AGENTPLAYBOOK_ROOT>/workflows/ambiguity-gate.md

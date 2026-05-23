@@ -13,25 +13,28 @@ mistakes.
 ## Core Loop
 
 1. Identify the target project and task type.
-2. Read repo-local instructions before changing files.
-3. Discover the project stack before choosing commands or libraries.
-4. For multi-step tasks, use `scripts/workflow.py` when available to generate
+2. Classify request clarity and effort before loading broad context.
+3. Read repo-local instructions before changing files.
+4. Discover the project stack before choosing commands or libraries.
+5. For multi-step tasks, use `scripts/workflow.py` when available to generate
    the workflow route.
-5. Keep a gate execution ledger for the route and mark each gate with evidence
+6. Keep a gate execution ledger for the route and mark each gate with evidence
    when it is executed. Show a short gate signal after each completed gate or
    task step.
-6. Use `index.md` to load only relevant AgentPlaybook cards.
-7. Inspect existing code, docs, tests, and local conventions.
-8. Make the smallest change that genuinely addresses the request.
-9. Verify with the narrowest reliable command first.
-10. Confirm the route gate ledger before reporting completion.
-11. Report what changed, what was verified, and what risk remains.
+7. Use `index.md` to load only relevant AgentPlaybook cards.
+8. Inspect existing code, docs, tests, and local conventions.
+9. Make the smallest change that genuinely addresses the request.
+10. Verify with the narrowest reliable command first.
+11. Confirm the route gate ledger before reporting completion.
+12. Report what changed, what was verified, and what risk remains.
 
 ## Mistake Prevention Checklist
 
 Before editing:
 
 - Confirm target path and project.
+- Classify the request as clear-exact, clear-scoped, vague-action,
+  broad-product, or risky-unclear before choosing effort.
 - Check repo-local `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`,
   `CODEX.md`, `.agents/README.md`, `CONTRIBUTING.md`, or equivalent docs.
 - Check stack manifests, lockfiles, and config before running commands, adding
@@ -60,6 +63,8 @@ Before finishing:
 
 ## Task Routing
 
+- Request clarity, question drill, model/effort routing, or token reduction:
+  `common/task-intake-effort-routing.md` and `workflows/request-triage.md`.
 - Scripted workflow route: `workflows/scripted-agent-workflow.md` and
   `scripts/workflow.py` when the task has multiple steps.
 - Stack, package manager, framework, runtime, or command discovery:

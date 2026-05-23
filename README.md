@@ -238,6 +238,8 @@ documents manually:
 
 ```bash
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" list
+python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" classify "Improve the X button in HomeScreen"
+python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route triage
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route product --platform web --concern security --concern ui
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route docs-review --concern wiki
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" validate
@@ -245,14 +247,22 @@ python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" validate
 
 Supported commands are `ambiguity`, `bugfix`, `docs`, `docs-review`, `feature`,
 `multi-agent`, `planning`, `prd`, `product`, `refactor`, `release`,
-`retrospective`, `review`, and `task`.
+`retrospective`, `review`, `task`, and `triage`.
 
 Supported platforms are `android`, `application`, `ios`, `server`, and `web`.
 Supported concerns are `accessibility`, `api`, `auth`, `background`, `billing`,
-`cache`, `component`, `compose`, `defensive`, `dependency`, `desktop`, `error`,
-`failure`, `generated`, `interaction`, `invite`, `observability`,
-`persistence`, `react`, `release`, `reusability`, `security`, `stack`, `state`,
-`structure`, `swiftui`, `ui`, `uikit`, `wiki`, and `worktree`.
+`cache`, `component`, `component-api`, `compose`, `defensive`, `dependency`,
+`desktop`, `effort`, `error`, `errors`, `failure`, `generated`, `intake`,
+`interaction`, `invite`, `module`, `observability`, `persistence`, `react`,
+`release`, `reusability`, `security`, `stack`, `state`, `structure`,
+`swiftui`, `ui`, `uikit`, `wiki`, and `worktree`.
+
+Use `classify` before route selection when the request may be vague or when the
+agent runtime can choose model/reasoning effort. The classifier is intentionally
+cheap: it suggests `clear-exact`, `clear-scoped`, `vague-action`,
+`broad-product`, or `risky-unclear`, then recommends quick, standard, deep, or
+specialist effort. It is a first pass, not a replacement for repo-local
+inspection.
 
 The route output contains `docs`, `gates`, `gate_ledger`, `attempt_limit`,
 `retry_scope`, `notes`, and `missing`. Agents should read the listed docs in
@@ -351,11 +361,16 @@ This is the core design: small cards, loaded only when relevant.
 - Use `index.md` to choose only the needed documents.
 - Use `scripts/workflow.py` to turn repeated multi-step workflows into command
   manifests before selecting documents manually.
+- Classify unclear requests before loading broad context or using deep model
+  effort.
 - Discover the repo stack before choosing package managers, framework APIs, or
   project commands.
 - Diagnose command failures from stdout/stderr before retrying or changing code.
 - Start most coding work from `common/agent-operating-skill.md`.
 - Use `workflows/agent-task-lifecycle.md` for multi-step agent work of any kind.
+- Use `workflows/request-triage.md` and
+  `common/task-intake-effort-routing.md` when deciding whether to ask
+  questions, run a question drill, or lower/raise effort.
 - Use `workflows/product-architecture-delivery.md` for product work that needs
   PRD, architecture, implementation, verification, UI tests, and commit gates.
 - Use `workflows/development-cycle.md` for lower-level multi-step implementation

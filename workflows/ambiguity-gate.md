@@ -9,6 +9,9 @@ type: human-reviewed-needed
 Use before PRD, ARD, task breakdown, implementation plan, or code work when the
 request has unknowns that could change behavior, scope, risk, or verification.
 
+For initial request clarity, effort level, token budget, and question-drill
+decisions, also use `../common/task-intake-effort-routing.md`.
+
 ## Core Rule
 
 Do not turn unknowns into silent assumptions.
@@ -32,6 +35,22 @@ Classify each unknown as exactly one of these:
   be deferred or rejected.
 
 Ask the maintainer only for `blocker` unknowns.
+
+## Question Drill
+
+Use a question drill when the user asks the agent to refine the request, or when
+the request is too vague to classify without inventing behavior.
+
+Examples:
+
+- "Change the button on home" usually needs a drill unless the repo has one
+  obvious home button and a reversible local pattern.
+- "Improve the X button in `HomeScreen`" is usually scoped enough to inspect
+  `HomeScreen` first and ask only if behavior or acceptance remains unclear.
+- A pasted compiler/test/runtime error is usually clear enough for quick or
+  standard debugging without a drill.
+
+Do not use the drill as ceremony for clear low-risk tasks.
 
 ## Mandatory Blockers
 

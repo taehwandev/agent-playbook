@@ -10,7 +10,8 @@ Use for new features, boundary cleanup, or structure decisions.
 
 For explicit UI/application/domain/cache state design, also use
 `state-modeling.md`. For file/module ownership and `api`/`impl` splits, also
-use `code-structure-ownership.md`.
+use `code-structure-ownership.md`. For failure contracts, retry/recovery, and
+user-visible failure states, also use `error-modeling.md`.
 
 ## Shape
 
@@ -31,6 +32,9 @@ Keep files simple, but keep responsibilities named.
   browser, SDK, or external service calls need isolation.
 - Promote to shared modules only when `common/reusable-code-design.md` says the
   caller contract is stable enough.
+- Split into `api` and `impl` only when callers need a stable contract without
+  implementation dependencies, navigation/registration crosses the boundary, an
+  implementation can be swapped, or the split removes cycle/build coupling.
 
 ## Rules
 

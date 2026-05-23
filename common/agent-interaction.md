@@ -32,6 +32,9 @@ the runtime requires one short question, ask one short question. Use structured
 choices only when they are allowed by the active runtime and helpful for the
 decision.
 
+Use `task-intake-effort-routing.md` to decide whether the request needs a
+question drill or can proceed with quick/standard effort.
+
 When a question is needed:
 
 - Ask one to three questions at most.
@@ -50,6 +53,18 @@ Decision needed:
 
 Default if safe:
 ```
+
+## Question Drill
+
+A question drill is a short sequence of blocker questions used to turn a vague
+request into a clear task. Use it only when the user asks for requirements
+discovery or when ambiguity changes behavior, risk, scope, or verification.
+
+- Do not drill when the request names a file, symbol, error, or exact behavior
+  and local inspection can answer the remaining details.
+- Do not ask more than one pass of questions unless the user's answer creates a
+  new blocker.
+- Match the user's language in the conversation.
 
 ## Approval Requests
 

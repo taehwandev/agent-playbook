@@ -43,6 +43,15 @@ CORE_DOCS = (
 
 
 COMMANDS: Dict[str, Profile] = {
+    "triage": Profile(
+        docs=(
+            "workflows/request-triage.md",
+            "common/task-intake-effort-routing.md",
+            "workflows/ambiguity-gate.md",
+        ),
+        gates=("classify request", "select effort", "question drill if needed", "route recommendation"),
+        notes=("Use before loading broad context when request clarity or effort level is uncertain.",),
+    ),
     "task": Profile(
         docs=("workflows/agent-task-lifecycle.md",),
         gates=("orient", "scope", "act", "verify", "report"),
@@ -190,12 +199,17 @@ PLATFORMS: Dict[str, Tuple[str, ...]] = {
 
 CONCERNS: Dict[str, Tuple[str, ...]] = {
     "security": ("common/secure-development-baseline.md", "common/security-privacy-review.md"),
+    "intake": ("common/task-intake-effort-routing.md", "workflows/request-triage.md"),
+    "effort": ("common/task-intake-effort-routing.md",),
     "api": ("common/api-contract-compatibility.md",),
     "structure": ("common/code-structure-ownership.md",),
+    "module": ("common/code-structure-ownership.md",),
     "reusability": ("common/reusable-code-design.md", "common/component-api-design.md"),
     "component": ("common/component-api-design.md",),
+    "component-api": ("common/component-api-design.md",),
     "state": ("common/state-modeling.md",),
     "error": ("common/error-modeling.md",),
+    "errors": ("common/error-modeling.md",),
     "ui": ("common/design-system.md", "common/component-api-design.md", "common/ui-visual-verification.md"),
     "accessibility": ("common/accessibility-i18n.md",),
     "persistence": ("common/data-persistence-sync.md",),
@@ -258,6 +272,114 @@ def unique(items: Iterable[str]) -> List[str]:
             seen.add(item)
             result.append(item)
     return result
+
+
+def classify_request(text: str) -> Dict[str, object]:
+    normalized = " ".join(text.strip().split())
+    lowered = normalized.lower()
+    tokens = normalized.split()
+
+    exact_patterns = (
+        r"`[^`]+`",
+        r"\b[\w./-]+\.(kt|swift|tsx|ts|jsx|js|py|go|rs|java|md|json|yml|yaml|toml)\b",
+        r":\d+\b",
+        r"\b(error|exception|traceback|stack trace|compiler|lint|test failed|failing test)\b",
+        r"\b(nullpointer|typeerror|referenceerror|syntaxerror|segmentation fault)\b",
+    )
+    scoped_patterns = (
+        r"\b[A-Z][A-Za-z0-9]*(Screen|View|ViewModel|Controller|Route|Page|Component|Service|Repository|UseCase)",
+        r"\b(home|settings|profile|checkout|billing|invite|member|login|signup)\b.*\b(button|form|screen|page|modal|dialog|tab)\b",
+    )
+    broad_patterns = (
+        r"\b(build|implement|design|create|add|plan)\b.*\b(feature|flow|system|architecture|prd|ard|product)\b",
+        r"\b(auth|rbac|permission|billing|entitlement|invite|tenant|migration|release|deployment)\b",
+    )
+    risky_patterns = (
+        r"\b(delete|drop|destroy|migrate|deploy|release|publish|payment|billing|secret|token|credential|permission|security|tenant)\b",
+    )
+    vague_patterns = (
+        r"\b(fix|improve|clean up|make better|change|update|adjust|modify)\b",
+        r"\b(button|home|screen|ui|layout|style)\b",
+    )
+
+    has_exact = any(re.search(pattern, normalized, re.IGNORECASE) for pattern in exact_patterns)
+    has_scoped = any(re.search(pattern, normalized) for pattern in scoped_patterns)
+    has_broad = any(re.search(pattern, lowered) for pattern in broad_patterns)
+    has_risky = any(re.search(pattern, lowered) for pattern in risky_patterns)
+    has_vague = any(re.search(pattern, lowered) for pattern in vague_patterns)
+    short_without_target = len(tokens) <= 8 and not (has_exact or has_scoped)
+    asks_drill = any(phrase in lowered for phrase in ("grill me", "ask me questions", "help define requirements"))
+
+    if has_risky and not has_broad and not (has_exact or has_scoped):
+        clarity = "risky-unclear"
+        effort = "deep"
+        route = "ambiguity"
+        question_drill = True
+        reason = "Risk-sensitive terms appear without an exact implementation target."
+    elif has_broad and not has_exact:
+        clarity = "broad-product"
+        effort = "deep"
+        route = "product"
+        question_drill = asks_drill
+        reason = "The request appears to define product or architecture behavior."
+    elif has_exact:
+        clarity = "clear-exact"
+        effort = "quick"
+        route = "task"
+        question_drill = False
+        reason = "The request names an exact file, symbol, command, or error signal."
+    elif has_scoped:
+        clarity = "clear-scoped"
+        effort = "standard"
+        route = "feature"
+        question_drill = False
+        reason = "The request names a scoped UI, code, or feature owner."
+    elif asks_drill or has_vague or short_without_target:
+        clarity = "vague-action"
+        effort = "standard"
+        route = "triage"
+        question_drill = True
+        reason = "The request asks for action but lacks a precise target or acceptance criteria."
+    else:
+        clarity = "clear-scoped"
+        effort = "standard"
+        route = "task"
+        question_drill = False
+        reason = "No high-risk ambiguity was detected, but local context is still needed."
+
+    return {
+        "request": normalized,
+        "clarity": clarity,
+        "effort": effort,
+        "recommended_route": route,
+        "question_drill": question_drill,
+        "reason": reason,
+        "notes": [
+            "Use repo-local instructions before editing.",
+            "Escalate effort if local inspection finds broader risk.",
+            "Use the lowest capable model or reasoning depth when the runtime supports it.",
+        ],
+    }
+
+
+def print_classification(result: Dict[str, object]) -> None:
+    print("# AgentPlaybook Request Classification")
+    print()
+    print(f"Clarity: `{result['clarity']}`")
+    print(f"Effort: `{result['effort']}`")
+    print(f"Recommended route: `{result['recommended_route']}`")
+    print(f"Question drill: `{str(result['question_drill']).lower()}`")
+    print()
+    print(f"Reason: {result['reason']}")
+    print()
+    print("## Next")
+    if result["question_drill"]:
+        print("- Run `python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route triage`.")
+        print("- Ask only blocker questions after checking available local context.")
+    else:
+        print(f"- Run `python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route {result['recommended_route']}` with matching platform/concerns when needed.")
+        print("- Inspect the named target or smallest relevant local context first.")
+    print("- Keep the route gate ledger current if a workflow route is used.")
 
 
 def resolve_docs(command: str, platform: Optional[str], concerns: List[str]) -> Dict[str, object]:
@@ -438,6 +560,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     route.add_argument("--format", choices=("markdown", "json"), default="markdown")
 
+    classify = subparsers.add_parser("classify", help="Classify request clarity and effort.")
+    classify.add_argument("request", help="User request text to classify.")
+    classify.add_argument("--format", choices=("markdown", "json"), default="markdown")
+
     subparsers.add_parser("list", help="List available commands, platforms, and concerns.")
     subparsers.add_parser("validate", help="Validate route references, markdown frontmatter, and links.")
     return parser
@@ -461,6 +587,14 @@ def main(argv: List[str]) -> int:
 
     if args.action == "validate":
         return validate()
+
+    if args.action == "classify":
+        result = classify_request(args.request)
+        if args.format == "json":
+            print(json.dumps(result, indent=2, sort_keys=True))
+        else:
+            print_classification(result)
+        return 0
 
     route = resolve_docs(args.command, args.platform, args.concern)
     if args.format == "json":
