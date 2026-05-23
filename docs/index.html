@@ -307,6 +307,9 @@ Gate signal: GREEN | gate: &lt;gate&gt; | evidence: &lt;evidence&gt; | next: &lt
         <pre><code data-i18n="usage.code">Required VibeGuard gate:
 vibe-guard audit . --rules ${AGENTPLAYBOOK_HOME}
 
+If vibe-guard is not on PATH:
+node ${VIBEGUARD_HOME}/src/cli.js audit . --rules ${AGENTPLAYBOOK_HOME}
+
 Shared AgentPlaybook library:
 ${AGENTPLAYBOOK_HOME}/AGENTS.md
 ${AGENTPLAYBOOK_HOME}/templates/use-agentplaybook-prompt.md
@@ -393,7 +396,7 @@ Do not load every shared document by default.</code></pre>
           "workflow.link": "Open workflow",
           "usage.eyebrow": "Usage",
           "usage.title": "Route repos to the shared index.",
-          "usage.code": "Required VibeGuard gate:\nvibe-guard audit . --rules ${AGENTPLAYBOOK_HOME}\n\nShared AgentPlaybook library:\n${AGENTPLAYBOOK_HOME}/AGENTS.md\n${AGENTPLAYBOOK_HOME}/templates/use-agentplaybook-prompt.md\n\nUse repo-local instructions first.\nUse the shared index only to select the smallest relevant document set.\nDo not load every shared document by default."
+          "usage.code": "Required VibeGuard gate:\nvibe-guard audit . --rules ${AGENTPLAYBOOK_HOME}\n\nIf vibe-guard is not on PATH:\nnode ${VIBEGUARD_HOME}/src/cli.js audit . --rules ${AGENTPLAYBOOK_HOME}\n\nShared AgentPlaybook library:\n${AGENTPLAYBOOK_HOME}/AGENTS.md\n${AGENTPLAYBOOK_HOME}/templates/use-agentplaybook-prompt.md\n\nUse repo-local instructions first.\nUse the shared index only to select the smallest relevant document set.\nDo not load every shared document by default."
         },
         ko: {
           "meta.title": "에이전트 플레이북",
@@ -470,7 +473,7 @@ Do not load every shared document by default.</code></pre>
           "workflow.link": "워크플로우 열기",
           "usage.eyebrow": "사용법",
           "usage.title": "레포를 공유 인덱스로 라우팅합니다.",
-          "usage.code": "필수 VibeGuard 게이트:\nvibe-guard audit . --rules ${AGENTPLAYBOOK_HOME}\n\n공유 AgentPlaybook 라이브러리:\n${AGENTPLAYBOOK_HOME}/AGENTS.md\n${AGENTPLAYBOOK_HOME}/templates/use-agentplaybook-prompt.md\n\n레포 로컬 지침을 먼저 사용합니다.\n공유 인덱스는 필요한 최소 문서 세트를 고를 때만 사용합니다.\n모든 공유 문서를 기본으로 로드하지 않습니다."
+          "usage.code": "필수 VibeGuard 게이트:\nvibe-guard audit . --rules ${AGENTPLAYBOOK_HOME}\n\nvibe-guard가 PATH에 없을 때:\nnode ${VIBEGUARD_HOME}/src/cli.js audit . --rules ${AGENTPLAYBOOK_HOME}\n\n공유 AgentPlaybook 라이브러리:\n${AGENTPLAYBOOK_HOME}/AGENTS.md\n${AGENTPLAYBOOK_HOME}/templates/use-agentplaybook-prompt.md\n\n레포 로컬 지침을 먼저 사용합니다.\n공유 인덱스는 필요한 최소 문서 세트를 고를 때만 사용합니다.\n모든 공유 문서를 기본으로 로드하지 않습니다."
         }
       };
 

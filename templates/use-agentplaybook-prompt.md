@@ -38,9 +38,11 @@ Rules:
 4. VibeGuard is required. Before editing documentation, code, config,
    dependency, data, deployment, or credential surfaces, run:
    vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
-   If the local command is unavailable, use the local or pinned VibeGuard source
-   I provided. Do not run an unpinned GitHub package command in unattended
-   automation. If VibeGuard cannot run, stop and report the blocker.
+   If the local command is unavailable but a trusted checkout exists, run:
+   node <VIBEGUARD_ROOT>/src/cli.js audit . --rules <AGENTPLAYBOOK_ROOT>
+   Otherwise use the local or pinned VibeGuard source I provided. Do not run an
+   unpinned GitHub package command in unattended automation. If VibeGuard cannot
+   run, stop and report the blocker.
 5. For multi-step tasks, run:
    python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py list
    python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py classify "<USER_REQUEST>"

@@ -62,10 +62,17 @@ VibeGuard is mandatory for AgentPlaybook maintenance and for repos that apply
 AgentPlaybook. Before documentation, code, configuration, dependency, data,
 deployment, or credential changes, run the VibeGuard audit for the target repo.
 For this repo, prefer the local or pinned VibeGuard source documented in
-`VIBEGUARD.md`. During local maintenance, use:
+`VIBEGUARD.md`. During local maintenance, use an installed binary when
+available:
 
 ```text
 vibe-guard audit . --rules .
+```
+
+If `vibe-guard` is not on `PATH` but a trusted local checkout exists, use:
+
+```text
+node <VIBEGUARD_ROOT>/src/cli.js audit . --rules .
 ```
 
 Run it again before finishing. Do not run an unpinned GitHub package in

@@ -22,7 +22,8 @@ Use the shared index only to select the smallest relevant document set.
 VibeGuard is required before documentation, code, config, dependency, data,
 deployment, or credential changes. Run
 `vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>` before editing and again
-before finishing.
+before finishing. If `vibe-guard` is not on PATH but a trusted checkout exists,
+run `node <VIBEGUARD_ROOT>/src/cli.js audit . --rules <AGENTPLAYBOOK_ROOT>`.
 For multi-step tasks, run the workflow script first when it exists and use its
 output as the command manifest. Keep its gate execution ledger current; each
 required gate must have evidence before completion. Show a short traffic-light

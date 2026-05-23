@@ -129,8 +129,16 @@ vibe-guard setup . --rules "${AGENTPLAYBOOK_HOME}"
 vibe-guard audit . --rules "${AGENTPLAYBOOK_HOME}"
 ```
 
-Use an installed, repo-pinned, or team-approved VibeGuard source first. If a
-local source is unavailable, use a reviewed GitHub tag or commit:
+If `vibe-guard` is not on `PATH` but a trusted local checkout exists, run the
+checkout directly:
+
+```bash
+node "${VIBEGUARD_HOME}/src/cli.js" setup . --rules "${AGENTPLAYBOOK_HOME}"
+node "${VIBEGUARD_HOME}/src/cli.js" audit . --rules "${AGENTPLAYBOOK_HOME}"
+```
+
+Use an installed, repo-pinned, local-checkout, or team-approved VibeGuard source
+first. If a local source is unavailable, use a reviewed GitHub tag or commit:
 
 ```bash
 npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard setup . --rules "${AGENTPLAYBOOK_HOME}"
