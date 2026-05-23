@@ -1,7 +1,7 @@
 ---
-keyflow_id: sys_692dbba31f65
+keyflow_id: sys_llm_coding_discipline
 status: review
-type: ai-generated
+type: human-reviewed-needed
 ---
 
 # LLM Coding Discipline
@@ -32,11 +32,20 @@ Use before coding. These rules reduce common LLM mistakes. Bias toward caution o
 
 ## Verify The Goal
 
-Turn work into a testable goal:
+Turn work into one to three concrete checks before or during the change:
 
 ```text
-1. Change -> verify: check
-2. Change -> verify: check
+1. User request -> observable outcome -> verification evidence.
+2. Risk touched -> guardrail or regression check -> verification evidence.
 ```
+
+Examples:
+
+- README install guidance changed -> links and commands still resolve -> run
+  markdown link/path check or document why it cannot run.
+- Login error behavior changed -> invalid login shows the expected error and
+  valid login still works -> run the focused test or manual path.
+- Refactor without intended behavior change -> public behavior stays equivalent
+  -> run the existing narrow test or compare before/after behavior.
 
 If success cannot be verified, name the gap before proceeding.

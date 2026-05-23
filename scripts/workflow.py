@@ -31,6 +31,11 @@ CORE_DOCS = (
     "index.md",
     "common/agent-operating-skill.md",
     "common/stack-discovery.md",
+    "common/llm-coding-discipline.md",
+    "common/code-conventions.md",
+    "common/tool-failure-recovery.md",
+    "common/agent-interaction.md",
+    "common/agent-editing-safety.md",
 )
 
 

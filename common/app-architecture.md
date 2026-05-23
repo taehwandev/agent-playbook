@@ -1,7 +1,7 @@
 ---
-keyflow_id: sys_3457cd5aad44
+keyflow_id: sys_app_architecture
 status: review
-type: ai-generated
+type: human-reviewed-needed
 ---
 
 # Application Boundary Principles
