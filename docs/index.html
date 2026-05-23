@@ -33,16 +33,18 @@
       <section id="console" class="console-shell" aria-labelledby="console-title">
         <div class="intro">
           <p class="eyebrow" data-i18n="hero.eyebrow">AgentPlaybook + VibeGuard</p>
-          <h1 id="console-title" data-i18n="hero.title">A control plane for safer AI coding work.</h1>
+          <h1 id="console-title" data-i18n="hero.title">One prompt for safer AI coding work.</h1>
           <p class="lede" data-i18n="hero.lede">
-            Route agents through local instructions, selected playbook cards,
-            mandatory VibeGuard checks, and evidence-backed completion gates.
+            Most teams tell the agent to apply AgentPlaybook once. The agent
+            reuses the right install, runs VibeGuard, chooses the route, and
+            reports evidence. Manual commands are for controlled setup and
+            debugging.
           </p>
           <div class="flow-ribbon" aria-label="Safety flow" data-i18n-attr="aria-label:flow.label">
-            <span data-i18n="flow.local">Local docs</span>
-            <span data-i18n="flow.route">Route</span>
-            <span data-i18n="flow.guard">VibeGuard</span>
-            <span data-i18n="flow.verify">Evidence</span>
+            <span data-i18n="flow.prompt">Paste request</span>
+            <span data-i18n="flow.apply">Agent applies</span>
+            <span data-i18n="flow.guard">VibeGuard checks</span>
+            <span data-i18n="flow.report">Gate report</span>
           </div>
           <div class="hero-actions">
             <a class="button primary" href="https://github.com/taehwandev/AgentPlaybook" data-i18n="hero.github">Open GitHub</a>
@@ -53,10 +55,10 @@
         <section class="ops-panel" aria-label="Interactive VibeGuard demo" data-i18n-attr="aria-label:demo.label">
           <div class="panel-topline">
             <div>
-              <p class="panel-kicker" data-i18n="demo.kicker">Interactive Demo</p>
-              <h2 data-i18n="demo.title">Safety Console</h2>
+              <p class="panel-kicker" data-i18n="demo.kicker">What the agent runs</p>
+              <h2 data-i18n="demo.title">Command trace, not a required checklist.</h2>
             </div>
-            <span class="demo-chip" data-i18n="demo.badge">Demo output</span>
+            <span class="demo-chip" data-i18n="demo.badge">Illustrative output</span>
           </div>
 
           <div class="shield-row">
@@ -98,10 +100,11 @@
       <section id="ledger" class="section ledger-section" aria-labelledby="ledger-title">
         <div class="section-heading">
           <p class="eyebrow" data-i18n="ledger.eyebrow">Execution Discipline</p>
-          <h2 id="ledger-title" data-i18n="ledger.title">Every gate needs evidence before completion.</h2>
+          <h2 id="ledger-title" data-i18n="ledger.title">The agent reports gates as work happens.</h2>
           <p data-i18n="ledger.body">
-            The workflow route is not just a reading list. It becomes a live
-            checklist with traffic-light status and concrete evidence.
+            Users do not need to drive every gate manually. The route becomes
+            the agent's checklist, and the final answer must show what actually
+            ran.
           </p>
         </div>
         <div class="ledger-grid">
@@ -135,25 +138,28 @@
       <section id="apply" class="section apply-section" aria-labelledby="apply-title">
         <div class="section-heading">
           <p class="eyebrow" data-i18n="apply.eyebrow">Production Setup</p>
-          <h2 id="apply-title" data-i18n="apply.title">Choose one install mode, then wire the target repo.</h2>
+          <h2 id="apply-title" data-i18n="apply.title">Start with one request. Drop to steps only when needed.</h2>
           <p data-i18n="apply.body">
-            Local installs are reused. First-time users clone once. Teams pin a
-            reviewed copy. VibeGuard remains mandatory in every mode.
+            The normal path is a single prompt. Use the manual modes when a
+            team needs a pinned version, a developer wants exact commands, or an
+            agent needs a recovery path.
           </p>
         </div>
 
         <div class="mode-tabs" role="tablist" aria-label="Setup modes" data-i18n-attr="aria-label:modes.label">
-          <button type="button" data-mode="existing" aria-pressed="true" data-i18n="mode.existing">Existing local</button>
+          <button type="button" data-mode="agent" aria-pressed="true" data-i18n="mode.agent">Agent handles it</button>
+          <button type="button" data-mode="existing" aria-pressed="false" data-i18n="mode.existing">Existing local</button>
           <button type="button" data-mode="first" aria-pressed="false" data-i18n="mode.first">First-time local</button>
           <button type="button" data-mode="team" aria-pressed="false" data-i18n="mode.team">Team-pinned</button>
         </div>
 
         <div class="apply-layout">
           <div class="apply-card">
-            <h3 id="modeTitle" data-i18n="mode.existing.title">Reuse the AgentPlaybook root already on this machine.</h3>
-            <p id="modeBody" data-i18n="mode.existing.body">
-              Point the target project to the existing path and avoid a second
-              copy. This is the default for personal multi-repo work.
+            <h3 id="modeTitle" data-i18n="mode.agent.title">Tell the agent to apply AgentPlaybook.</h3>
+            <p id="modeBody" data-i18n="mode.agent.body">
+              This is the default path. The agent should read local project
+              instructions, reuse an existing AgentPlaybook root when present,
+              run VibeGuard, and add only a short routing block.
             </p>
             <button type="button" class="copy-button" id="copyMode" data-i18n="mode.copy">Copy commands</button>
           </div>
@@ -197,14 +203,19 @@
       <section id="commands" class="section commands-section" aria-labelledby="commands-title">
         <div class="section-heading">
           <p class="eyebrow" data-i18n="commands.eyebrow">Command Contract</p>
-          <h2 id="commands-title" data-i18n="commands.title">Pasteable commands stay close to the actual tools.</h2>
+          <h2 id="commands-title" data-i18n="commands.title">Use the prompt first; commands are the escape hatch.</h2>
         </div>
         <div class="command-grid">
+          <pre><code>Apply AgentPlaybook to this project:
+https://github.com/taehwandev/AgentPlaybook
+
+Use existing local install if available.
+Run VibeGuard, add a short routing block,
+then continue with my task.</code></pre>
           <pre><code>python3 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py classify "Improve HomeScreen CTA"</code></pre>
           <pre><code>python3 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py route feature --platform web --concern ui --concern security</code></pre>
           <pre><code>vibeguard setup . --rules ${AGENTPLAYBOOK_HOME}
 vibeguard audit . --rules ${AGENTPLAYBOOK_HOME}</code></pre>
-          <pre><code>Gate signal: GREEN | gate: verification | evidence: npm run build | next: handoff</code></pre>
         </div>
       </section>
     </main>
@@ -223,19 +234,19 @@ vibeguard audit . --rules ${AGENTPLAYBOOK_HOME}</code></pre>
           "nav.commands": "Commands",
           "language.label": "Language",
           "hero.eyebrow": "AgentPlaybook + VibeGuard",
-          "hero.title": "A control plane for safer AI coding work.",
-          "hero.lede": "Route agents through local instructions, selected playbook cards, mandatory VibeGuard checks, and evidence-backed completion gates.",
+          "hero.title": "One prompt for safer AI coding work.",
+          "hero.lede": "Most teams tell the agent to apply AgentPlaybook once. The agent reuses the right install, runs VibeGuard, chooses the route, and reports evidence. Manual commands are for controlled setup and debugging.",
           "hero.github": "Open GitHub",
           "hero.apply": "Apply to a repo",
           "flow.label": "Safety flow",
-          "flow.local": "Local docs",
-          "flow.route": "Route",
-          "flow.guard": "VibeGuard",
-          "flow.verify": "Evidence",
+          "flow.prompt": "Paste request",
+          "flow.apply": "Agent applies",
+          "flow.guard": "VibeGuard checks",
+          "flow.report": "Gate report",
           "demo.label": "Interactive VibeGuard demo",
-          "demo.kicker": "Interactive Demo",
-          "demo.title": "Safety Console",
-          "demo.badge": "Demo output",
+          "demo.kicker": "What the agent runs",
+          "demo.title": "Command trace, not a required checklist.",
+          "demo.badge": "Illustrative output",
           "shield.title": "VibeGuard shield score",
           "shield.desc": "Current demo score from the selected command.",
           "score.setup": "Ready to set up",
@@ -257,8 +268,8 @@ vibeguard audit . --rules ${AGENTPLAYBOOK_HOME}</code></pre>
           "cmd.fix": "low-risk fix",
           "cmd.evidence": "evidence",
           "ledger.eyebrow": "Execution Discipline",
-          "ledger.title": "Every gate needs evidence before completion.",
-          "ledger.body": "The workflow route is not just a reading list. It becomes a live checklist with traffic-light status and concrete evidence.",
+          "ledger.title": "The agent reports gates as work happens.",
+          "ledger.body": "Users do not need to drive every gate manually. The route becomes the agent's checklist, and the final answer must show what actually ran.",
           "gate.local.title": "Source of truth",
           "gate.local.body": "Read repo-local instructions before shared guidance.",
           "gate.route.title": "Route selection",
@@ -268,14 +279,17 @@ vibeguard audit . --rules ${AGENTPLAYBOOK_HOME}</code></pre>
           "gate.verify.title": "Verification",
           "gate.verify.body": "Report commands, skipped checks, residual risk, and evidence.",
           "apply.eyebrow": "Production Setup",
-          "apply.title": "Choose one install mode, then wire the target repo.",
-          "apply.body": "Local installs are reused. First-time users clone once. Teams pin a reviewed copy. VibeGuard remains mandatory in every mode.",
+          "apply.title": "Start with one request. Drop to steps only when needed.",
+          "apply.body": "The normal path is a single prompt. Use the manual modes when a team needs a pinned version, a developer wants exact commands, or an agent needs a recovery path.",
           "modes.label": "Setup modes",
+          "mode.agent": "Agent handles it",
           "mode.existing": "Existing local",
           "mode.first": "First-time local",
           "mode.team": "Team-pinned",
           "mode.copy": "Copy commands",
           "mode.copied": "Copied",
+          "mode.agent.title": "Tell the agent to apply AgentPlaybook.",
+          "mode.agent.body": "This is the default path. The agent should read local project instructions, reuse an existing AgentPlaybook root when present, run VibeGuard, and add only a short routing block.",
           "mode.existing.title": "Reuse the AgentPlaybook root already on this machine.",
           "mode.existing.body": "Point the target project to the existing path and avoid a second copy. This is the default for personal multi-repo work.",
           "mode.first.title": "Clone once to a stable personal location.",
@@ -293,7 +307,7 @@ vibeguard audit . --rules ${AGENTPLAYBOOK_HOME}</code></pre>
           "card.product.kind": "Product",
           "card.product.title": "Auth, billing, invitations",
           "commands.eyebrow": "Command Contract",
-          "commands.title": "Pasteable commands stay close to the actual tools."
+          "commands.title": "Use the prompt first; commands are the escape hatch."
         },
         ko: {
           "brand.label": "AgentPlaybook 홈",
@@ -307,19 +321,19 @@ vibeguard audit . --rules ${AGENTPLAYBOOK_HOME}</code></pre>
           "nav.commands": "명령",
           "language.label": "언어",
           "hero.eyebrow": "AgentPlaybook + VibeGuard",
-          "hero.title": "더 안전한 AI 코딩 작업을 위한 제어 평면.",
-          "hero.lede": "에이전트를 로컬 지침, 선택된 플레이북 카드, 필수 VibeGuard 점검, 근거 기반 완료 게이트로 라우팅합니다.",
+          "hero.title": "더 안전한 AI 코딩 작업을 위한 하나의 요청.",
+          "hero.lede": "대부분은 에이전트에게 AgentPlaybook 적용을 한 번 요청하면 됩니다. 에이전트가 적절한 설치본을 재사용하고, VibeGuard를 실행하고, 라우트를 고른 뒤 근거를 보고합니다. 수동 명령은 통제된 설정과 디버깅용입니다.",
           "hero.github": "GitHub 열기",
           "hero.apply": "레포에 적용",
           "flow.label": "안전 흐름",
-          "flow.local": "로컬 문서",
-          "flow.route": "라우트",
-          "flow.guard": "VibeGuard",
-          "flow.verify": "근거",
+          "flow.prompt": "요청 붙여넣기",
+          "flow.apply": "에이전트 적용",
+          "flow.guard": "VibeGuard 점검",
+          "flow.report": "게이트 보고",
           "demo.label": "인터랙티브 VibeGuard 데모",
-          "demo.kicker": "인터랙티브 데모",
-          "demo.title": "안전 콘솔",
-          "demo.badge": "데모 출력",
+          "demo.kicker": "에이전트가 실행하는 것",
+          "demo.title": "명령 추적이며 필수 체크리스트가 아닙니다.",
+          "demo.badge": "예시 출력",
           "shield.title": "VibeGuard 실드 점수",
           "shield.desc": "선택된 명령의 현재 데모 점수입니다.",
           "score.setup": "설정 준비",
@@ -341,8 +355,8 @@ vibeguard audit . --rules ${AGENTPLAYBOOK_HOME}</code></pre>
           "cmd.fix": "저위험 수정",
           "cmd.evidence": "evidence",
           "ledger.eyebrow": "실행 규율",
-          "ledger.title": "완료 전 모든 게이트에는 근거가 필요합니다.",
-          "ledger.body": "워크플로우 라우트는 단순한 읽기 목록이 아닙니다. 신호등 상태와 구체적인 근거를 가진 실행 체크리스트가 됩니다.",
+          "ledger.title": "에이전트가 작업 중 게이트를 보고합니다.",
+          "ledger.body": "사용자가 모든 게이트를 직접 진행할 필요는 없습니다. 라우트는 에이전트의 체크리스트가 되고, 최종 답변은 실제 실행 근거를 보여줘야 합니다.",
           "gate.local.title": "소스 오브 트루스",
           "gate.local.body": "공유 가이드보다 레포 로컬 지침을 먼저 읽습니다.",
           "gate.route.title": "라우트 선택",
@@ -352,14 +366,17 @@ vibeguard audit . --rules ${AGENTPLAYBOOK_HOME}</code></pre>
           "gate.verify.title": "검증",
           "gate.verify.body": "명령, 생략한 검사, 남은 위험, 근거를 보고합니다.",
           "apply.eyebrow": "프로덕션 설정",
-          "apply.title": "설치 모드를 하나 선택한 뒤 대상 레포를 연결합니다.",
-          "apply.body": "로컬 설치는 재사용합니다. 처음 쓰는 사용자는 한 번만 클론합니다. 팀은 검토된 사본을 고정합니다. 모든 모드에서 VibeGuard는 필수입니다.",
+          "apply.title": "하나의 요청으로 시작하고, 필요할 때만 단계로 내려갑니다.",
+          "apply.body": "기본 경로는 하나의 프롬프트입니다. 팀이 고정 버전을 원하거나 개발자가 정확한 명령을 원하거나 에이전트가 복구 경로를 필요로 할 때만 수동 모드를 사용합니다.",
           "modes.label": "설정 모드",
+          "mode.agent": "에이전트가 처리",
           "mode.existing": "기존 로컬",
           "mode.first": "첫 로컬 설정",
           "mode.team": "팀 고정",
           "mode.copy": "명령 복사",
           "mode.copied": "복사됨",
+          "mode.agent.title": "에이전트에게 AgentPlaybook 적용을 요청합니다.",
+          "mode.agent.body": "이것이 기본 경로입니다. 에이전트는 로컬 프로젝트 지침을 읽고, 기존 AgentPlaybook root가 있으면 재사용하고, VibeGuard를 실행한 뒤 짧은 라우팅 블록만 추가해야 합니다.",
           "mode.existing.title": "이 머신에 이미 있는 AgentPlaybook root를 재사용합니다.",
           "mode.existing.body": "대상 프로젝트가 기존 경로를 가리키게 하고 두 번째 복사본을 만들지 않습니다. 개인 다중 레포 작업의 기본 방식입니다.",
           "mode.first.title": "안정적인 개인 위치에 한 번만 클론합니다.",
@@ -377,7 +394,7 @@ vibeguard audit . --rules ${AGENTPLAYBOOK_HOME}</code></pre>
           "card.product.kind": "제품",
           "card.product.title": "Auth, billing, invitations",
           "commands.eyebrow": "명령 계약",
-          "commands.title": "복사 가능한 명령은 실제 도구와 가깝게 유지합니다."
+          "commands.title": "먼저 프롬프트를 쓰고, 명령은 탈출구로 둡니다."
         }
       };
 
@@ -505,6 +522,19 @@ vibeguard audit . --rules ${AGENTPLAYBOOK_HOME}</code></pre>
       };
 
       const modeContent = {
+        agent: {
+          titleKey: "mode.agent.title",
+          bodyKey: "mode.agent.body",
+          code: [
+            "Apply AgentPlaybook to this project:",
+            "https://github.com/taehwandev/AgentPlaybook",
+            "",
+            "Use this project's current agent instructions first.",
+            "If AgentPlaybook already exists locally, link to that copy.",
+            "Run VibeGuard setup or update, then audit with AgentPlaybook as --rules.",
+            "Add only a short routing block, then continue with my task."
+          ].join("\n")
+        },
         existing: {
           titleKey: "mode.existing.title",
           bodyKey: "mode.existing.body",
@@ -579,7 +609,7 @@ vibeguard audit . --rules ${AGENTPLAYBOOK_HOME}</code></pre>
 
       let currentLanguage = "en";
       let currentDemo = "setup";
-      let currentMode = "existing";
+      let currentMode = "agent";
       let currentCard = "common";
 
       const getSavedLanguage = () => {
