@@ -158,12 +158,12 @@ COMMANDS: Dict[str, Profile] = {
 PLATFORMS: Dict[str, Tuple[str, ...]] = {
     "android": (
         "platforms/android/android-architecture.md",
+        "platforms/android/android-viewmodel-state.md",
         "platforms/android/android-state-data.md",
         "platforms/android/android-review.md",
     ),
     "ios": (
         "platforms/ios/ios-architecture.md",
-        "platforms/ios/ios-swiftui-ui.md",
         "platforms/ios/ios-state-concurrency.md",
         "platforms/ios/ios-review.md",
     ),
@@ -175,11 +175,13 @@ PLATFORMS: Dict[str, Tuple[str, ...]] = {
     ),
     "server": (
         "platforms/server/server-architecture.md",
+        "platforms/server/server-api-implementation.md",
         "platforms/server/server-data-jobs.md",
         "platforms/server/server-review.md",
     ),
     "application": (
         "platforms/application/application-architecture.md",
+        "platforms/application/application-command-ui.md",
         "platforms/application/application-system-integration.md",
         "platforms/application/application-review.md",
     ),
@@ -189,8 +191,12 @@ PLATFORMS: Dict[str, Tuple[str, ...]] = {
 CONCERNS: Dict[str, Tuple[str, ...]] = {
     "security": ("common/secure-development-baseline.md", "common/security-privacy-review.md"),
     "api": ("common/api-contract-compatibility.md",),
-    "reusability": ("common/reusable-code-design.md",),
-    "ui": ("common/design-system.md", "common/ui-visual-verification.md"),
+    "structure": ("common/code-structure-ownership.md",),
+    "reusability": ("common/reusable-code-design.md", "common/component-api-design.md"),
+    "component": ("common/component-api-design.md",),
+    "state": ("common/state-modeling.md",),
+    "error": ("common/error-modeling.md",),
+    "ui": ("common/design-system.md", "common/component-api-design.md", "common/ui-visual-verification.md"),
     "accessibility": ("common/accessibility-i18n.md",),
     "persistence": ("common/data-persistence-sync.md",),
     "cache": ("common/server-side-caching.md",),
@@ -202,27 +208,37 @@ CONCERNS: Dict[str, Tuple[str, ...]] = {
     "failure": ("common/tool-failure-recovery.md",),
     "interaction": ("common/agent-interaction.md",),
     "defensive": ("common/defensive-boundaries.md",),
-    "observability": ("common/observability-error-handling.md",),
+    "observability": ("common/observability-error-handling.md", "common/error-modeling.md"),
     "wiki": ("workflows/documentation-update.md", "common/llm-wiki-documentation.md"),
-    "auth": ("product-patterns/auth-rbac-permissions.md",),
-    "invite": ("product-patterns/invitation-workflows.md",),
-    "billing": ("product-patterns/billing-entitlements.md",),
+    "auth": ("product-patterns/auth-rbac-permissions.md", "product-patterns/auth-rbac-implementation.md"),
+    "invite": ("product-patterns/invitation-workflows.md", "product-patterns/invitation-implementation.md"),
+    "billing": (
+        "product-patterns/billing-entitlements.md",
+        "product-patterns/billing-entitlements-implementation.md",
+    ),
 }
 
 
 PLATFORM_CONCERNS: Dict[Tuple[str, str], Tuple[str, ...]] = {
     ("android", "security"): ("platforms/android/android-security.md",),
     ("android", "compose"): ("platforms/android/android-compose-ui.md",),
+    ("android", "state"): ("platforms/android/android-viewmodel-state.md",),
     ("android", "ui"): ("platforms/android/android-compose-ui.md",),
     ("android", "background"): ("platforms/android/android-background-work.md",),
     ("ios", "security"): ("platforms/ios/ios-security.md",),
     ("ios", "swiftui"): ("platforms/ios/ios-swiftui-ui.md",),
+    ("ios", "uikit"): ("platforms/ios/ios-uikit-ui.md",),
+    ("ios", "state"): ("platforms/ios/ios-state-concurrency.md",),
     ("ios", "ui"): ("platforms/ios/ios-swiftui-ui.md",),
     ("web", "accessibility"): ("platforms/web/web-accessibility-i18n.md",),
     ("web", "react"): ("platforms/web/web-react-ui.md",),
+    ("web", "state"): ("platforms/web/web-state-data.md",),
     ("web", "ui"): ("platforms/web/web-react-ui.md",),
     ("web", "security"): ("platforms/web/web-security.md",),
+    ("server", "api"): ("platforms/server/server-api-implementation.md",),
     ("server", "security"): ("platforms/server/server-security.md",),
+    ("application", "desktop"): ("platforms/application/application-command-ui.md",),
+    ("application", "ui"): ("platforms/application/application-command-ui.md",),
     ("application", "security"): ("platforms/application/application-security.md",),
 }
 

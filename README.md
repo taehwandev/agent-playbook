@@ -249,9 +249,10 @@ Supported commands are `ambiguity`, `bugfix`, `docs`, `docs-review`, `feature`,
 
 Supported platforms are `android`, `application`, `ios`, `server`, and `web`.
 Supported concerns are `accessibility`, `api`, `auth`, `background`, `billing`,
-`cache`, `compose`, `defensive`, `dependency`, `failure`, `generated`,
-`interaction`, `invite`, `observability`, `persistence`, `react`, `release`,
-`reusability`, `security`, `stack`, `swiftui`, `ui`, `wiki`, and `worktree`.
+`cache`, `component`, `compose`, `defensive`, `dependency`, `desktop`, `error`,
+`failure`, `generated`, `interaction`, `invite`, `observability`,
+`persistence`, `react`, `release`, `reusability`, `security`, `stack`, `state`,
+`structure`, `swiftui`, `ui`, `uikit`, `wiki`, and `worktree`.
 
 The route output contains `docs`, `gates`, `gate_ledger`, `attempt_limit`,
 `retry_scope`, `notes`, and `missing`. Agents should read the listed docs in
@@ -287,23 +288,45 @@ where state should live, and what evidence proves the work.
 - Android Compose: `platforms/android/android-compose-ui.md` covers
   route/screen/component splits, `UiState`, architecture tracks, previews,
   package layout, and verification.
+- Android ViewModel/state: `platforms/android/android-viewmodel-state.md`
+  covers ViewModel contracts, `StateFlow`, one-off events, use cases,
+  repositories, persistence, and coroutine tests.
 - iOS SwiftUI: `platforms/ios/ios-swiftui-ui.md` covers route/coordinator,
   screen/section/view splits, ViewModel contracts, `UiState`, clean
   architecture, previews, navigation effects, and tests.
+- iOS UIKit: `platforms/ios/ios-uikit-ui.md` covers coordinators, view
+  controllers, ViewModels/presenters, typed UI state, lists, forms, navigation,
+  and XCUITest/snapshot boundaries.
 - Web React: `platforms/web/web-react-ui.md` covers route/page,
   container/screen splits, hooks, typed `UiState`, query/mutation boundaries,
   clean architecture, reusable components, and tests.
+- Server API: `platforms/server/server-api-implementation.md` covers handlers,
+  validators, use cases, repositories, response/error shapes, tenant filters,
+  idempotency, and API tests.
+- Desktop/application: `platforms/application/application-command-ui.md` covers
+  command routing, windows/panels, shortcuts, menu bar/tray entry points, IPC,
+  background work, and OS resource cleanup.
 - Shared reuse: `common/reusable-code-design.md` covers when code should stay
   local, move into feature common, become a design-system primitive, or become a
   shared package/API.
+- Shared structure/state/errors: `common/code-structure-ownership.md`,
+  `common/component-api-design.md`, `common/state-modeling.md`, and
+  `common/error-modeling.md` cover module ownership, component contracts, typed
+  state, effects, retries, and user-visible failure states.
+- Product implementation: product-pattern implementation cards cover concrete
+  auth/RBAC, invitation, and billing/entitlement models, state machines,
+  enforcement layers, side effects, and tests.
 
 For implementation work, route with the platform and concern instead of relying
 on only a broad architecture card:
 
 ```bash
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform ios --concern swiftui
+python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform ios --concern uikit
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform web --concern react --concern ui
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform android --concern compose
+python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform server --concern api --concern auth
+python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route feature --platform application --concern desktop
 ```
 
 ## Loading Model

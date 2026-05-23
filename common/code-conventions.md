@@ -15,6 +15,9 @@ common baseline.
 For app, repo, package, module, CLI, service, slug, or bundle-id naming, also
 use `common/project-naming.md`.
 
+For file/module ownership, public contract, package layout, or `api`/`impl`
+split decisions, also use `common/code-structure-ownership.md`.
+
 For code that is being extracted, moved into shared modules, reused by multiple
 callers, or promoted to a package/API, also use
 `common/reusable-code-design.md`.

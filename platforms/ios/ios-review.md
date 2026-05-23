@@ -13,6 +13,8 @@ Use for iOS SwiftUI/UIKit, navigation, concurrency, permission, and UI flow revi
 - Check View/ViewModel ownership, navigation state, async task lifetime, and cancellation.
 - Check SwiftUI route/screen/section boundaries against
   `ios-swiftui-ui.md` when SwiftUI screens changed.
+- Check UIKit coordinator/view-controller/ViewModel/list/form boundaries
+  against `ios-uikit-ui.md` when UIKit screens changed.
 - Confirm `UiState` represents loading, content, empty, error, permission
   denied, offline, disabled, and submitted states when applicable.
 - Verify main actor boundaries for UI updates.

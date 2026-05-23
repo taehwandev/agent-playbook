@@ -8,6 +8,10 @@ type: ai-generated
 
 Use for plans, seats, quota, feature access, invoices, subscription status, payment failures, and downgrade behavior.
 
+For concrete billing account/subscription/plan/entitlement/usage modeling,
+provider webhooks, quota, seats, cache invalidation, and tests, also use
+`billing-entitlements-implementation.md`.
+
 ## Separate
 
 - Billing account: who pays.

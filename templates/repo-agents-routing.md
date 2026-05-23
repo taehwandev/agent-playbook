@@ -50,7 +50,11 @@ Agent operating skill: <AGENTPLAYBOOK_ROOT>/common/agent-operating-skill.md
 Stack discovery: <AGENTPLAYBOOK_ROOT>/common/stack-discovery.md
 LLM discipline: <AGENTPLAYBOOK_ROOT>/common/llm-coding-discipline.md
 Code conventions: <AGENTPLAYBOOK_ROOT>/common/code-conventions.md
+Code structure/ownership: <AGENTPLAYBOOK_ROOT>/common/code-structure-ownership.md
 Reusable code design: <AGENTPLAYBOOK_ROOT>/common/reusable-code-design.md
+Component API design: <AGENTPLAYBOOK_ROOT>/common/component-api-design.md
+State modeling: <AGENTPLAYBOOK_ROOT>/common/state-modeling.md
+Error modeling: <AGENTPLAYBOOK_ROOT>/common/error-modeling.md
 Tool failure recovery: <AGENTPLAYBOOK_ROOT>/common/tool-failure-recovery.md
 Agent interaction: <AGENTPLAYBOOK_ROOT>/common/agent-interaction.md
 LLM wiki documentation: <AGENTPLAYBOOK_ROOT>/common/llm-wiki-documentation.md
@@ -60,8 +64,15 @@ Defensive boundaries: <AGENTPLAYBOOK_ROOT>/common/defensive-boundaries.md
 UI visual verification: <AGENTPLAYBOOK_ROOT>/common/ui-visual-verification.md
 Workflow script: <AGENTPLAYBOOK_ROOT>/scripts/workflow.py
 Android Compose UI: <AGENTPLAYBOOK_ROOT>/platforms/android/android-compose-ui.md
+Android ViewModel/state: <AGENTPLAYBOOK_ROOT>/platforms/android/android-viewmodel-state.md
 iOS SwiftUI UI: <AGENTPLAYBOOK_ROOT>/platforms/ios/ios-swiftui-ui.md
+iOS UIKit UI: <AGENTPLAYBOOK_ROOT>/platforms/ios/ios-uikit-ui.md
 Web React UI: <AGENTPLAYBOOK_ROOT>/platforms/web/web-react-ui.md
+Server API implementation: <AGENTPLAYBOOK_ROOT>/platforms/server/server-api-implementation.md
+Application command/UI: <AGENTPLAYBOOK_ROOT>/platforms/application/application-command-ui.md
+Auth/RBAC implementation: <AGENTPLAYBOOK_ROOT>/product-patterns/auth-rbac-implementation.md
+Invitation implementation: <AGENTPLAYBOOK_ROOT>/product-patterns/invitation-implementation.md
+Billing/entitlements implementation: <AGENTPLAYBOOK_ROOT>/product-patterns/billing-entitlements-implementation.md
 Agent task lifecycle: <AGENTPLAYBOOK_ROOT>/workflows/agent-task-lifecycle.md
 Agent handoff/continuation: <AGENTPLAYBOOK_ROOT>/workflows/agent-handoff-continuation.md
 Scripted agent workflow: <AGENTPLAYBOOK_ROOT>/workflows/scripted-agent-workflow.md

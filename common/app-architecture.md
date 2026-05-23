@@ -8,6 +8,10 @@ type: human-reviewed-needed
 
 Use for new features, boundary cleanup, or structure decisions.
 
+For explicit UI/application/domain/cache state design, also use
+`state-modeling.md`. For file/module ownership and `api`/`impl` splits, also
+use `code-structure-ownership.md`.
+
 ## Shape
 
 ```text

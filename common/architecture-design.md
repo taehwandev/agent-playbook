@@ -8,6 +8,10 @@ type: ai-generated
 
 Use when planning architecture for a feature, module, service, or app surface.
 
+For module/file ownership and `api`/`impl` split decisions, also use
+`code-structure-ownership.md`. For state owner design, also use
+`state-modeling.md`.
+
 ## Method
 
 Design from change pressure, not diagrams. First identify what changes together, what must be protected, and what needs independent testing. Then choose boundaries.

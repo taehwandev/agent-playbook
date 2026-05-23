@@ -11,6 +11,8 @@ Use for API, worker, database, auth, tenancy, migration, and integration review.
 ## Review
 
 - Check auth, permission, tenant boundary, validation, and rate-limit behavior.
+- Check route/resolver, validator, use case, repository, and response/error
+  boundaries against `server-api-implementation.md` when API code changed.
 - Verify request parsing is separate from product rules.
 - Check idempotency for payments, webhooks, retries, and jobs.
 - Review migrations for reversibility, backfill risk, locks, and data loss.

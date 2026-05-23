@@ -9,6 +9,10 @@ type: human-reviewed-needed
 Use when creating, moving, extracting, or reviewing code that should be reused
 across screens, features, modules, packages, services, or apps.
 
+For file/module ownership and `api`/`impl` split choices, also use
+`code-structure-ownership.md`. For reusable UI, hook, widget, control, or
+component-like API design, also use `component-api-design.md`.
+
 Reusable code is an ownership decision, not only a DRY decision. Extract only
 when the caller contract is stable enough to make future changes easier.
 

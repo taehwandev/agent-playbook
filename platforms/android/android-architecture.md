@@ -10,6 +10,9 @@ Use for Compose/ViewModel/Flow, data, and Android platform boundary work.
 
 For Compose state, Flow, repository, persistence, permissions, or lifecycle details, also use `android-state-data.md`.
 
+For ViewModel, `UiState`, Flow, repository, use case, persistence, and one-off
+event implementation details, also use `android-viewmodel-state.md`.
+
 For Compose screen/component structure, stateful/stateless split, previews, or
 package layout, also use `android-compose-ui.md`.
 

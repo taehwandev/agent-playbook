@@ -11,6 +11,8 @@ Use for Android app, Compose/ViewModel, permission, and UI flow review.
 ## Review
 
 - Check Compose state hoisting, ViewModel ownership, Flow collection, and lifecycle safety.
+- Check ViewModel, `UiState`, Flow, repository, and one-off event boundaries
+  against `android-viewmodel-state.md` when state/data changed.
 - Check stateful holder vs stateless screen/component boundaries.
 - Confirm meaningful screen, section, and reusable component changes include
   previews or a documented replacement check.

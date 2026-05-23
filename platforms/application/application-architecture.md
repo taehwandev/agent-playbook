@@ -8,6 +8,9 @@ type: ai-generated
 
 Use for desktop/native app shells: Mac, Tauri, Electron, menu bar, windows, local files, and system integration.
 
+For concrete command routing, window/panel state, renderer/IPC bridge, and
+background resource ownership, also use `application-command-ui.md`.
+
 For files, shell, clipboard, notifications, background work, updates, power assertions, menu bar/tray controls, or privileged APIs, also use `application-system-integration.md`.
 
 For signing, notarization, IPC, URL schemes, renderer bridges, shell/file access, or credential exposure risk, also use `application-security.md`.

@@ -11,6 +11,10 @@ Use for SwiftUI/UIKit app structure, state, navigation, and async work.
 For SwiftUI screen/component structure, ViewModel contracts, `UiState`, previews,
 or clean-architecture implementation details, also use `ios-swiftui-ui.md`.
 
+For UIKit screens, coordinators, view controllers, presenters, table/collection
+views, diffable data sources, forms, or UIKit navigation, also use
+`ios-uikit-ui.md`.
+
 For navigation, async work, persistence, permissions, or actor boundaries, also use `ios-state-concurrency.md`.
 
 For credentials, Keychain, local storage, Universal Links, URL schemes,

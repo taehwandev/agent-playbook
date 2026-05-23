@@ -11,6 +11,8 @@ Use for API, worker, database, auth, tenancy, and integration-service work.
 For migrations, transactions, jobs, webhooks, queues, or external systems, also
 use `server-data-jobs.md`. For auth, tenant isolation, API input, rate limits,
 uploads, webhooks, outbound calls, or secrets, also use `server-security.md`.
+For concrete route/resolver, request validation, use case, repository, and
+response/error implementation details, also use `server-api-implementation.md`.
 
 ## Boundaries
 

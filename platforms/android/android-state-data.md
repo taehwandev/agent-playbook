@@ -8,6 +8,9 @@ type: ai-generated
 
 Use when touching Compose state, ViewModel, Flow, repository, persistence, or permissions.
 
+For detailed ViewModel, `UiState`, Flow, repository, use case, persistence, and
+one-off event implementation rules, also use `android-viewmodel-state.md`.
+
 ## Defaults
 
 - Composable renders state and sends events.

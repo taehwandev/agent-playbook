@@ -8,6 +8,10 @@ type: ai-generated
 
 Use for login, membership, role, permission, entitlement, and tenant-boundary work.
 
+For concrete identity/session/membership/role/permission/entitlement modeling,
+server enforcement, cache invalidation, and tests, also use
+`auth-rbac-implementation.md`.
+
 ## Separate
 
 - Auth: who the user is.

@@ -11,6 +11,8 @@ Use when creating or changing shared UI primitives, tokens, patterns, or reusabl
 For general reusable-code extraction rules, also use
 `common/reusable-code-design.md`. For Android Compose UI, also use
 `platforms/android/android-compose-ui.md`.
+For reusable component API shape, controlled/uncontrolled state, slots, and
+caller-owned product policy, also use `component-api-design.md`.
 
 ## Direction
 

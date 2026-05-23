@@ -15,8 +15,12 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
   `common/agent-interaction.md`
 - All coding work: `common/llm-coding-discipline.md`
 - Code conventions, naming, comments, formatting: `common/code-conventions.md`
+- Code structure, file/module ownership, api/impl split:
+  `common/code-structure-ownership.md`
 - Reusable code design, extraction, shared module/package contracts:
   `common/reusable-code-design.md`
+- Component API design, reusable view/hook/widget contracts:
+  `common/component-api-design.md`
 - Stack, package manager, framework, runtime, and command discovery:
   `common/stack-discovery.md`
 - Project, app, repo, package, module, CLI, and service naming: `common/project-naming.md`
@@ -37,6 +41,8 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - LLM-readable wiki, knowledge-base, runbook, or durable documentation:
   `common/llm-wiki-documentation.md`
 - App boundary/state/data shape: `common/app-architecture.md`
+- State modeling, UiState, effects, reducers, stores, ViewModels, hooks:
+  `common/state-modeling.md`
 - Refactor: `common/refactoring.md`
 - Testing or bug regression: `common/testing.md`
 - Verification evidence: `common/verification-policy.md`
@@ -51,6 +57,8 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - Persistence, cache, sync, migration: `common/data-persistence-sync.md`
 - Server-rendered/API/edge/database caching and invalidation: `common/server-side-caching.md`
 - Errors, logs, audit, diagnostics: `common/observability-error-handling.md`
+- Error modeling, typed failures, retryability, user-visible failure states:
+  `common/error-modeling.md`
 - Code review: `common/code-review.md`
 - Commit review: start with code review, then add `common/commit-review.md`
 - Commit creation: `common/commit-workflow.md`
@@ -58,6 +66,8 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 ## Platform
 
 - Android architecture: `platforms/android/android-architecture.md`
+- Android ViewModel, UiState, Flow, repository, persistence, one-off events:
+  `platforms/android/android-viewmodel-state.md`
 - Android Compose UI structure, stateful/stateless split, previews, packages:
   `platforms/android/android-compose-ui.md`
 - Android state/data: `platforms/android/android-state-data.md`
@@ -67,6 +77,8 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - iOS architecture: `platforms/ios/ios-architecture.md`
 - iOS SwiftUI UI structure, ViewModel contracts, UiState, previews, packages:
   `platforms/ios/ios-swiftui-ui.md`
+- iOS UIKit UI structure, coordinators, view controllers, lists, forms:
+  `platforms/ios/ios-uikit-ui.md`
 - iOS state/concurrency: `platforms/ios/ios-state-concurrency.md`
 - iOS security: `platforms/ios/ios-security.md`
 - iOS review: `platforms/ios/ios-review.md`
@@ -78,10 +90,13 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - Web security: `platforms/web/web-security.md`
 - Web review: `platforms/web/web-review.md`
 - Server architecture: `platforms/server/server-architecture.md`
+- Server API implementation: `platforms/server/server-api-implementation.md`
 - Server data/jobs: `platforms/server/server-data-jobs.md`
 - Server security: `platforms/server/server-security.md`
 - Server review: `platforms/server/server-review.md`
 - Application architecture: `platforms/application/application-architecture.md`
+- Application command/UI implementation:
+  `platforms/application/application-command-ui.md`
 - Application system integration: `platforms/application/application-system-integration.md`
 - Application security: `platforms/application/application-security.md`
 - Application review: `platforms/application/application-review.md`
@@ -89,8 +104,12 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 ## Product Pattern
 
 - Auth/RBAC/permissions: `product-patterns/auth-rbac-permissions.md`
+- Auth/RBAC implementation: `product-patterns/auth-rbac-implementation.md`
 - Invitation flows: `product-patterns/invitation-workflows.md`
+- Invitation implementation: `product-patterns/invitation-implementation.md`
 - Billing/entitlements/quota: `product-patterns/billing-entitlements.md`
+- Billing/entitlements implementation:
+  `product-patterns/billing-entitlements-implementation.md`
 
 ## Workflow
 
@@ -176,8 +195,12 @@ services, slugs, bundle ids, or renames, read `common/project-naming.md`.
 For broad diffs, refactors, PR review, or commit preparation, also read
 `common/change-size-policy.md`. When the worktree already contains changes or
 the task includes commit preparation, also read `common/worktree-hygiene.md`.
+When deciding file layout, package layout, module ownership, public contracts,
+or `api`/`impl` splits, also read `common/code-structure-ownership.md`.
 When code is extracted into shared modules, reused by multiple callers, or
 promoted into a package/API, also read `common/reusable-code-design.md`.
+When designing reusable UI components, hooks, widgets, controls, or other
+caller-facing component APIs, also read `common/component-api-design.md`.
 For dependency, SDK, package, build plugin, or lockfile work, read
 `common/dependency-policy.md`. For codegen, generated clients, lockfiles,
 snapshots, build artifacts, translations, or generated assets, read
@@ -193,6 +216,12 @@ numbers, media, or localization, read `common/accessibility-i18n.md`.
 
 For code that consumes external, persisted, generated, cached, platform, or
 user-provided values, read `common/defensive-boundaries.md`.
+
+For UI, application, async, cache, reducer, store, ViewModel, hook, or state
+machine work, read `common/state-modeling.md`.
+
+For error handling, typed failures, retries, user-visible failure states, logs,
+metrics, diagnostics, or audits, read `common/error-modeling.md`.
 
 For UI layout, visible state, interaction, text overflow, responsive behavior,
 or accessibility-visible changes, read `common/ui-visual-verification.md`.
@@ -210,10 +239,18 @@ For Android Compose screen or component work, load
 stateful/stateless boundaries, previews, component package structure, and
 design-system promotion decisions.
 
+For Android ViewModel, `UiState`, Flow, repository, persistence, or one-off
+event work, load `platforms/android/android-viewmodel-state.md` before
+implementation.
+
 For iOS SwiftUI screen or component work, load
 `platforms/ios/ios-swiftui-ui.md` before implementation. This includes
 route/screen/section boundaries, ViewModel contracts, explicit `UiState`,
 architecture tracks, previews, and design-system promotion decisions.
+
+For iOS UIKit screen or component work, load `platforms/ios/ios-uikit-ui.md`
+before implementation. This includes coordinator/view-controller boundaries,
+typed UI state, lists, forms, navigation, and UI tests.
 
 For iOS work touching Keychain, Universal Links, URL schemes, app extensions,
 WebViews, permissions, entitlements, signing, release builds, or secrets, load
@@ -222,6 +259,14 @@ the iOS security card instead of relying only on the architecture card.
 For desktop/application work touching menu bar/tray controls, shell, file,
 clipboard APIs, power assertions, IPC, signing, notarization, updates, or first
 launch, load the application system/security cards.
+
+For desktop/application UI, commands, windows, panels, shortcuts, menu bar/tray,
+background tasks, or renderer bridges, load
+`platforms/application/application-command-ui.md`.
+
+For server API, GraphQL, RPC, webhook, route handler, validation, use case,
+repository, response shape, or API error work, load
+`platforms/server/server-api-implementation.md`.
 
 When the task touches keys, auth, permissions, user data, logs, analytics,
 external integrations, local config, release config, or a public/open-source

@@ -8,6 +8,10 @@ type: ai-generated
 
 Use for team, tenant, workspace, or organization invite flows.
 
+For concrete invite records, token handling, state machine, accept-time
+revalidation, delivery side effects, and tests, also use
+`invitation-implementation.md`.
+
 ## Flow
 
 ```text

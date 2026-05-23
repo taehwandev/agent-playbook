@@ -11,6 +11,8 @@ Use for Mac/native desktop, Tauri, Electron, menu bar, window, and system integr
 ## Review
 
 - Check window/menu/shortcut actions route through commands or use cases.
+- Check command, window/panel, IPC, background work, and OS resource ownership
+  against `application-command-ui.md` when desktop UI/actions changed.
 - Verify file, shell, clipboard, notification, permission, and update boundaries.
 - Ensure renderer/webview code does not expose privileged APIs broadly.
 - Check background task cancellation, progress, retry, and error reporting.

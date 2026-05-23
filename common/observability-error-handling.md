@@ -8,6 +8,9 @@ type: ai-generated
 
 Use when adding or reviewing errors, logging, diagnostics, monitoring, audit events, support traces, or user-facing failure states.
 
+For typed error shapes, retryability, recovery, and user-visible failure-state
+design, also use `error-modeling.md`.
+
 ## Separate
 
 - User-facing message
