@@ -268,6 +268,7 @@ def resolve_docs(command: str, platform: Optional[str], concerns: List[str]) -> 
             {
                 "gate": gate,
                 "status": "pending",
+                "signal": "PENDING",
                 "evidence": "",
             }
             for gate in profile.gates
@@ -301,10 +302,14 @@ def print_markdown(route: Dict[str, object]) -> None:
     print()
     print("Mark and show every gate as it completes:")
     for item in route["gate_ledger"]:
-        print(f"- [ ] `{item['gate']}` - evidence: ...")
+        print(f"- [{item['signal']}] `{item['gate']}` - evidence: ...")
     print()
     print("Progress signal format:")
-    print("`Gate signal: <gate> / executed / evidence: <evidence> / next: <next gate>`")
+    print("`Gate signal: GREEN | gate: <gate> | evidence: <evidence> | next: <next gate>`")
+    print()
+    print("Completion check: every required gate must be GREEN before final report,")
+    print("commit, release, or handoff. YELLOW means blocked or paused. RED means")
+    print("missed and triggers missed-gate recovery.")
     print()
     print("If any required gate is not executed, stop finalization, return to the")
     print("first missed gate only, roll back only dependent agent-made changes when")

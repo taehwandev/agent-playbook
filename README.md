@@ -181,7 +181,11 @@ Then use AgentPlaybook:
 Run VibeGuard audit with <AGENTPLAYBOOK_ROOT> as --rules before editing.
 For multi-step work, run the workflow route and follow its gate ledger.
 After each completed gate or task step, show:
-Gate signal: <gate> / executed / evidence: <evidence> / next: <next gate>
+Gate signal: GREEN | gate: <gate> | evidence: <evidence> | next: <next gate>
+
+Completion requires every required gate to be GREEN. YELLOW means blocked or
+paused. RED means the gate was missed or lacks evidence and must use
+missed-gate recovery.
 
 For PRD-only work:
 python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route prd --platform <platform> --concern <concern>
@@ -252,11 +256,13 @@ Supported concerns are `accessibility`, `api`, `auth`, `background`, `billing`,
 The route output contains `docs`, `gates`, `gate_ledger`, `attempt_limit`,
 `retry_scope`, `notes`, and `missing`. Agents should read the listed docs in
 order, use gates as the task checklist, mark each gate with evidence while
-working, and show a short gate signal after each completed gate or task step.
-Stop if any document is listed under `missing`. If a required gate is missed,
-the agent must stop finalization, return to the first missed gate only, roll
-back dependent agent-made changes when safe, and run the retrospective workflow.
-The missed gate gets one retry; the whole route is not restarted.
+working, and show a short traffic-light gate signal after each completed gate or
+task step. Stop if any document is listed under `missing`. Completion requires
+every required gate to be `GREEN`. `YELLOW` means blocked or paused. `RED` means
+missed or missing evidence and triggers missed-gate recovery: stop finalization,
+return to the first missed gate only, roll back dependent agent-made changes
+when safe, and run the retrospective workflow. The missed gate gets one retry;
+the whole route is not restarted.
 
 ## Structure
 

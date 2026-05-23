@@ -25,11 +25,13 @@ deployment, or credential changes. Run
 before finishing.
 For multi-step tasks, run the workflow script first when it exists and use its
 output as the command manifest. Keep its gate execution ledger current; each
-required gate must have evidence before completion. Show a short gate signal
-after each completed gate or task step. If any required gate is missed, stop
-finalization, roll back only dependent agent-made changes after the missed gate
-when safe, return to the first missed gate only, and run the retrospective
-workflow. The missed gate gets one retry; do not restart the whole route.
+required gate must have evidence before completion. Show a short traffic-light
+gate signal after each completed gate or task step. Completion requires every
+required gate to be GREEN. YELLOW means blocked or paused. RED means missed or
+missing evidence and triggers missed-gate recovery: stop finalization, roll back
+only dependent agent-made changes after the missed gate when safe, return to the
+first missed gate only, and run the retrospective workflow. The missed gate gets
+one retry; do not restart the whole route.
 Do not load every shared document by default.
 Replace `<AGENTPLAYBOOK_ROOT>` with an existing local install path,
 `${AGENTPLAYBOOK_HOME}`, or a repo-pinned submodule path. Use legacy

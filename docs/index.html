@@ -75,9 +75,9 @@
           <article>
             <h3 data-i18n="prompting.signal.title">Show Gate Signals</h3>
             <p data-i18n="prompting.signal.body">
-              Every completed gate or task step should emit a short signal with
-              the gate name, evidence, and next gate. Missed gates should be
-              visible immediately, not discovered only at the final report.
+              Every completed gate or task step should emit a traffic-light
+              signal with the gate name, evidence, and next gate. Completion
+              requires every required gate to be GREEN.
             </p>
           </article>
         </div>
@@ -102,7 +102,7 @@ PRD only:
 python3 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py route prd --platform web --concern ui
 
 After each completed gate:
-Gate signal: &lt;gate&gt; / executed / evidence: &lt;evidence&gt; / next: &lt;next gate&gt;</code></pre>
+Gate signal: GREEN | gate: &lt;gate&gt; | evidence: &lt;evidence&gt; | next: &lt;next gate&gt;</code></pre>
       </section>
 
       <section id="library" class="section">
@@ -328,8 +328,8 @@ Do not load every shared document by default.</code></pre>
           "prompting.prd.title": "PRD Has Its Own Route",
           "prompting.prd.body": "Use the prd route when the deliverable is a product requirements note. Use the product route only when the task continues from PRD into ARD, code, tests, UI checks, and commit readiness.",
           "prompting.signal.title": "Show Gate Signals",
-          "prompting.signal.body": "Every completed gate or task step should emit a short signal with the gate name, evidence, and next gate. Missed gates should be visible immediately, not discovered only at the final report.",
-          "prompting.code": "Choose setup mode first:\n1. Existing local install: use AGENTPLAYBOOK_HOME or the path I provide.\n2. First-time local shared install: clone once to ~/.agent-playbook.\n3. Team-pinned install: use a repo-pinned submodule or dependency.\n\nValidate the selected root:\npython3 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py validate\n\nUse this project's current agent instructions first:\nAGENTS.md, AGENTS.override.md, CLAUDE.md, CODEX.md, .agents/README.md,\nCONTRIBUTING.md, task docs, PRD/ARD docs, or equivalent project docs.\n\nThen use AgentPlaybook:\n${AGENTPLAYBOOK_HOME}/AGENTS.md\n${AGENTPLAYBOOK_HOME}/index.md\n${AGENTPLAYBOOK_HOME}/scripts/workflow.py\n\nPRD only:\npython3 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py route prd --platform web --concern ui\n\nAfter each completed gate:\nGate signal: <gate> / executed / evidence: <evidence> / next: <next gate>",
+          "prompting.signal.body": "Every completed gate or task step should emit a traffic-light signal with the gate name, evidence, and next gate. Completion requires every required gate to be GREEN.",
+          "prompting.code": "Choose setup mode first:\n1. Existing local install: use AGENTPLAYBOOK_HOME or the path I provide.\n2. First-time local shared install: clone once to ~/.agent-playbook.\n3. Team-pinned install: use a repo-pinned submodule or dependency.\n\nValidate the selected root:\npython3 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py validate\n\nUse this project's current agent instructions first:\nAGENTS.md, AGENTS.override.md, CLAUDE.md, CODEX.md, .agents/README.md,\nCONTRIBUTING.md, task docs, PRD/ARD docs, or equivalent project docs.\n\nThen use AgentPlaybook:\n${AGENTPLAYBOOK_HOME}/AGENTS.md\n${AGENTPLAYBOOK_HOME}/index.md\n${AGENTPLAYBOOK_HOME}/scripts/workflow.py\n\nPRD only:\npython3 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py route prd --platform web --concern ui\n\nAfter each completed gate:\nGate signal: GREEN | gate: <gate> | evidence: <evidence> | next: <next gate>",
           "library.eyebrow": "Library Model",
           "library.title": "Small cards, loaded only when relevant.",
           "library.common.title": "Common",
@@ -403,8 +403,8 @@ Do not load every shared document by default.</code></pre>
           "prompting.prd.title": "PRD 전용 라우트",
           "prompting.prd.body": "산출물이 제품 요구사항 노트라면 prd 라우트를 사용합니다. PRD에서 ARD, 코드, 테스트, UI 확인, 커밋 준비까지 이어질 때만 product 라우트를 사용합니다.",
           "prompting.signal.title": "게이트 신호 표시",
-          "prompting.signal.body": "각 게이트나 작업 단계가 끝날 때마다 게이트 이름, 근거, 다음 게이트를 담은 짧은 신호를 보여줘야 합니다. 누락된 게이트는 최종 보고가 아니라 즉시 드러나야 합니다.",
-          "prompting.code": "먼저 설정 방식을 선택하세요:\n1. 기존 로컬 설치: AGENTPLAYBOOK_HOME 또는 내가 제공한 경로를 사용합니다.\n2. 개인 첫 설정: ~/.agent-playbook에 한 번만 클론합니다.\n3. 팀 고정 설정: 레포에 고정된 submodule 또는 dependency를 사용합니다.\n\n선택한 root를 검증하세요:\npython3 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py validate\n\n현재 프로젝트의 에이전트 지침을 먼저 읽으세요:\nAGENTS.md, AGENTS.override.md, CLAUDE.md, CODEX.md, .agents/README.md,\nCONTRIBUTING.md, 작업 문서, PRD/ARD 문서 또는 동등한 프로젝트 문서.\n\n그다음 AgentPlaybook을 사용하세요:\n${AGENTPLAYBOOK_HOME}/AGENTS.md\n${AGENTPLAYBOOK_HOME}/index.md\n${AGENTPLAYBOOK_HOME}/scripts/workflow.py\n\nPRD만 작성할 때:\npython3 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py route prd --platform web --concern ui\n\n각 게이트 완료 후:\nGate signal: <gate> / executed / evidence: <evidence> / next: <next gate>",
+          "prompting.signal.body": "각 게이트나 작업 단계가 끝날 때마다 게이트 이름, 근거, 다음 게이트를 담은 신호등 신호를 보여줘야 합니다. 완료 판정에는 모든 필수 게이트가 GREEN이어야 합니다.",
+          "prompting.code": "먼저 설정 방식을 선택하세요:\n1. 기존 로컬 설치: AGENTPLAYBOOK_HOME 또는 내가 제공한 경로를 사용합니다.\n2. 개인 첫 설정: ~/.agent-playbook에 한 번만 클론합니다.\n3. 팀 고정 설정: 레포에 고정된 submodule 또는 dependency를 사용합니다.\n\n선택한 root를 검증하세요:\npython3 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py validate\n\n현재 프로젝트의 에이전트 지침을 먼저 읽으세요:\nAGENTS.md, AGENTS.override.md, CLAUDE.md, CODEX.md, .agents/README.md,\nCONTRIBUTING.md, 작업 문서, PRD/ARD 문서 또는 동등한 프로젝트 문서.\n\n그다음 AgentPlaybook을 사용하세요:\n${AGENTPLAYBOOK_HOME}/AGENTS.md\n${AGENTPLAYBOOK_HOME}/index.md\n${AGENTPLAYBOOK_HOME}/scripts/workflow.py\n\nPRD만 작성할 때:\npython3 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py route prd --platform web --concern ui\n\n각 게이트 완료 후:\nGate signal: GREEN | gate: <gate> | evidence: <evidence> | next: <next gate>",
           "library.eyebrow": "라이브러리 모델",
           "library.title": "필요한 순간에만 읽는 작은 카드.",
           "library.common.title": "공통",

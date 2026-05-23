@@ -64,7 +64,11 @@ paths, services, product policy, and domain language in this repo.
 For any multi-step setup or follow-up task, run the workflow route and show a
 gate signal after each completed gate or task step:
 
-Gate signal: <gate> / executed / evidence: <evidence> / next: <next gate>
+Gate signal: GREEN | gate: <gate> | evidence: <evidence> | next: <next gate>
+
+Completion requires every required gate to be GREEN. YELLOW means blocked or
+paused. RED means the gate was missed or lacks evidence and must use missed-gate
+recovery.
 
 After connecting it, verify that the referenced AgentPlaybook AGENTS.md and
 index.md files exist, confirm VibeGuard is passing, then continue with my

@@ -46,11 +46,13 @@ Rules:
    python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route <COMMAND> [--platform <PLATFORM>] [--concern <CONCERN>]
    Use the route output as the command manifest.
 6. Keep a gate execution ledger from the route output. Mark each required gate
-   when it is executed and include concrete evidence such as a command, file,
-   diff, manual check, or decision note. Do not reconstruct the ledger from
+   when it is executed, include concrete evidence such as a command, file, diff,
+   manual check, or decision note, and assign a traffic-light signal:
+   `GREEN` for executed with evidence, `YELLOW` for blocked or paused, and
+   `RED` for missed or missing evidence. Do not reconstruct the ledger from
    memory at the end.
 7. After each completed gate or task step, show:
-   Gate signal: <gate> / executed / evidence: <evidence> / next: <next gate>
+   Gate signal: GREEN | gate: <gate> | evidence: <evidence> | next: <next gate>
 8. If any required gate was not executed, stop before final report, commit,
    release, or handoff. Roll back only dependent agent-made changes after the
    missed gate when safe, preserve user-owned changes, return to the first
@@ -67,8 +69,8 @@ Rules:
    issue. Do not blindly retry, delete tests, or silence errors.
 13. Ask only blocker questions. Prefer concrete options with tradeoffs and a
    recommended default.
-14. Before finishing, confirm every required route gate has ledger evidence,
-    rerun the relevant verification and VibeGuard audit, then
+14. Before finishing, confirm every required route gate is `GREEN` with ledger
+    evidence, rerun the relevant verification and VibeGuard audit, then
     report changed files, checks run, skipped checks, and residual risk.
 ```
 

@@ -105,6 +105,8 @@ The route output is the command manifest for the agent:
 - `docs`: read these documents in order before editing or reviewing.
 - `gates`: use these as the task checklist and report against them.
 - `gate_ledger`: mark and show each gate as executed when it completes.
+- `signal`: traffic-light state for each gate: `PENDING`, `GREEN`, `YELLOW`, or
+  `RED`.
 - `attempt_limit`: original execution plus one retry for the missed gate.
 - `retry_scope`: where recovery resumes; this should be `first_missed_gate`.
 - `notes`: apply these routing hints before choosing commands or edits.
@@ -120,18 +122,36 @@ For every scripted route, maintain a gate ledger while working:
 ```text
 Attempt for this gate: 1/2
 - gate: ...
-  status: executed | missed
+  signal: PENDING | GREEN | YELLOW | RED
+  status: pending | executed | blocked | missed
   evidence: command, file, diff, note, or manual check
 ```
 
 Do not wait until the final response to reconstruct the ledger from memory. Mark
 and show each gate when it is executed.
 
+## Gate Traffic Lights
+
+The traffic light is part of the workflow gate ledger, not a separate report.
+Check it at two points:
+
+1. Immediately after each gate or task step completes.
+2. Before final report, commit, release, or handoff.
+
+Use these meanings:
+
+- `PENDING`: the gate has not been reached yet.
+- `GREEN`: the gate was executed and has evidence.
+- `YELLOW`: the gate is blocked, paused, or waiting for approval; do not report
+  completion.
+- `RED`: the gate was missed or has no evidence after it should have run; follow
+  missed-gate recovery.
+
 After each completed gate or task step, emit a short progress signal in the
 active conversation or handoff record:
 
 ```text
-Gate signal: <gate> / executed / evidence: <command, file, diff, note, or manual check> / next: <next gate>
+Gate signal: GREEN | gate: <gate> | evidence: <command, file, diff, note, or manual check> | next: <next gate>
 ```
 
 Keep the signal short. It exists so humans and later agents can notice missed
@@ -140,6 +160,8 @@ gates immediately instead of discovering them only in the final report.
 Before finalizing, compare the route's `gates` with the ledger:
 
 - Every required gate must be marked `executed` with evidence.
+- Every required gate must be `GREEN` before completion is reported.
+- `YELLOW` can pause or hand off work, but it cannot be called complete.
 - If any required gate is missing, do not continue finalization.
 - Treat a missing gate as an execution error even when the final code or docs
   look correct.
@@ -241,7 +263,7 @@ Verified:
 - ...task-specific checks...
 
 Gate ledger:
-- gate: ... / executed / evidence: ...
+- signal: GREEN / gate: ... / evidence: ...
 ```
 
 ## Stop If

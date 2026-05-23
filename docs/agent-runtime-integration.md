@@ -122,18 +122,26 @@ For every runtime:
 5. Read AgentPlaybook `AGENTS.md`.
 6. Use `index.md` or `scripts/workflow.py` to select the smallest document set.
 7. When a scripted route is used, keep a gate execution ledger, mark each route
-   gate with evidence when it is executed, and show a short gate signal after
-   each completed gate or task step.
+   gate with evidence when it is executed, assign a traffic-light signal, and
+   show a short gate signal after each completed gate or task step.
 8. Load only selected cards.
 9. Execute repo-local commands only from trusted repo-local instructions.
-10. Before reporting completion, confirm every required route gate has ledger
-   evidence.
+10. Before reporting completion, confirm every required route gate is `GREEN`
+    with ledger evidence.
 11. Report verification and residual risk.
 
 If a required route gate was missed, the runtime must stop finalization, roll
 back only dependent agent-made changes after the missed gate when safe, return
 to the first missed gate only, and run the retrospective workflow. The missed
 gate gets one retry; the whole route is not restarted.
+
+Traffic-light signals are checked inside the workflow:
+
+- `GREEN`: executed with evidence; the gate can be counted as complete.
+- `YELLOW`: blocked or paused; the task can be handed off but not called
+  complete.
+- `RED`: missed or missing evidence after the gate should have run; run
+  missed-gate recovery.
 
 ## Verification
 
