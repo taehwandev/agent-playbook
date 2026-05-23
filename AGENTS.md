@@ -161,6 +161,18 @@ Do not copy this whole library into a repo. Link only the documents relevant to
 that repo. Keep repo-specific paths, commands, role matrices, API names, and
 domain language in the repo-local instructions.
 
+When applying AgentPlaybook to another repo, reuse an existing usable local or
+repo-pinned AgentPlaybook root by default. Do not download, clone, vendor, copy,
+overwrite, or add a second root while one exists unless the user explicitly
+approves after being told the found path.
+
+When adding AgentPlaybook routing to a target repo, keep `AGENTS.md` as the
+canonical instruction file when that runtime reads it. If existing
+runtime-specific files such as `CLAUDE.md`, `CODEX.md`, `.agents/README.md`, or
+Antigravity CLI docs are present, update their AgentPlaybook pointer in the same
+pass or point them back to `AGENTS.md`; do not create extra runtime-specific
+files only for duplication.
+
 `<AGENTPLAYBOOK_ROOT>` means the directory containing this shared library. In a
 repo-local template, replace it with an existing local install path,
 `${AGENTPLAYBOOK_HOME}`, or a repo-pinned submodule path. `${KEYFLOW_AGENT_ROOT}`

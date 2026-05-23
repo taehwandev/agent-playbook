@@ -26,8 +26,9 @@ services, product policy, and domain language.
 
 Select one mode before wiring a runtime:
 
-- Existing local install: preferred when AgentPlaybook is already present on the
-  machine. Reuse that root and do not clone another copy.
+- Existing local install: required by default when AgentPlaybook is already
+  present on the machine. Reuse that root and do not clone another copy unless
+  the user explicitly approves a new copy after seeing the found path.
 - First-time local shared install: clone once to a stable path such as
   `~/.agent-playbook` when no usable root exists.
 - Team-pinned install: use a submodule, vendored dependency, or workspace
@@ -38,6 +39,15 @@ Validate the selected root with:
 
 ```text
 python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py validate
+```
+
+If a usable root is found, runtime setup must stop install selection there and
+reuse it. Do not download, clone, vendor, copy, overwrite, or add a second root
+unless the user approves this question:
+
+```text
+AgentPlaybook already exists locally at <path>. Do you want me to download or
+pin a new copy anyway, or should I reuse the existing root?
 ```
 
 ## Long-Lived Repo Setup
@@ -51,6 +61,13 @@ instruction file each agent runtime reads:
 - Antigravity or generic agents: the project instruction file the runtime
   actually reads, or `.agents/README.md` when the repo uses a shared agent
   folder.
+
+Prefer one canonical instruction file, usually `AGENTS.md`, when all active
+runtimes read it. When `CLAUDE.md`, `CODEX.md`, `.agents/README.md`, or
+Antigravity CLI docs already exist, update them in the same application pass so
+they point to the selected AgentPlaybook root or back to `AGENTS.md`. Do not
+create a separate runtime-specific file only to duplicate guidance that the
+runtime already reads from `AGENTS.md`.
 
 Use `templates/repo-agents-routing.md` as the source block. Keep the block
 short and point to:
@@ -90,7 +107,10 @@ Codex:
 
 Claude:
 
-- Prefer `CLAUDE.md` with the routing block.
+- If `CLAUDE.md` already exists, update it with the routing block or a pointer
+  to `AGENTS.md`.
+- If no Claude-specific file exists and Claude reads `AGENTS.md` in the target
+  environment, do not create `CLAUDE.md` just for duplication.
 - If Claude is operating from chat without repo instruction discovery, paste
   `templates/use-agentplaybook-prompt.md`.
 - Tell Claude the exact AgentPlaybook root path or a repo-pinned submodule path.
@@ -98,10 +118,15 @@ Claude:
 Antigravity:
 
 - Use the project instruction surface that Antigravity actually reads.
+- If Antigravity CLI reads `AGENTS.md` in the target repo, use `AGENTS.md` and
+  do not create an extra Antigravity-specific file.
+- If Antigravity-specific docs already exist, update their pointer in the same
+  pass as the canonical instruction file.
 - If that surface is unclear, paste `templates/use-agentplaybook-prompt.md` at
   the start of the task.
-- Do not assume Antigravity has loaded Codex-specific `AGENTS.md`; instruct it
-  to read the AgentPlaybook root explicitly.
+- Do not assume Antigravity has loaded `AGENTS.md` unless local evidence or the
+  user confirms that behavior; instruct it to read the AgentPlaybook root
+  explicitly when in doubt.
 
 Generic agents:
 
@@ -118,27 +143,35 @@ For every runtime:
    equivalent project guidance.
 2. Select the setup mode: existing local install, first-time local shared
    install, or team-pinned install.
-3. Locate or install the AgentPlaybook root and validate it.
-4. Inspect existing VibeGuard files and agent instructions. Ask the application
+3. Locate the AgentPlaybook root. If any usable local or repo-pinned root
+   exists, reuse it unless the user explicitly approves a new download or
+   pinned copy.
+4. Install only when no usable root exists, then validate the selected root.
+5. Inspect existing VibeGuard files and agent instructions. Ask the application
    drill before running setup or update when the repo already has custom
    instructions or guardrails.
-5. Apply the selected VibeGuard mode with the published package command and the
+6. Apply the selected VibeGuard mode with the published package command and the
    selected AgentPlaybook root as the rule source. Treat
    https://vibeguard.thdev.app/ as the human-facing reference, not a runtime
    fetch dependency.
-6. Read AgentPlaybook `AGENTS.md`.
-7. Use `index.md` or `scripts/workflow.py` to select the smallest document set.
-8. When a scripted route is used, keep a gate execution ledger, mark each route
+7. Add or update the canonical repo instruction file, preferring `AGENTS.md`
+   when supported.
+8. Update any existing runtime-specific instruction files in the same pass, or
+   leave them out only when the runtime reads `AGENTS.md` and no separate file
+   exists.
+9. Read AgentPlaybook `AGENTS.md`.
+10. Use `index.md` or `scripts/workflow.py` to select the smallest document set.
+11. When a scripted route is used, keep a gate execution ledger, mark each route
    gate with evidence when it is executed, assign a traffic-light signal, and
    show a short gate signal after each completed gate or task step.
-9. Load only selected cards.
-10. Execute repo-local commands only from trusted repo-local instructions.
-11. Before reporting completion, confirm every required route gate is `GREEN`
+12. Load only selected cards.
+13. Execute repo-local commands only from trusted repo-local instructions.
+14. Before reporting completion, confirm every required route gate is `GREEN`
     with ledger evidence.
-12. When a VibeGuard execution evidence adapter is configured, use the
+15. When a VibeGuard execution evidence adapter is configured, use the
     VibeGuard CLI evidence command and compare the summary with claimed
     commands.
-13. Report verification and residual risk.
+16. Report verification and residual risk.
 
 If a required route gate was missed, the runtime must stop finalization, roll
 back only dependent agent-made changes after the missed gate when safe, return
@@ -159,6 +192,9 @@ After connecting a runtime, verify:
 
 - the target repo instruction file points to the selected AgentPlaybook root
 - the runtime still reads the target repo's current agent instructions first
+- existing runtime-specific files, such as `CLAUDE.md`, `CODEX.md`, or
+  Antigravity docs, are updated or intentionally not created because the
+  runtime reads `AGENTS.md`
 - `AGENTS.md`, `index.md`, and `scripts/workflow.py` exist under that root
 - the VibeGuard gate passed or stopped with a reported blocker
 - VibeGuard evidence was summarized through VibeGuard docs when an evidence

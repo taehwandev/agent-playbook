@@ -55,7 +55,12 @@ https://github.com/taehwandev/AgentPlaybook
 
 Use this project's current agent instructions first.
 If AgentPlaybook already exists locally, link to that copy.
+Do not download, clone, vendor, or copy another one unless I approve after you ask:
+"AgentPlaybook already exists locally at <path>. Download or pin a new copy anyway?"
 If agent instructions or VibeGuard files already exist, ask how to apply it.
+After the application mode is selected, update existing Claude, Codex,
+Antigravity CLI, or other runtime instruction pointers in the same pass.
+If the runtime reads AGENTS.md, do not create duplicate runtime-specific files.
 Then apply the current VibeGuard package command with AgentPlaybook as rules,
 add only a short routing block,
 then continue with my task.</code></pre>
@@ -186,7 +191,7 @@ then continue with my task.</code></pre>
           "quick.title": "Paste this into your coding agent.",
           "quick.copy": "Copy request",
           "quick.copied": "Copied",
-          "quick.prompt": "Apply AgentPlaybook to this project:\nhttps://github.com/taehwandev/AgentPlaybook\n\nUse this project's current agent instructions first.\nIf AgentPlaybook already exists locally, link to that copy.\nIf agent instructions or VibeGuard files already exist, ask how to apply it.\nThen apply the current VibeGuard package command with AgentPlaybook as rules,\nadd only a short routing block,\nthen continue with my task.",
+          "quick.prompt": "Apply AgentPlaybook to this project:\nhttps://github.com/taehwandev/AgentPlaybook\n\nUse this project's current agent instructions first.\nIf AgentPlaybook already exists locally, link to that copy.\nDo not download, clone, vendor, or copy another one unless I approve after you ask:\n\"AgentPlaybook already exists locally at <path>. Download or pin a new copy anyway?\"\nIf agent instructions or VibeGuard files already exist, ask how to apply it.\nAfter the application mode is selected, update existing Claude, Codex,\nAntigravity CLI, or other runtime instruction pointers in the same pass.\nIf the runtime reads AGENTS.md, do not create duplicate runtime-specific files.\nThen apply the current VibeGuard package command with AgentPlaybook as rules,\nadd only a short routing block,\nthen continue with my task.",
           "apply.eyebrow": "Apply",
           "apply.title": "The default path is agent-driven.",
           "apply.body": "Most users should paste the request above. Use manual modes only when you are wiring a known local checkout, doing first-time installation yourself, or pinning a team copy.",
@@ -198,11 +203,11 @@ then continue with my task.</code></pre>
           "mode.copy": "Copy",
           "mode.copied": "Copied",
           "mode.agent.title": "Let the agent choose the path.",
-          "mode.agent.body": "The agent should inspect local instructions, reuse an existing AgentPlaybook root if available, connect a short routing block, and continue with the user's task.",
+          "mode.agent.body": "The agent should inspect local instructions, reuse an existing AgentPlaybook root if available, ask before any new download, update existing runtime pointers, connect a short routing block, and continue with the user's task.",
           "mode.existing.title": "Manual: reuse an existing local root.",
           "mode.existing.body": "Use this only when you know the local AgentPlaybook path and want to wire the repo yourself.",
           "mode.first.title": "Manual: clone a personal shared copy.",
-          "mode.first.body": "Use this only when no usable local root exists and you want one checkout reused across personal repos.",
+          "mode.first.body": "Use this only after checking that no usable local root exists and you want one checkout reused across personal repos.",
           "mode.team.title": "Manual: pin a reviewed copy for a team.",
           "mode.team.body": "Use this when every teammate and agent must use the same reviewed version.",
           "routing.eyebrow": "Routing",
@@ -249,7 +254,7 @@ then continue with my task.</code></pre>
           "quick.title": "이 내용을 코딩 에이전트에 붙여넣으세요.",
           "quick.copy": "요청 복사",
           "quick.copied": "복사됨",
-          "quick.prompt": "이 프로젝트에 AgentPlaybook을 적용해줘:\nhttps://github.com/taehwandev/AgentPlaybook\n\n현재 프로젝트의 에이전트 지침을 먼저 읽어줘.\nAgentPlaybook이 이미 로컬에 있으면 그 복사본에 연결해줘.\n에이전트 지침이나 VibeGuard 파일이 이미 있으면 적용 방식을 먼저 물어봐줘.\n그 다음 AgentPlaybook을 rules로 쓰는 최신 VibeGuard 패키지 명령을 실행하고,\n짧은 라우팅 블록만 추가한 뒤 내 작업을 이어서 진행해줘.",
+          "quick.prompt": "이 프로젝트에 AgentPlaybook을 적용해줘:\nhttps://github.com/taehwandev/AgentPlaybook\n\n현재 프로젝트의 에이전트 지침을 먼저 읽어줘.\nAgentPlaybook이 이미 로컬에 있으면 그 복사본에 연결해줘.\n내가 승인하기 전에는 새로 다운로드, 클론, 벤더링, 복사하지 말고 먼저 물어봐줘:\n\"AgentPlaybook이 이미 <path>에 있습니다. 그래도 새로 다운로드하거나 고정 복사본을 만들까요?\"\n에이전트 지침이나 VibeGuard 파일이 이미 있으면 적용 방식을 먼저 물어봐줘.\n적용 방식이 정해진 뒤 Claude, Codex, Antigravity CLI 또는 다른 런타임 지침 파일이 이미 있으면 같은 적용 작업에서 AgentPlaybook 포인터를 갱신해줘.\n런타임이 AGENTS.md를 읽는다면 중복 런타임 전용 파일은 만들지 마.\n그 다음 AgentPlaybook을 rules로 쓰는 최신 VibeGuard 패키지 명령을 실행하고,\n짧은 라우팅 블록만 추가한 뒤 내 작업을 이어서 진행해줘.",
           "apply.eyebrow": "적용",
           "apply.title": "기본 경로는 에이전트가 처리합니다.",
           "apply.body": "대부분의 사용자는 위 요청을 붙여넣으면 됩니다. 알고 있는 로컬 체크아웃을 직접 연결하거나, 처음 설치를 직접 하거나, 팀 버전을 고정할 때만 수동 모드를 사용하세요.",
@@ -261,11 +266,11 @@ then continue with my task.</code></pre>
           "mode.copy": "복사",
           "mode.copied": "복사됨",
           "mode.agent.title": "에이전트가 경로를 고르게 합니다.",
-          "mode.agent.body": "에이전트는 로컬 지침을 확인하고, 가능한 경우 기존 AgentPlaybook root를 재사용하고, 짧은 라우팅 블록을 연결한 뒤 사용자 작업을 이어가야 합니다.",
+          "mode.agent.body": "에이전트는 로컬 지침을 확인하고, 가능한 경우 기존 AgentPlaybook root를 재사용하고, 새 다운로드 전에는 물어본 뒤, 기존 런타임 포인터를 갱신하고, 짧은 라우팅 블록을 연결하고 사용자 작업을 이어가야 합니다.",
           "mode.existing.title": "수동: 기존 로컬 root를 재사용합니다.",
           "mode.existing.body": "로컬 AgentPlaybook 경로를 알고 있고 직접 레포를 연결하고 싶을 때만 사용합니다.",
           "mode.first.title": "수동: 개인 공유 복사본을 클론합니다.",
-          "mode.first.body": "사용 가능한 로컬 root가 없고 여러 개인 레포에서 재사용할 체크아웃을 직접 만들 때만 사용합니다.",
+          "mode.first.body": "사용 가능한 로컬 root가 없음을 확인한 뒤 여러 개인 레포에서 재사용할 체크아웃을 직접 만들 때만 사용합니다.",
           "mode.team.title": "수동: 팀용 검토 버전을 고정합니다.",
           "mode.team.body": "모든 팀원과 에이전트가 같은 검토 버전을 사용해야 할 때 사용합니다.",
           "routing.eyebrow": "라우팅",

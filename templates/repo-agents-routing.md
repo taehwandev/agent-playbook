@@ -7,9 +7,11 @@ type: ai-generated
 # Repo Agent Routing Template
 
 Add this to repo-local agent instructions for Codex, Claude, Antigravity, or
-another coding agent runtime. Use the file the runtime actually reads, such as
-`AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `CODEX.md`, or
-`.agents/README.md`.
+another coding agent runtime. Prefer `AGENTS.md` as the canonical file when the
+runtime reads it. If `CLAUDE.md`, `CODEX.md`, `.agents/README.md`, or
+Antigravity CLI docs already exist, update their pointer in the same pass or
+point them back to `AGENTS.md`; do not create duplicate runtime-specific files
+only for this block.
 
 ```text
 Shared AgentPlaybook library:

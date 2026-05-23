@@ -24,6 +24,12 @@ Use an existing local AgentPlaybook install if one is available. Check an
 explicit path from me first, then AGENTPLAYBOOK_HOME, then common local clones
 such as ~/.agent-playbook or ~/GitHub/AgentPlaybook.
 
+If any usable local or repo-pinned AgentPlaybook root exists, stop install
+selection there and reuse it. Do not download, clone, vendor, copy, overwrite,
+or add a second AgentPlaybook root unless I explicitly approve after you ask:
+"AgentPlaybook already exists locally at <path>. Do you want me to download or
+pin a new copy anyway, or should I reuse the existing root?"
+
 Select one setup mode and tell me which one you selected before editing:
 
 - Existing local install: if a usable install exists, link this repo to that
@@ -80,6 +86,12 @@ Update the repo-local agent instructions, such as AGENTS.md,
 AGENTS.override.md, CLAUDE.md, CODEX.md, or .agents/README.md, with a short
 routing block. Preserve existing project rules. Keep repo-specific commands,
 paths, services, product policy, and domain language in this repo.
+
+Prefer AGENTS.md as the canonical instruction file when the active runtimes read
+it. If existing Claude, Codex, Antigravity CLI, or other runtime instruction
+files are present, update their AgentPlaybook pointer in the same pass or point
+them back to AGENTS.md. Do not create a separate runtime-specific file only to
+duplicate guidance when the runtime already reads AGENTS.md.
 
 For any multi-step setup or follow-up task, run the workflow route and show a
 gate signal after each completed gate or task step:

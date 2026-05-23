@@ -61,8 +61,10 @@ https://agentplaybook.thdev.app/
 
 ## Quick Start
 
-Choose one setup path first. Do not install a second copy when a usable local or
-repo-pinned copy already exists.
+Choose one setup path first. Existing local or repo-pinned roots are the
+default. If any usable AgentPlaybook root already exists, do not download,
+clone, vendor, or copy another one unless the user explicitly approves a new
+copy after being told which root was found.
 
 ### Path A: Existing Local Install
 
@@ -75,6 +77,14 @@ Use this when AgentPlaybook is already on the machine.
    `scripts/workflow.py`.
 3. Point the target repo to that root. Do not clone, vendor, or copy another
    AgentPlaybook checkout.
+
+If a usable root is found but the agent believes a fresh download is needed,
+it must ask first:
+
+```text
+AgentPlaybook already exists locally at <path>. Do you want me to download or
+pin a new copy anyway, or should I reuse the existing root?
+```
 
 ```bash
 export AGENTPLAYBOOK_HOME="/path/to/existing/AgentPlaybook"
@@ -105,9 +115,13 @@ python3 .agents/AgentPlaybook/scripts/workflow.py validate
 
 ### Connect The Target Repo
 
-After choosing the root, add a short pointer to the target repo's `AGENTS.md`,
-`AGENTS.override.md`, `CLAUDE.md`, `CODEX.md`, or equivalent local agent
-instructions:
+After choosing the root, add a short pointer to the target repo's canonical
+agent instruction file. Prefer `AGENTS.md` when the active runtimes read it.
+If existing runtime-specific files such as `AGENTS.override.md`, `CLAUDE.md`,
+`CODEX.md`, `.agents/README.md`, or Antigravity CLI docs are present, update
+their AgentPlaybook pointer in the same pass or point them back to `AGENTS.md`.
+Do not create extra runtime-specific files only to duplicate the same routing
+block.
 
 ```text
 Shared AgentPlaybook guidance:
@@ -201,12 +215,18 @@ https://github.com/taehwandev/AgentPlaybook
 
 If AgentPlaybook already exists locally, link this repo to the existing copy.
 Do not clone, vendor, or copy a second copy unless no usable local copy exists.
+If a usable local copy exists but you think a fresh copy is needed, ask me
+first: "AgentPlaybook already exists locally at <path>. Do you want me to
+download or pin a new copy anyway, or should I reuse the existing root?"
 Inspect the current repo instructions and VibeGuard files first. If either
 already exists, ask me a short application drill before running setup or update.
 Use the selected AgentPlaybook root as the VibeGuard rule source.
 Update the repo-local agent instructions with a short routing block. Keep
 repo-specific commands, paths, services, product policy, and domain language in
-this repo.
+this repo. If existing Claude, Codex, Antigravity, or other runtime instruction
+files are present, update the necessary AgentPlaybook pointer there in the same
+pass. If the runtime reads AGENTS.md, do not create a duplicate runtime-specific
+file.
 ```
 
 ### Actual Application Flow
@@ -217,19 +237,27 @@ flow instead of copying the whole library:
 1. Identify the target repo and read its existing local instructions first.
 2. Choose one setup mode: existing local install, first-time local shared
    install, or team-pinned install.
-3. Validate the selected AgentPlaybook root with
+3. If any usable local or repo-pinned root exists, stop install selection there
+   and reuse it unless the user explicitly approves a new download or pinned
+   copy.
+4. Validate the selected AgentPlaybook root with
    `python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py validate`.
-4. Inspect existing VibeGuard and repo-local instruction files. Ask the
+5. Inspect existing VibeGuard and repo-local instruction files. Ask the
    application drill when the repo already has custom instructions or guardrails.
-5. Apply the selected VibeGuard mode with the selected AgentPlaybook root as the
+6. Apply the selected VibeGuard mode with the selected AgentPlaybook root as the
    rule source: audit-only, refresh with `update`, or first-time `setup`.
-6. Add a short routing block to the repo instruction file the agent runtime
-   actually reads.
-7. Keep repo-specific commands, paths, services, product policy, and domain
+7. Add a short routing block to the repo instruction file the agent runtime
+   actually reads, preferring `AGENTS.md` when supported.
+8. Keep repo-specific commands, paths, services, product policy, and domain
    language in the target repo.
-8. For follow-up work, run `workflow.py classify` when request clarity is
+9. Update any existing runtime-specific instruction files, such as
+   `CLAUDE.md`, `CODEX.md`, `.agents/README.md`, or Antigravity CLI docs, so
+   they point to the same AgentPlaybook root or back to `AGENTS.md`.
+10. Do not create new runtime-specific instruction files when the active
+    runtime already reads `AGENTS.md`.
+11. For follow-up work, run `workflow.py classify` when request clarity is
    uncertain, then `workflow.py route ...` and follow the gate ledger.
-9. Before reporting success, verify the routing block, VibeGuard gate result,
+12. Before reporting success, verify the routing block, VibeGuard gate result,
    and any route gates that were required.
 
 ## Prompt A Local Agent
@@ -283,8 +311,10 @@ bridge file or a pasted prompt.
 
 - For long-lived repo setup, add the routing block from
   [templates/repo-agents-routing.md](templates/repo-agents-routing.md) to the
-  instruction file the runtime reads, such as `AGENTS.md`,
-  `AGENTS.override.md`, `CLAUDE.md`, `CODEX.md`, or `.agents/README.md`.
+  instruction file the runtime reads, preferring `AGENTS.md` when supported.
+  If `CLAUDE.md`, `CODEX.md`, `.agents/README.md`, or Antigravity CLI docs
+  already exist, update their pointer in the same pass instead of leaving stale
+  runtime guidance.
 - For one-shot use, paste
   [templates/use-agentplaybook-prompt.md](templates/use-agentplaybook-prompt.md)
   into the agent with the target repo, task, AgentPlaybook root, and VibeGuard
@@ -294,8 +324,9 @@ bridge file or a pasted prompt.
 
 ## Distribution Modes
 
-- Existing local install: preferred when the user already has AgentPlaybook.
-  Link the target repo to that root and do not reinstall.
+- Existing local install: required by default when the user already has
+  AgentPlaybook. Link the target repo to that root and do not reinstall unless
+  the user explicitly approves a new copy after seeing the found path.
 - Local shared install: clone once to `~/.agent-playbook` and reuse it across
   personal repos.
 - Team-pinned install: add AgentPlaybook as a git submodule or vendored
