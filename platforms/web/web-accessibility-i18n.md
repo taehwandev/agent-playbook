@@ -1,14 +1,17 @@
 ---
 keyflow_id: sys_web_accessibility_i18n
-status: draft
+status: review
 type: ai-generated
 ---
 
 # Web Accessibility I18n
 
-Use for web UI text, forms, menus, dialogs, keyboard flow, focus, localization, and responsive text behavior.
+Use for web-specific UI text, forms, menus, dialogs, keyboard flow, focus,
+localization, and responsive text behavior. Also use
+`common/accessibility-i18n.md` for platform-neutral accessibility and
+internationalization rules.
 
-## Accessibility
+## Web Accessibility
 
 - Prefer semantic elements and accessible names.
 - Dialogs need focus entry, focus trap or clear return behavior, and escape/close handling.
@@ -16,13 +19,11 @@ Use for web UI text, forms, menus, dialogs, keyboard flow, focus, localization, 
 - Icon-only controls need accessible names or tooltips.
 - Keyboard users must reach and operate critical actions.
 - Disabled and permission-denied states should be understandable.
-- Do not rely on color alone for status, role, plan, or validation state.
 
-## I18n
+## Web I18n
 
-- Keep product UI text out of hardcoded component strings when the repo has i18n.
-- Do not concatenate translated fragments when grammar can vary.
-- Dates, numbers, currency, names, and pluralization need locale-aware formatting.
+- Use browser and framework locale APIs consistently with the repo's i18n boundary.
+- Route titles, metadata, form errors, aria labels, and toast/dialog text need localization coverage when the repo supports it.
 - Long translations must fit without overlap, clipping, or tiny unreadable controls.
 - Product/domain terminology belongs in repo-local glossary when specific.
 

@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_observability_error_handling
-status: draft
+status: review
 type: ai-generated
 ---
 
@@ -31,6 +31,7 @@ Prefer typed errors or result objects over string matching.
 
 ```text
 code
+status / HTTP status
 message
 retryable
 field errors

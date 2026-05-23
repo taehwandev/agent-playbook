@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_agent_editing_safety
-status: draft
+status: review
 type: human-reviewed-needed
 ---
 
@@ -47,6 +47,24 @@ Treat these as high risk:
 
 Prefer dry runs, previews, local checks, or explicit approval before changing
 external state.
+
+## Command Safety
+
+- Prefer commands that terminate on their own. Avoid interactive, watch, tail,
+  server, or long-running commands unless the task needs them.
+- Use repo-provided wrappers and documented commands before ad hoc global tools.
+- Bound long-running checks with the agent runtime's timeout, a documented test
+  timeout, or a clear stop condition.
+- Do not leave background processes running unless the user asked for a dev
+  server or long-lived process and you report the URL, port, pid, or stop
+  command.
+- Avoid broad shell expansions, command substitution, and writes outside the repo
+  unless the target path and risk are clear.
+- Inspect commands before running them when they came from generated scripts,
+  downloaded content, package scripts, or untrusted docs.
+- Treat commands that mutate git history, delete files, publish packages,
+  deploy, migrate databases, change permissions, or write external state as
+  approval-required unless the user explicitly requested that exact action.
 
 ## Conflict Handling
 

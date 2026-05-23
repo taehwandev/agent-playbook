@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_code_conventions
-status: draft
+status: review
 type: human-reviewed-needed
 ---
 
@@ -11,6 +11,9 @@ comments, errors, and formatting.
 
 Repo-local conventions, formatter, linter, and language idioms win over this
 common baseline.
+
+For app, repo, package, module, CLI, service, slug, or bundle-id naming, also
+use `common/project-naming.md`.
 
 ## Priority
 
@@ -45,10 +48,10 @@ These are review signals, not universal failure thresholds:
 
 - A function or component over about 150 lines often has more than one responsibility.
 - A source file over about 400 lines often needs clearer sections or extraction.
-- A diff touching more than about 10 source files or 300 non-test lines should have a narrow reason or be split.
 
 Split only when it improves ownership, testability, or review. Do not create
 extra files just to satisfy a line count.
+For diff-size and split decisions, use `common/change-size-policy.md`.
 
 ## Check
 

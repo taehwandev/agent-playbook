@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_739117e591d2
-status: draft
+status: review
 type: ai-generated
 ---
 
@@ -24,6 +24,9 @@ Use to review the current work product: working tree, diff, PR, or implementatio
 - Are failure and edge states handled?
 - Are client and server permission boundaries consistent?
 - Are data, privacy, billing, or tenant boundaries affected?
+- Are API, DTO, route, event, webhook, or fixture contracts still compatible?
+- Do user-facing UI changes preserve accessibility, localization, long text, and error states?
+- Are release, deployment, migration, or rollback risks documented when affected?
 - Does it follow local patterns?
 - Is the diff wider than needed?
 

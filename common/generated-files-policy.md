@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_generated_files_policy
-status: draft
+status: review
 type: human-reviewed-needed
 ---
 

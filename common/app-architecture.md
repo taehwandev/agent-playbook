@@ -1,10 +1,10 @@
 ---
 keyflow_id: sys_3457cd5aad44
-status: draft
+status: review
 type: ai-generated
 ---
 
-# App Architecture Principles
+# Application Boundary Principles
 
 Use for new features, boundary cleanup, or structure decisions.
 

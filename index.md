@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_a0cda107d0b0
-status: draft
+status: stable
 type: ai-generated
 ---
 
@@ -13,9 +13,13 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - Agent operating baseline: `common/agent-operating-skill.md`
 - All coding work: `common/llm-coding-discipline.md`
 - Code conventions, naming, comments, formatting: `common/code-conventions.md`
+- Project, app, repo, package, module, CLI, and service naming: `common/project-naming.md`
 - Change size and reviewable diff scope: `common/change-size-policy.md`
 - Dependencies, SDKs, packages, build plugins: `common/dependency-policy.md`
 - Generated files, lockfiles, snapshots, build artifacts: `common/generated-files-policy.md`
+- API, DTO, route, event, webhook contract compatibility: `common/api-contract-compatibility.md`
+- Release, deployment, packaging, rollback: `common/release-deployment.md`
+- Accessibility, localization, dates, numbers, UI text: `common/accessibility-i18n.md`
 - Architecture choice/change: `common/architecture-selection.md`
 - Architecture design: `common/architecture-design.md`
 - New feature or product ambiguity: `common/product-spec-to-implementation.md`
@@ -31,7 +35,7 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - Persistence, cache, sync, migration: `common/data-persistence-sync.md`
 - Errors, logs, audit, diagnostics: `common/observability-error-handling.md`
 - Code review: `common/code-review.md`
-- Commit review: `common/code-review.md` + `common/commit-review.md`
+- Commit review: start with code review, then add `common/commit-review.md`
 - Commit creation: `common/commit-workflow.md`
 
 ## Platform
@@ -43,6 +47,7 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - Android review: `platforms/android/android-review.md`
 - iOS architecture: `platforms/ios/ios-architecture.md`
 - iOS state/concurrency: `platforms/ios/ios-state-concurrency.md`
+- iOS security: `platforms/ios/ios-security.md`
 - iOS review: `platforms/ios/ios-review.md`
 - Web/React architecture: `platforms/web/web-architecture.md`
 - Web/React state/data: `platforms/web/web-state-data.md`
@@ -64,15 +69,33 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 
 ## Workflow
 
+- Agent task lifecycle: `workflows/agent-task-lifecycle.md`
+- Agent handoff/continuation: `workflows/agent-handoff-continuation.md`
+- Development cycle: `workflows/development-cycle.md`
+- Planning/research: `workflows/planning-research.md`
+- Documentation update: `workflows/documentation-update.md`
 - Feature implementation: `workflows/feature-implementation.md`
+- Bugfix/debugging: `workflows/bugfix-debugging.md`
+- Refactor cleanup: `workflows/refactor-cleanup.md`
+- Release readiness: `workflows/release-readiness.md`
 - Review and commit: `workflows/review-and-commit.md`
 
 ## Loading Rule
 
+For any multi-step agent task, start with `workflows/agent-task-lifecycle.md`.
+For multi-step development work, continue with `workflows/development-cycle.md`.
 For coding, read `common/agent-operating-skill.md`,
 `common/llm-coding-discipline.md`, and `common/code-conventions.md` first. Then
 read one platform architecture card. Add platform detail, common, or
 product-pattern cards only when the task touches that concern.
+
+For documentation-only work, use `workflows/documentation-update.md`. For
+planning, research, comparison, or recommendations before implementation, use
+`workflows/planning-research.md`. For interrupted, long-running, or transferred
+work, use `workflows/agent-handoff-continuation.md`.
+
+For new project scaffolds, app names, repo names, package ids, modules, CLIs,
+services, slugs, bundle ids, or renames, read `common/project-naming.md`.
 
 For broad diffs, refactors, PR review, or commit preparation, also read
 `common/change-size-policy.md`. For dependency, SDK, package, build plugin, or
@@ -80,7 +103,17 @@ lockfile work, read `common/dependency-policy.md`. For codegen, generated
 clients, lockfiles, snapshots, build artifacts, translations, or generated
 assets, read `common/generated-files-policy.md`.
 
+For API, DTO, route, event, webhook, shared fixture, or generated client changes,
+read `common/api-contract-compatibility.md`. For packaging, deployment,
+publishing, signing, migration rollout, or rollback-sensitive work, read
+`common/release-deployment.md`. For user-facing text, forms, controls, dates,
+numbers, media, or localization, read `common/accessibility-i18n.md`.
+
 For Android work touching background execution, release builds, exported components, deep links, WebView, permissions, or secrets, load the Android background/security cards instead of relying only on the architecture card.
+
+For iOS work touching Keychain, Universal Links, URL schemes, app extensions,
+WebViews, permissions, entitlements, signing, release builds, or secrets, load
+the iOS security card instead of relying only on the architecture card.
 
 For desktop/application work touching menu bar/tray controls, shell/file/clipboard APIs, power assertions, IPC, signing, notarization, updates, or first launch, load the application system/security cards.
 

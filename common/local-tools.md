@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_local_tools
-status: draft
+status: review
 type: human-reviewed-needed
 ---
 
@@ -21,19 +21,22 @@ or safer execution than guessing.
 
 ## Agent And AI CLIs
 
-- Use Antigravity CLI as `agy`.
-- Do not use Gemini CLI as the Google agent path when the environment says
-  Antigravity has replaced it.
-- For usage and quota visibility, prefer Agent Cat:
+Tool aliases, preferred agent CLIs, model providers, and usage telemetry tools
+are environment-specific. Record them in repo-local instructions or local
+operator docs, not in this shared library.
+
+For usage and quota visibility, use the configured local telemetry tool when
+available. Example:
 
 ```text
-agentcat snapshot --json
+<usage-tool> snapshot --json
 ```
 
-- For local model availability, prefer runtime commands such as:
+For local model availability, prefer runtime health or listing commands when
+configured. Example:
 
 ```text
-ollama list
+<runtime-tool> list
 ```
 
 ## Discovery Pattern
@@ -48,10 +51,9 @@ When local tooling matters:
 Example:
 
 ```text
-command -v agy
-agy --version
-command -v agentcat
-agentcat snapshot --json
+command -v <tool>
+<tool> --version
+<tool> health
 ```
 
 ## Repo Commands

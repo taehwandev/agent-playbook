@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_9b770e3542d3
-status: draft
+status: review
 type: ai-generated
 ---
 
@@ -15,6 +15,8 @@ Use for iOS SwiftUI/UIKit, navigation, concurrency, permission, and UI flow revi
 - Ensure API, persistence, keychain, file, notification, and permission APIs are wrapped.
 - Check loading, empty, error, permission-denied, and offline states.
 - Confirm sensitive data is not stored in plain UserDefaults or logs.
+- Review Universal Links, URL schemes, entitlements, WebView bridges, ATS
+  exceptions, and release signing when security surfaces change.
 
 ## Tools
 
@@ -30,3 +32,5 @@ Use for iOS SwiftUI/UIKit, navigation, concurrency, permission, and UI flow revi
 - Permission prompts and denied states are handled.
 - Async loading and cancellation do not leave stale UI.
 - Dynamic Type, small screens, and VoiceOver labels are considered.
+- Release configuration does not expose debug endpoints, secrets, or broad
+  entitlements.

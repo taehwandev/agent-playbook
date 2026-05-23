@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_product_spec_to_implementation
-status: draft
+status: review
 type: ai-generated
 ---
 

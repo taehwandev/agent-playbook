@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_f20b4c0c0d16
-status: draft
+status: review
 type: ai-generated
 ---
 
@@ -24,6 +24,8 @@ Use before creating commits, regardless of git client, IDE, CLI, or AI tool.
 - Remove only unused code created by this change.
 - Run the nearest useful verification, or record why it was skipped.
 - Do not include secrets, local paths, debug logs, or temporary artifacts.
+- Call out API contract, migration, release, accessibility, or security impact
+  when the commit touches those surfaces.
 
 ## Message
 

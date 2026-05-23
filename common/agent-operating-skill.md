@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_agent_operating_skill
-status: draft
+status: review
 type: human-reviewed-needed
 ---
 
@@ -49,12 +49,30 @@ Before finishing:
 
 ## Task Routing
 
+- Any multi-step agent task: `workflows/agent-task-lifecycle.md`.
+- Interrupted or transferred work: `workflows/agent-handoff-continuation.md`.
+- Multi-step development: `workflows/development-cycle.md`.
+- Planning or research: `workflows/planning-research.md`.
+- Documentation update: `workflows/documentation-update.md`.
+- Feature work: `workflows/feature-implementation.md`.
+- Bug or regression: `workflows/bugfix-debugging.md`.
+- Refactor or cleanup: `workflows/refactor-cleanup.md`.
+- Release-sensitive work: `workflows/release-readiness.md`.
+- Final review or commit: `workflows/review-and-commit.md`.
 - Architecture: `common/architecture-selection.md`,
   `common/architecture-design.md`, or `common/app-architecture.md`.
 - Code conventions: `common/code-conventions.md`.
+- Project, app, repo, package, module, CLI, or service naming:
+  `common/project-naming.md`.
 - Change size or broad diffs: `common/change-size-policy.md`.
 - Dependencies, SDKs, or build plugins: `common/dependency-policy.md`.
 - Generated files, lockfiles, or snapshots: `common/generated-files-policy.md`.
+- API, DTO, route, event, webhook, or shared fixture contracts:
+  `common/api-contract-compatibility.md`.
+- Release, deployment, packaging, signing, rollout, or rollback:
+  `common/release-deployment.md`.
+- User-facing text, forms, controls, dates, numbers, or localization:
+  `common/accessibility-i18n.md`.
 - Refactoring: `common/refactoring.md`.
 - Tests and evidence: `common/testing.md` and
   `common/verification-policy.md`.
@@ -63,7 +81,7 @@ Before finishing:
 - Secrets, external state, or user-owned changes:
   `common/agent-editing-safety.md`, `common/secure-development-baseline.md`,
   and `common/security-privacy-review.md`.
-- React, iOS, Android, server, application, or Mac work: load the matching
+- React, iOS, Android, server, desktop, or application work: load the matching
   platform card from `index.md`.
 
 ## Output Contract

@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_change_size_policy
-status: draft
+status: review
 type: human-reviewed-needed
 ---
 

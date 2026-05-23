@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_security_privacy_review
-status: draft
+status: review
 type: ai-generated
 ---
 
@@ -15,6 +15,7 @@ For platform-specific surfaces, also consult the matching security or review doc
 
 ```text
 Android: platforms/android/android-security.md
+iOS: platforms/ios/ios-security.md
 Application/Desktop: platforms/application/application-security.md
 Server: platforms/server/server-review.md
 Web: platforms/web/web-review.md

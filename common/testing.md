@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_4d909f6cacff
-status: draft
+status: review
 type: ai-generated
 ---
 
@@ -31,6 +31,17 @@ Test behavior users or other code depend on.
 - State tests for ViewModel, hook, reducer, store.
 - UI tests by visible text, role, label, and interaction.
 - E2E only for high-value cross-boundary flows.
+
+## Isolation
+
+- Mock at external boundaries: network, database, filesystem, clock, random,
+  payment, email, analytics, and platform APIs.
+- Prefer deterministic fixtures and builders over copied production payloads.
+- Keep fixtures close to the test or shared contract they prove.
+- Do not weaken assertions only to make a flaky test pass; identify the unstable
+  boundary first.
+- Test permission, tenant, billing, migration, and generated-client contracts at
+  the boundary where they can actually fail.
 
 ## Report
 

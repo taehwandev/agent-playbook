@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_application_security
-status: draft
+status: review
 type: ai-generated
 ---
 

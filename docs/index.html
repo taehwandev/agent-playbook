@@ -42,9 +42,9 @@
             <h3>Common</h3>
             <p>
               Baseline behavior for LLM coding discipline, code conventions,
-              change size, dependencies, generated files, architecture design,
-              refactoring, testing, review, commits, verification, safety, and
-              design systems.
+              project naming, change size, dependencies, generated files, API
+              contracts, release readiness, accessibility, architecture design,
+              refactoring, testing, review, commits, verification, and safety.
             </p>
           </article>
           <article>
@@ -83,7 +83,47 @@
           <p class="eyebrow">Workflow Layer</p>
           <h2>Repeatable paths for common agent work.</h2>
         </div>
-        <div class="grid two">
+        <div class="grid three">
+          <article>
+            <h3>Agent Task Lifecycle</h3>
+            <p>
+              Route any agent task from intake through local rules, risk scan,
+              selected cards, action, verification, and report.
+            </p>
+            <a href="https://github.com/taehwandev/agent-playbook/blob/main/workflows/agent-task-lifecycle.md">Open workflow</a>
+          </article>
+          <article>
+            <h3>Agent Handoff</h3>
+            <p>
+              Preserve objective, files, commands, blockers, verification, and
+              next step across interruption, resume, or transfer.
+            </p>
+            <a href="https://github.com/taehwandev/agent-playbook/blob/main/workflows/agent-handoff-continuation.md">Open workflow</a>
+          </article>
+          <article>
+            <h3>Development Cycle</h3>
+            <p>
+              Route multi-step implementation from intake and scope through
+              design, implementation, verification, review, and handoff.
+            </p>
+            <a href="https://github.com/taehwandev/agent-playbook/blob/main/workflows/development-cycle.md">Open workflow</a>
+          </article>
+          <article>
+            <h3>Planning Research</h3>
+            <p>
+              Inspect local evidence, separate facts from assumptions, compare
+              options, and produce a risk-aware recommendation.
+            </p>
+            <a href="https://github.com/taehwandev/agent-playbook/blob/main/workflows/planning-research.md">Open workflow</a>
+          </article>
+          <article>
+            <h3>Documentation Update</h3>
+            <p>
+              Create, review, or restructure docs while linking source guidance
+              and keeping repo-specific details local.
+            </p>
+            <a href="https://github.com/taehwandev/agent-playbook/blob/main/workflows/documentation-update.md">Open workflow</a>
+          </article>
           <article>
             <h3>Feature Implementation</h3>
             <p>
@@ -91,6 +131,30 @@
               and verification evidence without adding speculative features.
             </p>
             <a href="https://github.com/taehwandev/agent-playbook/blob/main/workflows/feature-implementation.md">Open workflow</a>
+          </article>
+          <article>
+            <h3>Bugfix Debugging</h3>
+            <p>
+              Reproduce a failure, define expected behavior, fix the cause, add
+              a regression check, and report evidence.
+            </p>
+            <a href="https://github.com/taehwandev/agent-playbook/blob/main/workflows/bugfix-debugging.md">Open workflow</a>
+          </article>
+          <article>
+            <h3>Refactor Cleanup</h3>
+            <p>
+              Improve ownership, naming, deletion, or structure while keeping
+              behavior and verification stable.
+            </p>
+            <a href="https://github.com/taehwandev/agent-playbook/blob/main/workflows/refactor-cleanup.md">Open workflow</a>
+          </article>
+          <article>
+            <h3>Release Readiness</h3>
+            <p>
+              Prepare package, deploy, migration, signing, or tagging work with
+              artifact, environment, smoke, and recovery checks.
+            </p>
+            <a href="https://github.com/taehwandev/agent-playbook/blob/main/workflows/release-readiness.md">Open workflow</a>
           </article>
           <article>
             <h3>Review And Commit</h3>
@@ -109,7 +173,7 @@
           <h2>Route repos to the shared index.</h2>
         </div>
         <pre><code>Shared agent library:
-/Users/taehwankwon/Documents/KeyFlowVault/agent/AGENTS.md
+&lt;KEYFLOW_AGENT_ROOT&gt;/AGENTS.md
 
 Use repo-local instructions first.
 Use the shared index only to select the smallest relevant document set.

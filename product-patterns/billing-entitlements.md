@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_billing_entitlements
-status: draft
+status: review
 type: ai-generated
 ---
 

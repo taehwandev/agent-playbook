@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_dependency_policy
-status: draft
+status: review
 type: human-reviewed-needed
 ---
 
@@ -34,6 +34,20 @@ Check:
 - Pin or lock versions according to the repo's package manager.
 - Review transitive risk when a dependency touches build scripts, native code, secrets, network, or user data.
 - Document required setup, environment variables, and provider configuration without documenting secret values.
+
+## Supply Chain Check
+
+- Check license compatibility before adding runtime, SDK, or generated-code
+  dependencies.
+- Prefer packages with clear provenance, releases, changelogs, maintainers, and
+  reproducible install behavior.
+- Treat build plugins, postinstall scripts, native binaries, codegen tools, and
+  SDKs with telemetry as elevated risk.
+- Review lockfile changes for unexpected package graph churn.
+- Check known vulnerability or advisory output when the package manager or repo
+  provides it.
+- Avoid abandoned, typosquatted, or unusually broad packages when a smaller trusted
+  dependency or platform API is enough.
 
 ## Removal Or Replacement
 

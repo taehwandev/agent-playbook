@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_e5ada2ab6483
-status: draft
+status: review
 type: ai-generated
 ---
 
@@ -9,6 +9,9 @@ type: ai-generated
 Use for SwiftUI/UIKit app structure, state, navigation, and async work.
 
 For navigation, async work, persistence, permissions, or actor boundaries, also use `ios-state-concurrency.md`.
+
+For credentials, Keychain, local storage, Universal Links, URL schemes,
+entitlements, WebViews, or release builds, also use `ios-security.md`.
 
 ## Boundaries
 

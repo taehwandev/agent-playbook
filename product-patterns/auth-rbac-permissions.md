@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_8a635e708aeb
-status: draft
+status: review
 type: ai-generated
 ---
 
@@ -29,3 +29,10 @@ Use for login, membership, role, permission, entitlement, and tenant-boundary wo
 - Is this enforced on server and represented in UI?
 - Does cache update after permission changes?
 - Does the error avoid leaking sensitive data?
+
+## Tests
+
+Cover unauthenticated, unauthorized, wrong-tenant, stale session, revoked role,
+membership change, entitlement mismatch, and client-cache refresh paths when
+applicable. Verify protected actions fail at the trusted boundary, not only
+because UI controls are hidden.

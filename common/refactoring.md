@@ -1,6 +1,6 @@
 ---
 keyflow_id: sys_f6cb537c3133
-status: draft
+status: review
 type: ai-generated
 ---
 
@@ -28,6 +28,16 @@ Use when behavior should stay the same and structure should improve.
 - Big file moves without behavior checks.
 - New abstractions before real duplication.
 - Mixing feature change, formatting churn, and refactor.
+- Renaming public APIs, packages, routes, events, or persisted fields without a
+  compatibility plan.
+- Refactoring through unclear product behavior; clarify the behavior first.
+
+## Do Not Refactor When
+
+- The current task needs a targeted bug fix or release recovery.
+- The diff would hide security, billing, migration, or contract risk.
+- Existing tests cannot protect the behavior and the touched surface is risky.
+- The proposed abstraction has only one caller and no real boundary to protect.
 
 ## Done
 
