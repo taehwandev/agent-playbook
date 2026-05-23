@@ -66,10 +66,10 @@ For this repo, prefer the local or pinned VibeGuard source documented in
 available:
 
 ```text
-vibe-guard audit . --rules .
+vibeguard audit . --rules .
 ```
 
-If `vibe-guard` is not on `PATH` but a trusted local checkout exists, use:
+If `vibeguard` is not on `PATH` but a trusted local checkout exists, use:
 
 ```text
 node <VIBEGUARD_ROOT>/src/cli.js audit . --rules .

@@ -37,7 +37,7 @@ Rules:
    relevant root, index, workflow script, and selected cards.
 4. VibeGuard is required. Before editing documentation, code, config,
    dependency, data, deployment, or credential surfaces, run:
-   vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
+   vibeguard audit . --rules <AGENTPLAYBOOK_ROOT>
    If the local command is unavailable but a trusted checkout exists, run:
    node <VIBEGUARD_ROOT>/src/cli.js audit . --rules <AGENTPLAYBOOK_ROOT>
    Otherwise use the local or pinned VibeGuard source I provided. Do not run an

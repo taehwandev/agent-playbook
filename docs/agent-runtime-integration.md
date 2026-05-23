@@ -16,7 +16,8 @@ AgentPlaybook should be consumed through a small bridge, not copied wholesale:
 1. Reusable library: one AgentPlaybook root.
 2. Runtime bridge: repo-local instructions or a pasted prompt.
 3. Task route: `scripts/workflow.py` output for the current task.
-4. Safety gate: VibeGuard audit using AgentPlaybook as `--rules`.
+4. Safety gate: VibeGuard setup/update and audit using AgentPlaybook as
+   `--rules`.
 
 Repo-local instructions remain the source of truth for commands, paths,
 services, product policy, and domain language.
@@ -118,7 +119,8 @@ For every runtime:
 2. Select the setup mode: existing local install, first-time local shared
    install, or team-pinned install.
 3. Locate or install the AgentPlaybook root and validate it.
-4. Run VibeGuard audit with the selected root as `--rules`.
+4. Run VibeGuard setup or update, then audit with the selected root as
+   `--rules`.
 5. Read AgentPlaybook `AGENTS.md`.
 6. Use `index.md` or `scripts/workflow.py` to select the smallest document set.
 7. When a scripted route is used, keep a gate execution ledger, mark each route
@@ -128,7 +130,9 @@ For every runtime:
 9. Execute repo-local commands only from trusted repo-local instructions.
 10. Before reporting completion, confirm every required route gate is `GREEN`
     with ledger evidence.
-11. Report verification and residual risk.
+11. When an execution evidence adapter is configured, run
+    `vibeguard evidence .` and compare the summary with claimed commands.
+12. Report verification and residual risk.
 
 If a required route gate was missed, the runtime must stop finalization, roll
 back only dependent agent-made changes after the missed gate when safe, return
@@ -150,7 +154,8 @@ After connecting a runtime, verify:
 - the target repo instruction file points to the selected AgentPlaybook root
 - the runtime still reads the target repo's current agent instructions first
 - `AGENTS.md`, `index.md`, and `scripts/workflow.py` exist under that root
-- VibeGuard setup/audit passed or stopped with a reported blocker
+- VibeGuard setup/update and audit passed or stopped with a reported blocker
+- VibeGuard evidence was summarized when an evidence adapter was configured
 - the route gate ledger was completed when a scripted route was used
 - the agent can produce a route, such as:
 

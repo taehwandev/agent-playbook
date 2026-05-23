@@ -39,16 +39,29 @@ scripts/workflow.py. Validate it with:
 python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py validate
 
 VibeGuard is required. After selecting the AgentPlaybook root, run VibeGuard
-setup and audit with that root as --rules. Use a local, repo-pinned, or
-team-approved VibeGuard source when available:
+setup for a first-time repo or update for an existing VibeGuard install, then
+audit with that root as --rules. Use a local, repo-pinned, or team-approved
+VibeGuard source when available:
 
-vibe-guard setup . --rules <AGENTPLAYBOOK_ROOT>
-vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
+First-time target repo:
+vibeguard setup . --rules <AGENTPLAYBOOK_ROOT>
+
+Existing VibeGuard install:
+vibeguard update . --rules <AGENTPLAYBOOK_ROOT>
+
+Then audit:
+vibeguard audit . --rules <AGENTPLAYBOOK_ROOT>
 
 If no trusted local source exists, use a reviewed GitHub package tag or commit:
 
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard setup . --rules <AGENTPLAYBOOK_ROOT>
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
+First-time target repo:
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibeguard setup . --rules <AGENTPLAYBOOK_ROOT>
+
+Existing VibeGuard install:
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibeguard update . --rules <AGENTPLAYBOOK_ROOT>
+
+Then audit:
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibeguard audit . --rules <AGENTPLAYBOOK_ROOT>
 
 Do not run an unpinned GitHub package command in unattended automation. Use
 --fix only after audit output shows a low-risk safety fix and this repo allows

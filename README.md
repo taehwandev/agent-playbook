@@ -125,15 +125,35 @@ your team wants a pinned version.
 VibeGuard is required in every distribution mode:
 
 ```bash
-vibe-guard setup . --rules "${AGENTPLAYBOOK_HOME}"
-vibe-guard audit . --rules "${AGENTPLAYBOOK_HOME}"
+# First-time target repo:
+vibeguard setup . --rules "${AGENTPLAYBOOK_HOME}"
+
+# Then audit:
+vibeguard audit . --rules "${AGENTPLAYBOOK_HOME}"
 ```
 
-If `vibe-guard` is not on `PATH` but a trusted local checkout exists, run the
+For an existing target repo that already has VibeGuard guardrails, refresh the
+managed block before auditing:
+
+```bash
+# Existing VibeGuard install:
+vibeguard update . --rules "${AGENTPLAYBOOK_HOME}"
+
+# Then audit:
+vibeguard audit . --rules "${AGENTPLAYBOOK_HOME}"
+```
+
+If `vibeguard` is not on `PATH` but a trusted local checkout exists, run the
 checkout directly:
 
 ```bash
+# First-time target repo:
 node "${VIBEGUARD_HOME}/src/cli.js" setup . --rules "${AGENTPLAYBOOK_HOME}"
+
+# Existing VibeGuard install:
+node "${VIBEGUARD_HOME}/src/cli.js" update . --rules "${AGENTPLAYBOOK_HOME}"
+
+# Then audit:
 node "${VIBEGUARD_HOME}/src/cli.js" audit . --rules "${AGENTPLAYBOOK_HOME}"
 ```
 
@@ -141,12 +161,25 @@ Use an installed, repo-pinned, local-checkout, or team-approved VibeGuard source
 first. If a local source is unavailable, use a reviewed GitHub tag or commit:
 
 ```bash
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard setup . --rules "${AGENTPLAYBOOK_HOME}"
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard audit . --rules "${AGENTPLAYBOOK_HOME}"
+# First-time target repo:
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibeguard setup . --rules "${AGENTPLAYBOOK_HOME}"
+
+# Existing VibeGuard install:
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibeguard update . --rules "${AGENTPLAYBOOK_HOME}"
+
+# Then audit:
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibeguard audit . --rules "${AGENTPLAYBOOK_HOME}"
 ```
 
 Run `--fix` only after audit output shows a low-risk safety fix and the target
 repo allows that automatic change.
+
+When the target runtime has VibeGuard execution evidence configured, summarize
+it before final reporting:
+
+```bash
+vibeguard evidence .
+```
 
 ## Apply With Any AI Agent
 
@@ -158,13 +191,35 @@ https://github.com/taehwandev/AgentPlaybook
 
 If AgentPlaybook already exists locally, link this repo to the existing copy.
 Do not clone, vendor, or copy a second copy unless no usable local copy exists.
-Run VibeGuard setup and audit with the selected AgentPlaybook root as --rules.
+Run VibeGuard setup or update, then audit with the selected AgentPlaybook root
+as --rules.
 Use a local, repo-pinned, or reviewed VibeGuard source. Do not run an unpinned
 GitHub package command in unattended automation.
 Update the repo-local agent instructions with a short routing block. Keep
 repo-specific commands, paths, services, product policy, and domain language in
 this repo.
 ```
+
+### Actual Application Flow
+
+When an agent applies AgentPlaybook to a target repo, it should execute this
+flow instead of copying the whole library:
+
+1. Identify the target repo and read its existing local instructions first.
+2. Choose one setup mode: existing local install, first-time local shared
+   install, or team-pinned install.
+3. Validate the selected AgentPlaybook root with
+   `python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py validate`.
+4. Run VibeGuard with the selected root as `--rules`: `setup` for first-time
+   repos or `update` for existing VibeGuard installs, then `audit`.
+5. Add a short routing block to the repo instruction file the agent runtime
+   actually reads.
+6. Keep repo-specific commands, paths, services, product policy, and domain
+   language in the target repo.
+7. For follow-up work, run `workflow.py classify` when request clarity is
+   uncertain, then `workflow.py route ...` and follow the gate ledger.
+8. Before reporting success, verify the routing block, VibeGuard audit, and any
+   route gates that were required.
 
 ## Prompt A Local Agent
 
@@ -232,12 +287,13 @@ bridge file or a pasted prompt.
 - Team-pinned install: add AgentPlaybook as a git submodule or vendored
   dependency when every teammate and agent must use the same reviewed version.
 
-In every mode, VibeGuard is mandatory. Run VibeGuard setup/audit against the
-target repo and pass the selected AgentPlaybook root as `--rules`. Prefer a
-local, repo-pinned, or reviewed VibeGuard source. If VibeGuard cannot run,
-report the blocker instead of bypassing the gate. The target repo keeps its own
-commands, paths, services, product policy, and domain rules. AgentPlaybook
-provides shared defaults only.
+In every mode, VibeGuard is mandatory. Run VibeGuard `setup` for a first-time
+target repo or `update` for an existing VibeGuard install, then run `audit`
+against the target repo and pass the selected AgentPlaybook root as `--rules`.
+Prefer a local, repo-pinned, or reviewed VibeGuard source. If VibeGuard cannot
+run, report the blocker instead of bypassing the gate. The target repo keeps
+its own commands, paths, services, product policy, and domain rules.
+AgentPlaybook provides shared defaults only.
 
 ## Workflow Router
 
@@ -464,14 +520,14 @@ The integration model is link-based and mandatory:
 - VibeGuard execution should use an installed, repo-pinned, team-approved, or
   reviewed package ref; unpinned package execution is not the default.
 - Shared rules should live in AgentPlaybook when they are broadly reusable.
-- VibeGuard-specific CLI behavior, audit output, setup flow, and beginner UX
-  should live in VibeGuard.
+- VibeGuard-specific CLI behavior, audit output, setup/update flow, evidence,
+  prompt generation, and beginner UX should live in VibeGuard.
 - Do not duplicate long guidance between the two projects. Link it or promote it
   into the more general project.
 
-Do not merge the projects while VibeGuard remains a CLI with setup, audit, fix,
-localization, and beginner onboarding behavior. Separate repos keep ownership
-clear while making the safety gate required.
+Do not merge the projects while VibeGuard remains a CLI with setup, update,
+audit, prompt, evidence, fix, localization, and beginner onboarding behavior.
+Separate repos keep ownership clear while making the safety gate required.
 
 ## Language And Localization
 

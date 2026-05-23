@@ -24,7 +24,8 @@ CONTRIBUTING.md, task docs, PRD/ARD docs, or equivalent project docs.
 
 If AgentPlaybook already exists locally, link this repo to the existing copy.
 Do not clone, vendor, or copy a second copy unless no usable local copy exists.
-Run VibeGuard setup and audit with the selected AgentPlaybook root as --rules.
+Run VibeGuard setup or update, then audit with the selected AgentPlaybook root
+as --rules.
 Update the repo-local agent instructions with a short routing block. Keep
 repo-specific commands, paths, services, product policy, and domain language in
 this repo.
@@ -81,20 +82,40 @@ If a usable root is found, use it. Do not reinstall.
 ## Required VibeGuard Gate
 
 VibeGuard is mandatory. After selecting the AgentPlaybook root, run VibeGuard
-against the target repo before editing target repo instructions:
+against the target repo before editing target repo instructions. For first-time
+setup, run:
 
 ```bash
-vibe-guard setup . --rules <AGENTPLAYBOOK_ROOT>
-vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
+# First-time target repo:
+vibeguard setup . --rules <AGENTPLAYBOOK_ROOT>
+
+# Then audit:
+vibeguard audit . --rules <AGENTPLAYBOOK_ROOT>
 ```
 
-Use a local VibeGuard checkout, installed `vibe-guard` binary, or repo-pinned
+For an existing VibeGuard install, refresh first:
+
+```bash
+# Existing VibeGuard install:
+vibeguard update . --rules <AGENTPLAYBOOK_ROOT>
+
+# Then audit:
+vibeguard audit . --rules <AGENTPLAYBOOK_ROOT>
+```
+
+Use a local VibeGuard checkout, installed `vibeguard` binary, or repo-pinned
 VibeGuard source when available. If no trusted local source is available, use a
 reviewed GitHub package ref:
 
 ```bash
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard setup . --rules <AGENTPLAYBOOK_ROOT>
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
+# First-time target repo:
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibeguard setup . --rules <AGENTPLAYBOOK_ROOT>
+
+# Existing VibeGuard install:
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibeguard update . --rules <AGENTPLAYBOOK_ROOT>
+
+# Then audit:
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibeguard audit . --rules <AGENTPLAYBOOK_ROOT>
 ```
 
 Replace `<VIBEGUARD_REF>` with a reviewed tag or commit. Do not run an unpinned
@@ -104,6 +125,13 @@ change.
 
 If VibeGuard cannot run, stop and report the blocker. Do not continue as if the
 safety gate were optional.
+
+When a runtime evidence adapter is configured, summarize VibeGuard execution
+evidence before final reporting:
+
+```bash
+vibeguard evidence .
+```
 
 ## Install If Missing
 
@@ -128,7 +156,8 @@ python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py validate
    `CLAUDE.md`, `CODEX.md`, `.agents/README.md`, or an equivalent project
    guide.
 2. Preserve existing repo-local instructions.
-3. Confirm VibeGuard setup/audit passed or stopped with a reported blocker.
+3. Confirm VibeGuard setup/update and audit passed or stopped with a reported
+   blocker.
 4. Add a short AgentPlaybook routing block with the selected root path.
 5. Prefer `${AGENTPLAYBOOK_HOME}` when the environment variable is configured.
    Otherwise use the absolute path or repo-relative submodule path.
@@ -146,7 +175,7 @@ Before reporting success:
 
 - The selected AgentPlaybook root exists.
 - `AGENTS.md` and `index.md` exist under that root.
-- VibeGuard setup/audit ran with the selected root as `--rules`.
+- VibeGuard setup/update and audit ran with the selected root as `--rules`.
 - The target repo's local instruction file still contains its original
   repo-specific rules.
 - The routing block points to the selected root.
