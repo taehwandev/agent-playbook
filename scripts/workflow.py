@@ -30,6 +30,7 @@ CORE_DOCS = (
     "AGENTS.md",
     "index.md",
     "common/agent-operating-skill.md",
+    "common/stack-discovery.md",
 )
 
 
@@ -86,6 +87,17 @@ COMMANDS: Dict[str, Profile] = {
     "docs": Profile(
         docs=("workflows/documentation-update.md",),
         gates=("source of truth", "edit", "link/path check", "handoff"),
+    ),
+    "docs-review": Profile(
+        docs=(
+            "workflows/review-and-commit.md",
+            "workflows/documentation-update.md",
+            "workflows/multi-perspective-review.md",
+            "common/code-review.md",
+            "common/llm-wiki-documentation.md",
+        ),
+        gates=("source review", "structure review", "link/path check", "verification", "handoff"),
+        notes=("Use for reviewing durable docs, wiki pages, playbooks, and runbooks.",),
     ),
     "planning": Profile(
         docs=("workflows/planning-research.md",),
@@ -155,9 +167,12 @@ CONCERNS: Dict[str, Tuple[str, ...]] = {
     "dependency": ("common/dependency-policy.md",),
     "generated": ("common/generated-files-policy.md",),
     "worktree": ("common/worktree-hygiene.md",),
+    "stack": ("common/stack-discovery.md",),
+    "failure": ("common/tool-failure-recovery.md",),
+    "interaction": ("common/agent-interaction.md",),
     "defensive": ("common/defensive-boundaries.md",),
     "observability": ("common/observability-error-handling.md",),
-    "wiki": ("common/llm-wiki-documentation.md",),
+    "wiki": ("workflows/documentation-update.md", "common/llm-wiki-documentation.md"),
     "auth": ("product-patterns/auth-rbac-permissions.md",),
     "invite": ("product-patterns/invitation-workflows.md",),
     "billing": ("product-patterns/billing-entitlements.md",),

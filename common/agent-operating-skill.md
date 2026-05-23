@@ -14,21 +14,24 @@ mistakes.
 
 1. Identify the target project and task type.
 2. Read repo-local instructions before changing files.
-3. For multi-step tasks, use `scripts/workflow.py` when available to generate
+3. Discover the project stack before choosing commands or libraries.
+4. For multi-step tasks, use `scripts/workflow.py` when available to generate
    the workflow route.
-4. Use `index.md` to load only relevant AgentPlaybook cards.
-5. Inspect existing code, docs, tests, and local conventions.
-6. Make the smallest change that genuinely addresses the request.
-7. Verify with the narrowest reliable command first.
-8. Report what changed, what was verified, and what risk remains.
+5. Use `index.md` to load only relevant AgentPlaybook cards.
+6. Inspect existing code, docs, tests, and local conventions.
+7. Make the smallest change that genuinely addresses the request.
+8. Verify with the narrowest reliable command first.
+9. Report what changed, what was verified, and what risk remains.
 
 ## Mistake Prevention Checklist
 
 Before editing:
 
 - Confirm target path and project.
-- Check repo-local `AGENTS.md`, `CLAUDE.md`, `CODEX.md`,
-  `.agents/README.md`, `CONTRIBUTING.md`, or equivalent docs.
+- Check repo-local `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`,
+  `CODEX.md`, `.agents/README.md`, `CONTRIBUTING.md`, or equivalent docs.
+- Check stack manifests, lockfiles, and config before running commands, adding
+  dependencies, or using framework-specific APIs.
 - Check whether the task touches data, auth, permissions, billing,
   persistence, filesystem, network, release, or external state.
 - Check whether the task touches secrets, client keys, local config, logs,
@@ -53,6 +56,12 @@ Before finishing:
 
 - Scripted workflow route: `workflows/scripted-agent-workflow.md` and
   `scripts/workflow.py` when the task has multiple steps.
+- Stack, package manager, framework, runtime, or command discovery:
+  `common/stack-discovery.md`.
+- Failed commands, compiler errors, lint errors, or broken verification:
+  `common/tool-failure-recovery.md`.
+- User questions, approval requests, and ambiguity communication:
+  `common/agent-interaction.md`.
 - Any multi-step agent task: `workflows/agent-task-lifecycle.md`.
 - Interrupted or transferred work: `workflows/agent-handoff-continuation.md`.
 - Ambiguous requests or blocker unknowns before PRD, ARD, task breakdown, or

@@ -53,14 +53,26 @@ VibeGuard is mandatory. After selecting the AgentPlaybook root, run VibeGuard
 against the target repo before editing target repo instructions:
 
 ```bash
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard -- vibe-guard setup . --rules <AGENTPLAYBOOK_ROOT>
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard -- vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT> --fix
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard -- vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
+vibe-guard setup . --rules <AGENTPLAYBOOK_ROOT>
+vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
 ```
 
-Use a local VibeGuard checkout or installed `vibe-guard` binary only when it is
-already available and equivalent. If VibeGuard cannot run, stop and report the
-blocker. Do not continue as if the safety gate were optional.
+Use a local VibeGuard checkout, installed `vibe-guard` binary, or repo-pinned
+VibeGuard source when available. If no trusted local source is available, use a
+reviewed GitHub package ref:
+
+```bash
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard setup . --rules <AGENTPLAYBOOK_ROOT>
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
+```
+
+Replace `<VIBEGUARD_REF>` with a reviewed tag or commit. Do not run an unpinned
+GitHub package command in unattended automation. Use `--fix` only after audit
+output shows a low-risk safety fix and the target repo allows that automatic
+change.
+
+If VibeGuard cannot run, stop and report the blocker. Do not continue as if the
+safety gate were optional.
 
 ## Install If Missing
 
@@ -75,8 +87,9 @@ writing outside the target repo.
 
 ## Connect The Target Repo
 
-1. Find the repo-local instruction file: `AGENTS.md`, `CLAUDE.md`, `CODEX.md`,
-   `.agents/README.md`, or an equivalent project guide.
+1. Find the repo-local instruction file: `AGENTS.md`, `AGENTS.override.md`,
+   `CLAUDE.md`, `CODEX.md`, `.agents/README.md`, or an equivalent project
+   guide.
 2. Preserve existing repo-local instructions.
 3. Confirm VibeGuard setup/audit passed or stopped with a reported blocker.
 4. Add a short AgentPlaybook routing block with the selected root path.
@@ -104,6 +117,7 @@ Before reporting success:
 - The target project is ambiguous.
 - The user asked only for advice and did not ask to edit the repo.
 - No usable local copy exists and network access is unavailable or not approved.
-- VibeGuard cannot run locally or from the GitHub package URL.
+- VibeGuard cannot run locally, from a pinned repo source, or from a reviewed
+  GitHub package ref.
 - Existing repo-local instructions conflict with AgentPlaybook in a way that
   changes security, data handling, verification, deployment, or cost behavior.

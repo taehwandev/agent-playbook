@@ -38,6 +38,7 @@ Current command profiles:
 - `ambiguity`
 - `bugfix`
 - `docs`
+- `docs-review`
 - `feature`
 - `multi-agent`
 - `planning`
@@ -67,11 +68,14 @@ Current concern values:
 - `defensive`
 - `dependency`
 - `generated`
+- `failure`
 - `invite`
+- `interaction`
 - `observability`
 - `persistence`
 - `release`
 - `security`
+- `stack`
 - `ui`
 - `wiki`
 - `worktree`
@@ -84,6 +88,7 @@ Examples:
 ```text
 python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route product --platform android --concern security --concern ui
 python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route bugfix --platform server --concern api
+python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route docs-review --concern wiki
 python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py validate
 ```
 
@@ -101,8 +106,9 @@ same fields for wrappers, launchers, or CI checks.
 
 ## Command Profiles
 
-The script should expose stable command profiles such as:
+The current script exposes these stable command profiles:
 
+- `docs-review`: documentation review with wiki/doc-maintenance checks.
 - `task`: general multi-step agent work.
 - `ambiguity`: classify blockers, researchable unknowns, assumptions, and
   out-of-scope items before planning or implementation.

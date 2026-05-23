@@ -69,8 +69,9 @@ export AGENTPLAYBOOK_HOME="$HOME/.agent-playbook"
 git clone https://github.com/taehwandev/AgentPlaybook.git "$AGENTPLAYBOOK_HOME"
 ```
 
-Then add a short pointer to the target repo's `AGENTS.md`, `CLAUDE.md`,
-`CODEX.md`, or equivalent local agent instructions:
+Then add a short pointer to the target repo's `AGENTS.md`,
+`AGENTS.override.md`, `CLAUDE.md`, `CODEX.md`, or equivalent local agent
+instructions:
 
 ```text
 Shared AgentPlaybook guidance:
@@ -90,10 +91,20 @@ your team wants a pinned version.
 VibeGuard is required in every distribution mode:
 
 ```bash
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard -- vibe-guard setup . --rules "${AGENTPLAYBOOK_HOME}"
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard -- vibe-guard audit . --rules "${AGENTPLAYBOOK_HOME}" --fix
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard -- vibe-guard audit . --rules "${AGENTPLAYBOOK_HOME}"
+vibe-guard setup . --rules "${AGENTPLAYBOOK_HOME}"
+vibe-guard audit . --rules "${AGENTPLAYBOOK_HOME}"
 ```
+
+Use an installed, repo-pinned, or team-approved VibeGuard source first. If a
+local source is unavailable, use a reviewed GitHub tag or commit:
+
+```bash
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard setup . --rules "${AGENTPLAYBOOK_HOME}"
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard audit . --rules "${AGENTPLAYBOOK_HOME}"
+```
+
+Run `--fix` only after audit output shows a low-risk safety fix and the target
+repo allows that automatic change.
 
 ## Apply With Any AI Agent
 
@@ -106,6 +117,8 @@ https://github.com/taehwandev/AgentPlaybook
 If AgentPlaybook already exists locally, link this repo to the existing copy.
 Do not clone, vendor, or copy a second copy unless no usable local copy exists.
 Run VibeGuard setup and audit with the selected AgentPlaybook root as --rules.
+Use a local, repo-pinned, or reviewed VibeGuard source. Do not run an unpinned
+GitHub package command in unattended automation.
 Update the repo-local agent instructions with a short routing block. Keep
 repo-specific commands, paths, services, product policy, and domain language in
 this repo.
@@ -125,9 +138,11 @@ A shorter reusable prompt lives in
   dependency when every teammate and agent must use the same reviewed version.
 
 In every mode, VibeGuard is mandatory. Run VibeGuard setup/audit against the
-target repo and pass the selected AgentPlaybook root as `--rules`. The target
-repo keeps its own commands, paths, services, product policy, and domain rules.
-AgentPlaybook provides shared defaults only.
+target repo and pass the selected AgentPlaybook root as `--rules`. Prefer a
+local, repo-pinned, or reviewed VibeGuard source. If VibeGuard cannot run,
+report the blocker instead of bypassing the gate. The target repo keeps its own
+commands, paths, services, product policy, and domain rules. AgentPlaybook
+provides shared defaults only.
 
 ## Workflow Router
 
@@ -137,17 +152,19 @@ documents manually:
 ```bash
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" list
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route product --platform web --concern security --concern ui
+python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" route docs-review --concern wiki
 python3 "${AGENTPLAYBOOK_HOME}/scripts/workflow.py" validate
 ```
 
-Supported commands are `ambiguity`, `bugfix`, `docs`, `feature`, `multi-agent`,
-`planning`, `product`, `refactor`, `release`, `retrospective`, `review`, and
-`task`.
+Supported commands are `ambiguity`, `bugfix`, `docs`, `docs-review`, `feature`,
+`multi-agent`, `planning`, `product`, `refactor`, `release`, `retrospective`,
+`review`, and `task`.
 
 Supported platforms are `android`, `application`, `ios`, `server`, and `web`.
 Supported concerns are `accessibility`, `api`, `auth`, `background`, `billing`,
-`cache`, `defensive`, `dependency`, `generated`, `invite`, `observability`,
-`persistence`, `release`, `security`, `ui`, `wiki`, and `worktree`.
+`cache`, `defensive`, `dependency`, `failure`, `generated`, `interaction`,
+`invite`, `observability`, `persistence`, `release`, `security`, `stack`, `ui`,
+`wiki`, and `worktree`.
 
 The route output contains `docs`, `gates`, `notes`, and `missing`. Agents should
 read the listed docs in order, use gates as the task checklist, and stop if any
@@ -189,6 +206,9 @@ This is the core design: small cards, loaded only when relevant.
 - Use `index.md` to choose only the needed documents.
 - Use `scripts/workflow.py` to turn repeated multi-step workflows into command
   manifests before selecting documents manually.
+- Discover the repo stack before choosing package managers, framework APIs, or
+  project commands.
+- Diagnose command failures from stdout/stderr before retrying or changing code.
 - Start most coding work from `common/agent-operating-skill.md`.
 - Use `workflows/agent-task-lifecycle.md` for multi-step agent work of any kind.
 - Use `workflows/product-architecture-delivery.md` for product work that needs
@@ -257,6 +277,8 @@ The integration model is link-based and mandatory:
   applying this playbook to a repo.
 - AgentPlaybook must point users to VibeGuard for installation, preflight checks,
   and safe auto-fixes.
+- VibeGuard execution should use an installed, repo-pinned, team-approved, or
+  reviewed package ref; unpinned package execution is not the default.
 - Shared rules should live in AgentPlaybook when they are broadly reusable.
 - VibeGuard-specific CLI behavior, audit output, setup flow, and beginner UX
   should live in VibeGuard.
@@ -292,6 +314,9 @@ type: ai-generated
 - Frontmatter `type` values describe provenance and review state:
   `ai-generated`, `human-reviewed-needed`, or `human-reviewed`. Use `status`
   for operational readiness and `type` for audit or human review queues.
+- The `keyflow_id` key is retained for compatibility with older local tooling
+  and document indexes. New documents should continue using it until a separate
+  metadata migration is planned.
 
 ## Contributing Guidance
 

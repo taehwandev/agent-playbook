@@ -23,11 +23,27 @@ affects navigation, commands, permissions, persistence, or cross-surface state.
 - Empty, loading, disabled, error, unavailable, and permission-denied states.
 - Long text, localized text, missing images, missing icons, and slow data.
 - Small and large viewports or containers relevant to the product.
+- Light mode, dark mode, increased system font size, reduced motion, and high
+  contrast when the platform supports them and the change can be affected.
 - Keyboard focus, screen reader labels, hit targets, and visible focus state.
 - Whether text, icons, badges, menus, or overlays overlap or resize the layout
   unexpectedly.
 - Whether multiple entry points for the same command produce the same result.
 - Whether visual state updates after actions, retries, refreshes, or navigation.
+
+## Tools By Platform
+
+Use repo-local tooling first. Common evidence sources include:
+
+- Web: Playwright, Testing Library, axe, browser screenshots, geometry checks.
+- Android: Compose UI Test, Espresso, screenshot or layout inspection.
+- iOS: XCUITest, accessibility inspector, previews, screenshot checks.
+- Desktop/application: platform smoke tests, WebDriver/Playwright when
+  applicable, screenshot checks, menu/tray/window interaction smoke.
+
+Also load `common/accessibility-i18n.md` for user-facing text, forms, labels,
+dates, numbers, localization, focus, or screen-reader behavior. Load the
+matching platform review card when platform UI tooling or conventions matter.
 
 ## Evidence
 

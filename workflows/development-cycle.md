@@ -20,15 +20,17 @@ the command manifest and keep the implementation inside its listed gates.
 - `common/agent-operating-skill.md`
 - `common/llm-coding-discipline.md`
 - `common/code-conventions.md`
+- `common/stack-discovery.md`
 - `common/change-size-policy.md`
 - `common/worktree-hygiene.md` when the checkout already contains changes
+- `common/tool-failure-recovery.md` when verification or build commands fail
 - one matching platform architecture card from `index.md`
 - task-specific concern cards from `index.md`
 
 ## Phases
 
-1. Orient: identify target repo, repo-local rules, current user changes, affected
-   surface, and existing verification commands.
+1. Orient: identify target repo, repo-local rules, current user changes,
+   discovered stack, affected surface, and existing verification commands.
 2. Scope: name the requested behavior, acceptance criteria, non-goals, and the
    smallest safe slice.
 3. Design: choose state, domain, data, platform, contract, and security
@@ -105,7 +107,9 @@ remaining risk.
 ## Stop If
 
 - The target repo or product contract is ambiguous enough to change the result.
-- The requested slice mixes unrelated behavior, refactor, dependency, generated, and release work.
-- Verification cannot cover a risky change and the residual risk is not acceptable to state.
+- The requested slice mixes unrelated behavior, refactor, dependency, generated,
+  and release work.
+- Verification cannot cover a risky change and the residual risk is not
+  acceptable to state.
 - The side-effect audit finds unrelated changes that should be split before
   handoff or commit.

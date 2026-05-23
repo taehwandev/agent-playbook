@@ -23,6 +23,18 @@ explicitly asks to remove or replace them.
 - Keep formatting, generated output, dependency changes, and cleanup separate
   from the requested behavior unless they are required.
 
+Use concrete evidence instead of memory:
+
+```text
+git status --short --untracked-files=all
+git diff --name-only
+git diff -- <path>
+```
+
+For long tasks, record the initial changed-file list in your notes. When the
+repo is already dirty, treat that list as user-owned until you have inspected
+the file and can identify the lines you changed.
+
 ## During Work
 
 - Do not revert, restage, reformat, or overwrite unrelated user changes.
@@ -40,6 +52,16 @@ explicitly asks to remove or replace them.
 - Mention skipped cleanup or unrelated issues instead of bundling them into the
   task.
 - Do not claim the worktree is clean unless it has been checked.
+
+Before staging or committing, compare staged files against the task scope:
+
+```text
+git diff --name-only
+git diff --cached --name-only
+git status --short --untracked-files=all
+```
+
+Stage only files that were inspected and are part of the current task.
 
 ## Never
 

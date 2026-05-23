@@ -24,19 +24,27 @@ If no usable install exists, ask before cloning to ~/.agent-playbook or adding
 AgentPlaybook as a repo-pinned submodule.
 
 VibeGuard is required. After selecting the AgentPlaybook root, run VibeGuard
-setup and audit with that root as --rules. Use the local vibe-guard command if
-available, otherwise use:
+setup and audit with that root as --rules. Use a local, repo-pinned, or
+team-approved VibeGuard source when available:
 
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard -- vibe-guard setup . --rules <AGENTPLAYBOOK_ROOT>
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard -- vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT> --fix
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard -- vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
+vibe-guard setup . --rules <AGENTPLAYBOOK_ROOT>
+vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
+
+If no trusted local source exists, use a reviewed GitHub package tag or commit:
+
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard setup . --rules <AGENTPLAYBOOK_ROOT>
+npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard#<VIBEGUARD_REF> -- vibe-guard audit . --rules <AGENTPLAYBOOK_ROOT>
+
+Do not run an unpinned GitHub package command in unattended automation. Use
+--fix only after audit output shows a low-risk safety fix and this repo allows
+that automatic change.
 
 If VibeGuard cannot run, stop and tell me the blocker.
 
-Update the repo-local agent instructions, such as AGENTS.md, CLAUDE.md, CODEX.md,
-or .agents/README.md, with a short routing block. Preserve existing project
-rules. Keep repo-specific commands, paths, services, product policy, and domain
-language in this repo.
+Update the repo-local agent instructions, such as AGENTS.md,
+AGENTS.override.md, CLAUDE.md, CODEX.md, or .agents/README.md, with a short
+routing block. Preserve existing project rules. Keep repo-specific commands,
+paths, services, product policy, and domain language in this repo.
 
 After connecting it, verify that the referenced AgentPlaybook AGENTS.md and
 index.md files exist, confirm VibeGuard is passing, then continue with my

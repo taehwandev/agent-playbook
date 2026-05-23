@@ -106,6 +106,14 @@ If no useful test exists:
 - do not replace a missing high-risk test with a weaker assertion merely to make
   the check pass
 
+## When Commands Fail
+
+Use `common/tool-failure-recovery.md`. A failed command is evidence, not a
+reason to guess. Read stdout/stderr, identify the failing file, line, error code,
+or test name, make the smallest relevant correction, and rerun the narrowest
+proving command. Do not repeat the same command blindly or downgrade assertions
+only to make the check pass.
+
 ## Do Not Overclaim
 
 Do not say a feature is complete when:

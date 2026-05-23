@@ -34,8 +34,11 @@ Core direct routes:
 ```text
 Document index: <AGENTPLAYBOOK_ROOT>/index.md
 Agent operating skill: <AGENTPLAYBOOK_ROOT>/common/agent-operating-skill.md
+Stack discovery: <AGENTPLAYBOOK_ROOT>/common/stack-discovery.md
 LLM discipline: <AGENTPLAYBOOK_ROOT>/common/llm-coding-discipline.md
 Code conventions: <AGENTPLAYBOOK_ROOT>/common/code-conventions.md
+Tool failure recovery: <AGENTPLAYBOOK_ROOT>/common/tool-failure-recovery.md
+Agent interaction: <AGENTPLAYBOOK_ROOT>/common/agent-interaction.md
 LLM wiki documentation: <AGENTPLAYBOOK_ROOT>/common/llm-wiki-documentation.md
 Editing safety: <AGENTPLAYBOOK_ROOT>/common/agent-editing-safety.md
 Worktree hygiene: <AGENTPLAYBOOK_ROOT>/common/worktree-hygiene.md

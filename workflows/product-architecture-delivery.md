@@ -24,6 +24,24 @@ python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route product --platform <platf
 
 Use that output as the command manifest before writing PRD or ARD.
 
+## Scaled Use
+
+Use the full PRD and ARD gates for non-trivial behavior, architecture, data,
+security, contract, release, billing, or user-visible workflow changes.
+
+For trivial changes, use a lightweight note instead of forcing full PRD/ARD.
+A change is trivial only when all of these are true:
+
+- no behavior, API, schema, auth, permission, billing, data, release, or
+  dependency boundary changes
+- no new user state, error path, persistence, external service, or background
+  behavior
+- no ambiguity that could change implementation or verification
+- verification is obvious and narrow
+
+The lightweight note should still name intent, touched boundary, and
+verification. If any condition is false, use the full workflow.
+
 ## Read
 
 - `workflows/agent-task-lifecycle.md`

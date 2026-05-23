@@ -11,8 +11,12 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 ## Common
 
 - Agent operating baseline: `common/agent-operating-skill.md`
+- User questions, approvals, status updates, and handoff messages:
+  `common/agent-interaction.md`
 - All coding work: `common/llm-coding-discipline.md`
 - Code conventions, naming, comments, formatting: `common/code-conventions.md`
+- Stack, package manager, framework, runtime, and command discovery:
+  `common/stack-discovery.md`
 - Project, app, repo, package, module, CLI, and service naming: `common/project-naming.md`
 - Change size and reviewable diff scope: `common/change-size-policy.md`
 - Existing checkout and user-owned diff safety: `common/worktree-hygiene.md`
@@ -32,6 +36,8 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - Refactor: `common/refactoring.md`
 - Testing or bug regression: `common/testing.md`
 - Verification evidence: `common/verification-policy.md`
+- Tool, compiler, lint, test, and command failure recovery:
+  `common/tool-failure-recovery.md`
 - Local tools, AI CLIs, runtime, usage telemetry: `common/local-tools.md`
 - File editing safety, secrets, external state: `common/agent-editing-safety.md`
 - Design system or shared UI rules: `common/design-system.md`
@@ -99,6 +105,12 @@ For any multi-step agent task, start with `workflows/agent-task-lifecycle.md`.
 When `scripts/workflow.py` is available, use it to generate the command route
 before manually selecting workflow documents.
 
+Before running project commands, adding dependencies, or using framework-specific
+APIs, use `common/stack-discovery.md`. When a command fails, use
+`common/tool-failure-recovery.md` before retrying or changing code. When the
+agent needs to ask a blocker question or approval, use
+`common/agent-interaction.md`.
+
 For product or feature work that needs PRD -> ARD -> implementation ->
 verification gates, use `workflows/product-architecture-delivery.md` and prefer
 this scripted route:
@@ -121,6 +133,10 @@ that concern.
 For documentation-only work, use `workflows/documentation-update.md`. For wiki,
 knowledge-base, runbook, onboarding, durable architecture, or operational docs
 that humans and agents will read, also use `common/llm-wiki-documentation.md`.
+For documentation review, use
+`python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py route docs-review --concern wiki`
+or manually combine `workflows/review-and-commit.md`,
+`workflows/documentation-update.md`, and `common/llm-wiki-documentation.md`.
 For planning, research, comparison, or recommendations before implementation,
 use `workflows/planning-research.md`. For interrupted, long-running, or
 transferred work, use `workflows/agent-handoff-continuation.md`.

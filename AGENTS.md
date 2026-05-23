@@ -22,14 +22,23 @@ Write shared agent library documents in English. This includes `AGENTS.md`,
 `templates/`. Public-facing site copy under `docs/` may be localized, but it
 must not become the source of truth for agent guidance.
 
+## Metadata Policy
+
+Use frontmatter `status` as the readiness signal and `type` as provenance or
+review state. Do not ignore a document only because `type` is `ai-generated`
+when `status` is `review` or `stable`; instead, treat `draft` as provisional,
+`review` as active, and `stable` as broad-use guidance. The `keyflow_id` field
+is retained for metadata compatibility and should not be renamed casually.
+
 ## Priority
 
 When instructions conflict, follow this order:
 
 1. System and developer instructions from the active agent runtime.
 2. The user's current request.
-3. The target repo's local instructions, such as `AGENTS.md`, `CLAUDE.md`,
-   `CODEX.md`, `.agents/README.md`, or `CONTRIBUTING.md`.
+3. The target repo's local instructions, such as `AGENTS.md`,
+   `AGENTS.override.md`, `CLAUDE.md`, `CODEX.md`, `.agents/README.md`, or
+   `CONTRIBUTING.md`.
 4. More specific shared AgentPlaybook documents, such as platform or product-pattern docs.
 5. Shared AgentPlaybook common cards.
 6. General guidance in `README.md`.
@@ -52,14 +61,16 @@ Then load only the supporting documents relevant to the task.
 VibeGuard is mandatory for AgentPlaybook maintenance and for repos that apply
 AgentPlaybook. Before documentation, code, configuration, dependency, data,
 deployment, or credential changes, run the VibeGuard audit for the target repo.
-For this repo, use:
+For this repo, prefer the local or pinned VibeGuard source documented in
+`VIBEGUARD.md`. During local maintenance, use:
 
 ```text
-npm --no-update-notifier exec --yes --package github:taehwandev/VibeGuard -- vibe-guard audit . --rules .
+vibe-guard audit . --rules .
 ```
 
-Run it again before finishing. Use `--fix` only for low-risk safety fixes, and
-never print detected secret values. If VibeGuard cannot run, stop and report the
+Run it again before finishing. Do not run an unpinned GitHub package in
+unattended automation. Use `--fix` only for low-risk safety fixes, and never
+print detected secret values. If VibeGuard cannot run, stop and report the
 blocker instead of treating it as optional.
 
 ## Workflow Script
@@ -92,8 +103,11 @@ specific cards selected by `index.md`.
 
 ```text
 <AGENTPLAYBOOK_ROOT>/index.md
+<AGENTPLAYBOOK_ROOT>/common/stack-discovery.md
 <AGENTPLAYBOOK_ROOT>/common/llm-coding-discipline.md
 <AGENTPLAYBOOK_ROOT>/common/code-conventions.md
+<AGENTPLAYBOOK_ROOT>/common/tool-failure-recovery.md
+<AGENTPLAYBOOK_ROOT>/common/agent-interaction.md
 <AGENTPLAYBOOK_ROOT>/common/agent-editing-safety.md
 ```
 

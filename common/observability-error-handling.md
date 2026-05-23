@@ -25,6 +25,18 @@ Use when adding or reviewing errors, logging, diagnostics, monitoring, audit eve
 - Audit events should record actor, target, action, time, and result.
 - Retry needs idempotency or a clear duplicate-handling strategy.
 
+## Exception Handling
+
+- Do not write empty catch blocks.
+- Do not convert an exception into success without recording a typed failure,
+  user-visible state, log, metric, audit event, or explicit recovery path.
+- Preserve the original cause when wrapping or mapping errors.
+- Rethrow, return a typed result, or surface a recoverable user state; do not
+  hide the failure to make a command, test, or UI path appear successful.
+- If an error is intentionally ignored, keep the scope narrow and leave a short
+  reason. Ignored errors must not affect correctness, data integrity, security,
+  billing, permissions, or user-visible completion.
+
 ## Error Shape
 
 Prefer typed errors or result objects over string matching.
