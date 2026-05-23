@@ -94,6 +94,16 @@ Before finishing:
 - LLM-readable wiki, knowledge-base, runbook, or durable documentation:
   `common/llm-wiki-documentation.md`.
 - Code conventions: `common/code-conventions.md`.
+- File/module layout, ownership, public contracts, or `api`/`impl` splits:
+  `common/code-structure-ownership.md`.
+- Reusable code extraction or shared module/package contracts:
+  `common/reusable-code-design.md`.
+- Reusable component, hook, widget, control, or caller-facing API design:
+  `common/component-api-design.md`.
+- UI, async, reducer, store, ViewModel, hook, cache, or state-machine state
+  design: `common/state-modeling.md`.
+- Error handling, typed failures, retry classification, or failure UX:
+  `common/error-modeling.md`.
 - Project, app, repo, package, module, CLI, or service naming:
   `common/project-naming.md`.
 - Change size or broad diffs: `common/change-size-policy.md`.
@@ -103,12 +113,17 @@ Before finishing:
 - Generated files, lockfiles, or snapshots: `common/generated-files-policy.md`.
 - API, DTO, route, event, webhook, or shared fixture contracts:
   `common/api-contract-compatibility.md`.
+- Upload, download, media, attachment, signed URL, public/private asset
+  movement, cleanup, or embedded asset references:
+  `common/asset-lifecycle.md`.
 - External, persisted, generated, cached, platform, or user-provided values:
   `common/defensive-boundaries.md`.
 - Release, deployment, packaging, signing, rollout, rollback, versioning, or
   tags: `common/release-deployment.md` and `common/release-versioning.md`.
 - User-facing text, forms, controls, dates, numbers, or localization:
   `common/accessibility-i18n.md`.
+- SEO, sitemap, robots, metadata, Open Graph, short links, canonical URLs, or
+  public discovery feeds: `common/public-discovery.md`.
 - UI layout, interaction, text overflow, responsive behavior, or
   accessibility-visible state: `common/ui-visual-verification.md`.
 - Refactoring: `common/refactoring.md`.

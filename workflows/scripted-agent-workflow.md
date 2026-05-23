@@ -49,6 +49,7 @@ Current command profiles:
 - `retrospective`
 - `review`
 - `task`
+- `triage`
 
 Current platform values:
 
@@ -62,22 +63,41 @@ Current concern values:
 
 - `accessibility`
 - `api`
+- `asset`
+- `assets`
 - `auth`
 - `background`
 - `billing`
 - `cache`
+- `component`
+- `component-api`
+- `compose`
 - `defensive`
 - `dependency`
+- `desktop`
+- `discovery`
+- `effort`
+- `error`
+- `errors`
 - `generated`
 - `failure`
+- `intake`
 - `invite`
 - `interaction`
+- `module`
 - `observability`
 - `persistence`
+- `react`
 - `release`
+- `reusability`
 - `security`
+- `seo`
 - `stack`
+- `state`
+- `structure`
+- `swiftui`
 - `ui`
+- `uikit`
 - `wiki`
 - `worktree`
 

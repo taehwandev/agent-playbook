@@ -31,6 +31,8 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - Dependencies, SDKs, packages, build plugins: `common/dependency-policy.md`
 - Generated files, lockfiles, snapshots, build artifacts: `common/generated-files-policy.md`
 - API, DTO, route, event, webhook contract compatibility: `common/api-contract-compatibility.md`
+- Asset upload, URL, publish, cleanup, and embedded reference lifecycle:
+  `common/asset-lifecycle.md`
 - Defensive handling for external, persisted, generated, cached, or user-provided
   values: `common/defensive-boundaries.md`
 - Release, deployment, packaging, rollback: `common/release-deployment.md`
@@ -42,6 +44,8 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - New feature or product ambiguity: `common/product-spec-to-implementation.md`
 - LLM-readable wiki, knowledge-base, runbook, or durable documentation:
   `common/llm-wiki-documentation.md`
+- Public discovery, SEO, sitemap, metadata, previews, and canonical URLs:
+  `common/public-discovery.md`
 - App boundary/state/data shape: `common/app-architecture.md`
 - State modeling, UiState, effects, reducers, stores, ViewModels, hooks:
   `common/state-modeling.md`
@@ -226,6 +230,14 @@ read `common/release-deployment.md`. For release version, package version, app
 version, build number, tag, artifact name, or deployment id changes, also read
 `common/release-versioning.md`. For user-facing text, forms, controls, dates,
 numbers, media, or localization, read `common/accessibility-i18n.md`.
+
+For uploads, downloads, generated files, media, attachments, signed or temporary
+URLs, public/private asset movement, asset cleanup, or asset references embedded
+in persisted content, read `common/asset-lifecycle.md`.
+
+For sitemap, robots, metadata, Open Graph previews, short links, public search,
+canonical URLs, link previews, structured data, or public discovery feeds, read
+`common/public-discovery.md`.
 
 For code that consumes external, persisted, generated, cached, platform, or
 user-provided values, read `common/defensive-boundaries.md`.

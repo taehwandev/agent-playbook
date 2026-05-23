@@ -251,11 +251,12 @@ Supported commands are `ambiguity`, `bugfix`, `docs`, `docs-review`, `feature`,
 
 Supported platforms are `android`, `application`, `ios`, `server`, and `web`.
 Supported concerns are `accessibility`, `api`, `auth`, `background`, `billing`,
-`cache`, `component`, `component-api`, `compose`, `defensive`, `dependency`,
-`desktop`, `effort`, `error`, `errors`, `failure`, `generated`, `intake`,
-`interaction`, `invite`, `module`, `observability`, `persistence`, `react`,
-`release`, `reusability`, `security`, `stack`, `state`, `structure`,
-`swiftui`, `ui`, `uikit`, `wiki`, and `worktree`.
+`asset`, `assets`, `cache`, `component`, `component-api`, `compose`,
+`defensive`, `dependency`, `desktop`, `discovery`, `effort`, `error`, `errors`,
+`failure`, `generated`, `intake`, `interaction`, `invite`, `module`,
+`observability`, `persistence`, `react`, `release`, `reusability`, `security`,
+`seo`, `stack`, `state`, `structure`, `swiftui`, `ui`, `uikit`, `wiki`, and
+`worktree`.
 
 Use `classify` before route selection when the request may be vague or when the
 agent runtime can choose model/reasoning effort. The classifier is intentionally
