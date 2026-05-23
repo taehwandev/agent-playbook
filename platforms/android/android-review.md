@@ -1,0 +1,38 @@
+---
+keyflow_id: sys_775cd6266968
+status: draft
+type: ai-generated
+---
+
+# Android Review
+
+Use for Android app, Compose/ViewModel, permission, and UI flow review.
+
+## Review
+
+- Check Compose state hoisting, ViewModel ownership, Flow collection, and lifecycle safety.
+- Verify loading, empty, error, permission-denied, and offline states.
+- Ensure repository/data source boundaries are not bypassed from UI.
+- Check permission, activity result, navigation argument, and process recreation behavior.
+- Confirm secrets and user data are not logged.
+- Check WorkManager, foreground service, notification, and retry behavior when background work is touched.
+- Review exported components, deep links, WebView bridges, PendingIntent mutability, and cleartext traffic when security surfaces change.
+
+## Tools
+
+- Static: Gradle lint, ktlint/detekt if configured.
+- Unit: JVM tests for mapper, validator, policy, ViewModel state.
+- Instrumented: AndroidJUnitRunner for framework-dependent behavior.
+- UI: Compose UI Test or Espresso for screen interactions.
+- Screenshot: Paparazzi or screenshot tests if the repo uses them.
+- Flow: Turbine or equivalent for stream behavior when configured.
+- Performance: Macrobenchmark or baseline profile for startup and critical flows when configured.
+
+## UI Test Focus
+
+- Screen renders expected state from fake ViewModel/state.
+- User actions emit correct events or trigger expected navigation.
+- Permission denied and retry flows are covered.
+- Rotation, process death, or lifecycle changes do not lose critical state.
+- Background jobs do not duplicate side effects after retry or process death.
+- Release build configuration does not expose debug endpoints, secrets, or broad exported components.

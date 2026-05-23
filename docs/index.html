@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agent Playbook</title>
+    <meta
+      name="description"
+      content="A compact shared playbook for AI coding agents, platform architecture, review, commits, and reusable product workflows."
+    >
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="nav" aria-label="Primary">
+        <a href="#library">Library</a>
+        <a href="#tracks">Tracks</a>
+        <a href="#workflows">Workflows</a>
+        <a href="#usage">Usage</a>
+      </nav>
+      <p class="eyebrow">Shared rules for AI-assisted engineering</p>
+      <h1>Agent Playbook</h1>
+      <p class="lede">
+        A compact operating manual for coding agents. It keeps common behavior,
+        architecture, review, commit, and product-pattern guidance in one
+        reusable place while repo-local instructions stay in each project.
+      </p>
+      <div class="hero-actions" aria-label="Key links">
+        <a class="button primary" href="https://github.com/taehwandev/agent-playbook/blob/main/AGENTS.md">Agent Entry</a>
+        <a class="button" href="https://github.com/taehwandev/agent-playbook/blob/main/index.md">Document Index</a>
+      </div>
+    </header>
+
+    <main>
+      <section id="library" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Library Model</p>
+          <h2>Small cards, loaded only when relevant.</h2>
+        </div>
+        <div class="grid three">
+          <article>
+            <h3>Common</h3>
+            <p>
+              Baseline behavior for LLM coding discipline, architecture design,
+              refactoring, testing, review, commits, verification, safety, and
+              design systems.
+            </p>
+          </article>
+          <article>
+            <h3>Platforms</h3>
+            <p>
+              Focused architecture and review tracks for web, iOS, Android,
+              server, and desktop/application work.
+            </p>
+          </article>
+          <article>
+            <h3>Product Patterns</h3>
+            <p>
+              Reusable SaaS mechanics such as auth, RBAC, invitations, billing,
+              entitlements, and tenant boundaries.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="tracks" class="section band">
+        <div class="section-heading">
+          <p class="eyebrow">Execution Tracks</p>
+          <h2>Common first, then one platform.</h2>
+        </div>
+        <div class="track-list">
+          <a href="https://github.com/taehwandev/agent-playbook/blob/main/platforms/web/web-architecture.md">Web / React</a>
+          <a href="https://github.com/taehwandev/agent-playbook/blob/main/platforms/ios/ios-architecture.md">iOS</a>
+          <a href="https://github.com/taehwandev/agent-playbook/blob/main/platforms/android/android-architecture.md">Android</a>
+          <a href="https://github.com/taehwandev/agent-playbook/blob/main/platforms/server/server-architecture.md">Server</a>
+          <a href="https://github.com/taehwandev/agent-playbook/blob/main/platforms/application/application-architecture.md">Application</a>
+        </div>
+      </section>
+
+      <section id="workflows" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Workflow Layer</p>
+          <h2>Repeatable paths for common agent work.</h2>
+        </div>
+        <div class="grid two">
+          <article>
+            <h3>Feature Implementation</h3>
+            <p>
+              Convert a request into assumptions, scope, implementation steps,
+              and verification evidence without adding speculative features.
+            </p>
+            <a href="https://github.com/taehwandev/agent-playbook/blob/main/workflows/feature-implementation.md">Open workflow</a>
+          </article>
+          <article>
+            <h3>Review And Commit</h3>
+            <p>
+              Review the current work product, check platform-specific risk,
+              verify the result, and prepare a clean commit unit.
+            </p>
+            <a href="https://github.com/taehwandev/agent-playbook/blob/main/workflows/review-and-commit.md">Open workflow</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="usage" class="section band">
+        <div class="section-heading">
+          <p class="eyebrow">Usage</p>
+          <h2>Route repos to the shared index.</h2>
+        </div>
+        <pre><code>Shared agent library:
+/Users/taehwankwon/Documents/KeyFlowVault/agent/AGENTS.md
+
+Use repo-local instructions first.
+Use the shared index only to select the smallest relevant document set.
+Do not load every shared document by default.</code></pre>
+      </section>
+    </main>
+  </body>
+</html>
