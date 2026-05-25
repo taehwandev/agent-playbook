@@ -77,7 +77,7 @@ Rules:
    release, or handoff. Roll back only dependent agent-made changes after the
    missed gate when safe, preserve user-owned changes, return to the first
    missed gate only, and run the retrospective workflow. The missed gate gets
-   one retry; do not restart the whole route.
+   up to two recovery retries; do not restart the whole route.
 9. When a gate is missed, the retrospective must include `AI mistake`,
    `Proposed fix`, and `Discussion result`. Write the discussion result in the
    user's language for the task.

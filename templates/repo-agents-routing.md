@@ -55,7 +55,7 @@ required gate to be GREEN. YELLOW means blocked or paused. RED means missed or
 missing evidence and triggers missed-gate recovery: stop finalization, roll back
 only dependent agent-made changes after the missed gate when safe, return to the
 first missed gate only, and run the retrospective workflow. The missed gate gets
-one retry; do not restart the whole route.
+up to two recovery retries; do not restart the whole route.
 Do not load every shared document by default.
 Replace `<AGENTPLAYBOOK_ROOT>` with an existing local install path,
 `${AGENTPLAYBOOK_HOME}`, or a repo-pinned submodule path. Use legacy

@@ -22,6 +22,9 @@ MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 FRONTMATTER_REQUIRED_KEYS = ("keyflow_id:", "status:", "type:")
 QUESTION_ROUTE_COMMANDS = {"triage", "ambiguity"}
 ANSWER_ONLY_CLARITY = "direct-question"
+RETRY_LIMIT = 2
+ATTEMPT_LIMIT = RETRY_LIMIT + 1
+RETRY_SCOPE = "first_missed_gate"
 
 
 @dataclass(frozen=True)
@@ -549,8 +552,9 @@ def resolve_docs(
         "request_classified": request_classified,
         "docs": unique(docs),
         "gates": gates,
-        "attempt_limit": 2,
-        "retry_scope": "first_missed_gate",
+        "attempt_limit": ATTEMPT_LIMIT,
+        "retry_limit": RETRY_LIMIT,
+        "retry_scope": RETRY_SCOPE,
         "gate_ledger": [
             {
                 "gate": gate,
@@ -599,8 +603,9 @@ def print_markdown(route: Dict[str, object]) -> None:
         print(f"- {gate}")
     print()
     print("## Gate Execution Ledger")
-    print("Attempt limit: `2`")
-    print("Retry scope: `first_missed_gate`")
+    print(f"Attempt limit: `{ATTEMPT_LIMIT}`")
+    print(f"Recovery retry limit: `{RETRY_LIMIT}`")
+    print(f"Retry scope: `{RETRY_SCOPE}`")
     print()
     print("Mark and show every gate as it completes:")
     for item in route["gate_ledger"]:
@@ -616,7 +621,7 @@ def print_markdown(route: Dict[str, object]) -> None:
     print("If any required gate is not executed, stop finalization, return to the")
     print("first missed gate only, roll back only dependent agent-made changes when")
     print("safe, and run `workflows/retrospective-learning.md`. The missed gate gets")
-    print("one retry; do not restart the whole route.")
+    print("up to two recovery retries; do not restart the whole route.")
     if route["notes"]:
         print()
         print("## Notes")
@@ -636,6 +641,43 @@ def print_markdown(route: Dict[str, object]) -> None:
     print("- If repo-local instructions conflict with this route, repo-local rules win.")
 
 
+def validate_route_contracts() -> List[str]:
+    failures: List[str] = []
+
+    for command, profile in COMMANDS.items():
+        route = resolve_docs(command, None, [], request_classified=True)
+
+        if route["attempt_limit"] != ATTEMPT_LIMIT:
+            failures.append(f"{command}: attempt_limit must be {ATTEMPT_LIMIT}")
+        if route["retry_limit"] != RETRY_LIMIT:
+            failures.append(f"{command}: retry_limit must be {RETRY_LIMIT}")
+        if route["retry_scope"] != RETRY_SCOPE:
+            failures.append(f"{command}: retry_scope must be {RETRY_SCOPE}")
+
+        expected_gates = list(profile.gates)
+        if command not in QUESTION_ROUTE_COMMANDS:
+            expected_gates = ["request intake", *expected_gates]
+        if route["gates"] != expected_gates:
+            failures.append(f"{command}: route gates do not match profile gates")
+
+        ledger = route["gate_ledger"]
+        if len(ledger) != len(route["gates"]):
+            failures.append(f"{command}: gate_ledger length does not match gates")
+            continue
+
+        for gate, item in zip(route["gates"], ledger):
+            if item["gate"] != gate:
+                failures.append(f"{command}: ledger gate `{item['gate']}` does not match `{gate}`")
+            if item["status"] != "pending":
+                failures.append(f"{command}: initial ledger status for `{gate}` must be pending")
+            if item["signal"] != "PENDING":
+                failures.append(f"{command}: initial ledger signal for `{gate}` must be PENDING")
+            if item["evidence"] != "":
+                failures.append(f"{command}: initial ledger evidence for `{gate}` must be empty")
+
+    return failures
+
+
 def validate() -> int:
     refs: Set[str] = set(CORE_DOCS)
     for profile in COMMANDS.values():
@@ -648,6 +690,7 @@ def validate() -> int:
         refs.update(docs)
 
     missing = sorted(doc for doc in refs if not (ROOT / doc).exists())
+    bad_route_contracts = validate_route_contracts()
     markdown_files = sorted(ROOT.rglob("*.md"))
     bad_frontmatter: List[str] = []
     bad_links: List[str] = []
@@ -689,13 +732,18 @@ def validate() -> int:
         print("Broken markdown links:", file=sys.stderr)
         for item in bad_links:
             print(f"- {item}", file=sys.stderr)
+    if bad_route_contracts:
+        print("Invalid workflow route contracts:", file=sys.stderr)
+        for item in bad_route_contracts:
+            print(f"- {item}", file=sys.stderr)
 
-    if missing or bad_frontmatter or bad_links:
+    if missing or bad_frontmatter or bad_links or bad_route_contracts:
         return 1
 
     print(
         f"OK: {len(refs)} workflow references exist; "
-        f"{len(markdown_files)} markdown frontmatter blocks and links are valid."
+        f"{len(markdown_files)} markdown frontmatter blocks and links are valid; "
+        f"{len(COMMANDS)} route contracts are valid."
     )
     return 0
 

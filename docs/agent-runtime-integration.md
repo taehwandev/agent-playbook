@@ -196,7 +196,7 @@ For every runtime:
 If a required route gate was missed, the runtime must stop finalization, roll
 back only dependent agent-made changes after the missed gate when safe, return
 to the first missed gate only, and run the retrospective workflow. The missed
-gate gets one retry; the whole route is not restarted.
+gate gets up to two recovery retries; the whole route is not restarted.
 
 Traffic-light signals are checked inside the workflow:
 

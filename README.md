@@ -398,7 +398,7 @@ inspection.
 
 If the workflow router cannot run, the agent must stop and report the blocker or
 ask whether to continue with an `index.md` fallback. The route output contains
-`docs`, `gates`, `gate_ledger`, `attempt_limit`,
+`docs`, `gates`, `gate_ledger`, `attempt_limit`, `retry_limit`,
 `retry_scope`, `notes`, and `missing`. Agents should read the listed docs in
 order, use gates as the task checklist, mark each gate with evidence while
 working, and show a short traffic-light gate signal after each completed gate or
@@ -406,8 +406,8 @@ task step. Stop if any document is listed under `missing`. Completion requires
 every required gate to be `GREEN`. `YELLOW` means blocked or paused. `RED` means
 missed or missing evidence and triggers missed-gate recovery: stop finalization,
 return to the first missed gate only, roll back dependent agent-made changes
-when safe, and run the retrospective workflow. The missed gate gets one retry;
-the whole route is not restarted.
+when safe, and run the retrospective workflow. The missed gate gets up to two
+recovery retries; the whole route is not restarted.
 
 ## Structure
 

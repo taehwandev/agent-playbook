@@ -114,7 +114,8 @@ python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py list
 ```
 
 The route output contains `request_classification`, `docs`, `gates`,
-`gate_ledger`, `attempt_limit`, `retry_scope`, `notes`, and `missing`. Read
+`gate_ledger`, `attempt_limit`, `retry_limit`, `retry_scope`, `notes`, and
+`missing`. Read
 listed documents in order, follow the gates as the task checklist, keep the gate
 ledger current while working, show a short traffic-light gate signal after each
 completed gate or task step, and stop if `missing` is not empty. Completion
