@@ -73,6 +73,14 @@ Rules:
 ## Flow And Coroutine Rules
 
 - Use `viewModelScope` for work owned by the ViewModel.
+- Use `viewModelScope.launch { ... }` for one-shot suspend work such as loading,
+  submit, retry, or save actions.
+- Use `onEach { ... }.launchIn(viewModelScope)` for long-lived Flow
+  subscriptions owned by the ViewModel, such as event buses, repositories, or
+  platform callbacks that should keep collecting while the ViewModel is active.
+- Use `stateIn(viewModelScope, started, initial)` when a Flow is transformed
+  into UI-observed `StateFlow`; do not use `launchIn` only to copy Flow values
+  into mutable UI state when `stateIn` can express the state owner directly.
 - Inject dispatchers, clocks, and schedulers when tests need control.
 - Cancel or replace in-flight work when query, account, permission, or route
   arguments change.
