@@ -89,6 +89,8 @@ short and point to:
 <AGENTPLAYBOOK_ROOT>/AGENTS.md
 <AGENTPLAYBOOK_ROOT>/index.md
 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py
+<AGENTPLAYBOOK_ROOT>/scripts/agent-preflight.py
+<AGENTPLAYBOOK_ROOT>/scripts/agent-finish-check.py
 ```
 
 Do not paste the full playbook into runtime-specific files.
@@ -181,17 +183,21 @@ For every runtime:
     If the request is a direct question, answer it before routing or editing.
     Use `index.md` only for simple answer-only work or an explicitly accepted
     fallback when the script cannot run.
-11. Keep a gate execution ledger, mark each route
+11. When wrapper scripts are available, run `scripts/agent-preflight.py` before
+    editing and `scripts/agent-finish-check.py` before final report, commit,
+    release, or handoff. Missing wrapper evidence or route gate evidence is
+    non-compliant.
+12. Keep a gate execution ledger, mark each route
    gate with evidence when it is executed, assign a traffic-light signal, and
    show a short gate signal after each completed gate or task step.
-12. Load only selected cards.
-13. Execute repo-local commands only from trusted repo-local instructions.
-14. Before reporting completion, confirm every required route gate is `GREEN`
+13. Load only selected cards.
+14. Execute repo-local commands only from trusted repo-local instructions.
+15. Before reporting completion, confirm every required route gate is `GREEN`
     with ledger evidence.
-15. When a VibeGuard execution evidence adapter is configured, use the
+16. When a VibeGuard execution evidence adapter is configured, use the
     VibeGuard CLI evidence command and compare the summary with claimed
     commands.
-16. Report verification and residual risk.
+17. Report verification and residual risk.
 
 If a required route gate was missed, the runtime must stop finalization, roll
 back only dependent agent-made changes after the missed gate when safe, return
@@ -217,6 +223,8 @@ After connecting a runtime, verify:
   runtime reads `AGENTS.md`
 - `AGENTS.md`, `index.md`, and `scripts/workflow.py` exist under that root
 - the VibeGuard gate passed or stopped with a reported blocker
+- multi-step work has preflight and finish-check evidence when wrapper scripts
+  are available
 - VibeGuard evidence was summarized through VibeGuard docs when an evidence
   adapter was configured
 - the route gate ledger was completed for every multi-step task

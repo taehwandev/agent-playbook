@@ -117,6 +117,22 @@ Completion requires every required gate to be GREEN. YELLOW means blocked or
 paused. RED means the gate was missed or lacks evidence and must use missed-gate
 recovery.
 
+When the wrapper scripts are available, run preflight before editing, reviewing,
+committing, or reporting completion:
+
+python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-preflight.py --project . --rules <AGENTPLAYBOOK_ROOT> --command <COMMAND> --request "<USER_REQUEST>" [--platform <PLATFORM>] [--concern <CONCERN>]
+
+Before final report, commit, release, or handoff, run finish check with evidence
+for every required route gate:
+
+python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-finish-check.py --project . --rules <AGENTPLAYBOOK_ROOT> --gate "request intake=<evidence>" --gate "orient=<evidence>" --gate "scope=<evidence>" --gate "act=<evidence>" --gate "verify=<evidence>" --gate "report=<evidence>"
+
+The wrappers write local evidence under .agentplaybook/. Missing wrapper
+evidence or missing gate evidence is non-compliant even if the final files look
+correct. If final VibeGuard is YELLOW / Needs review, report it explicitly and
+pass --allow-vibeguard-review with a reason only when that review state is
+acceptable.
+
 After connecting it, verify that the referenced AgentPlaybook AGENTS.md and
 index.md files exist, confirm the VibeGuard gate is passing, then continue with
 my original task.
@@ -151,6 +167,9 @@ The bridge must force this behavior:
   implementation before lower-level coding steps.
 - If my request is ambiguous and the answer changes behavior, scope, safety, or
   external state, ask before working.
+- For multi-step tasks, require AgentPlaybook preflight and finish-check
+  evidence when those wrapper scripts are available; missing wrapper or gate
+  evidence is non-compliant.
 ```
 
 For a team-pinned install, add this sentence:

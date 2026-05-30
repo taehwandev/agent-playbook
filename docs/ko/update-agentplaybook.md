@@ -1,0 +1,94 @@
+---
+keyflow_id: docs_ko_update_agentplaybook
+status: review
+type: human-reviewed-needed
+---
+
+# AgentPlaybook 최신화 안내
+
+이 문서는 한글 빠른 안내입니다. AgentPlaybook의 기준 정책은
+`README.md`, `AGENTS.md`, `docs/agent-bootstrap.md`,
+`docs/agent-runtime-integration.md`에 있습니다.
+
+## 기본 원칙
+
+- AgentPlaybook은 복사해서 각 저장소에 붙여넣기보다, 하나의 root를
+  링크해서 쓰는 방식이 기본입니다.
+- 개인이나 소수 사용자는 Git checkout 하나를 `git pull --ff-only`로
+  최신화하면 됩니다.
+- AgentPlaybook을 링크한 대상 저장소는 별도 복사본을 업데이트할 필요가
+  없습니다. 다음 에이전트 작업 때 선택된 AgentPlaybook root의 최신 파일을
+  다시 읽으면 됩니다.
+- 작업이 진행 중일 때 자동으로 pull하지 마세요. 지침이 중간에 바뀌면
+  작업 기준도 바뀝니다. 최신화는 작업 사이에 사람이 명시적으로 실행하는
+  것이 안전합니다.
+
+## 개인 로컬 설치 최신화
+
+```bash
+cd "${AGENTPLAYBOOK_HOME}"
+git pull --ff-only
+python3 scripts/workflow.py validate
+npx --yes @taehwandev/vibeguard audit . --rules .
+```
+
+`AGENTPLAYBOOK_HOME`을 쓰지 않는다면 실제 AgentPlaybook 경로로 이동해서
+같은 명령을 실행하면 됩니다.
+
+## 실행 근거 강제
+
+최신화 후 여러 단계 작업을 맡길 때는 에이전트가 wrapper evidence를 만들게
+하는 것이 안전합니다. 지침을 읽었다는 말만으로는 충분하지 않습니다.
+
+작업 전:
+
+```bash
+python3 "${AGENTPLAYBOOK_HOME}/scripts/agent-preflight.py" \
+  --project . \
+  --rules "${AGENTPLAYBOOK_HOME}" \
+  --command task \
+  --request "<USER_REQUEST>"
+```
+
+마무리 전:
+
+```bash
+python3 "${AGENTPLAYBOOK_HOME}/scripts/agent-finish-check.py" \
+  --project . \
+  --rules "${AGENTPLAYBOOK_HOME}" \
+  --gate "request intake=<근거>" \
+  --gate "orient=<근거>" \
+  --gate "scope=<근거>" \
+  --gate "act=<근거>" \
+  --gate "verify=<근거>" \
+  --gate "report=<근거>"
+```
+
+이 스크립트들은 대상 저장소의 `.agentplaybook/` 아래에 로컬 JSON 근거를
+남깁니다. 보통 이 디렉터리는 커밋하지 않고 `.gitignore`에 둡니다. preflight
+근거, finish-check 근거, route gate 근거가 없으면 결과물이 맞아 보여도
+AgentPlaybook 기준으로는 non-compliant입니다.
+
+VibeGuard가 `YELLOW` / `Needs review`이면 완료가 아닙니다. 그 상태를 명시
+보고하고, 받아들일 수 있는 사유가 있을 때만
+`--allow-vibeguard-review "<사유>"`로 finish check를 통과시킵니다.
+
+## 팀 고정 버전 최신화
+
+팀이 submodule이나 repo-pinned copy로 특정 버전을 고정했다면, 대상
+저장소의 일반 리뷰 흐름으로 pinned commit을 올립니다.
+
+```bash
+cd <target-repo>
+git submodule update --remote .agents/AgentPlaybook
+python3 .agents/AgentPlaybook/scripts/workflow.py validate
+git add .agents/AgentPlaybook
+```
+
+팀 저장소의 커밋, PR, 검증 정책은 대상 저장소 규칙을 따릅니다.
+
+## 링크
+
+- AgentPlaybook 사이트: `https://agentplaybook.thdev.app/#update`
+- AgentPlaybook 저장소: `https://github.com/taehwandev/AgentPlaybook`
+- VibeGuard 사이트: `https://vibeguard.thdev.app/`

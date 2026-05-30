@@ -104,6 +104,8 @@ scripts/workflow.py
 ```
 
 If a usable root is found, use it. Do not reinstall.
+When `scripts/agent-preflight.py` and `scripts/agent-finish-check.py` exist in
+that root, they are the required evidence wrappers for multi-step work.
 
 ## Required VibeGuard Gate
 
@@ -209,6 +211,11 @@ python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py validate
    "<USER_REQUEST>"` before editing, keep the workflow route gate ledger,
    and verify every required gate is `GREEN` with evidence before reporting
    success.
+12. When wrapper scripts are available, run
+   `python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-preflight.py ...` before edits
+   and `python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-finish-check.py ...` before
+   final report, commit, release, or handoff. Missing wrapper evidence or gate
+   evidence is non-compliant.
 
 Use `templates/repo-agents-routing.md` as the routing block source.
 
@@ -220,6 +227,8 @@ Before reporting success:
 - `AGENTS.md` and `index.md` exist under that root.
 - The VibeGuard gate ran with the selected AgentPlaybook root as the rule
   source.
+- Multi-step work has preflight and finish-check evidence when the wrapper
+  scripts are available.
 - The target repo's local instruction file still contains its original
   repo-specific rules.
 - The routing block points to the selected root.

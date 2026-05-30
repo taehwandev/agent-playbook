@@ -1,6 +1,7 @@
 .DS_Store
 .antigravitycli/
 *.log
+.agentplaybook/
 node_modules/
 dist/
 build/

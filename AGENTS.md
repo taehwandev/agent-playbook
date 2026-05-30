@@ -123,6 +123,39 @@ requires every required gate to be `GREEN`. If a required gate is missed, follow
 the missed gate recovery rule instead of finalizing. See
 `workflows/scripted-agent-workflow.md` for the full consumption rules.
 
+## Required Executable Evidence Gate
+
+For multi-step tasks, use the executable wrappers when they are available. Before
+editing, reviewing, committing, or reporting completion, create preflight
+evidence with the current target project and selected AgentPlaybook rule source:
+
+```text
+python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-preflight.py --project <TARGET_REPO> --rules <AGENTPLAYBOOK_ROOT> --command <command> --request "<USER_REQUEST>" [--platform <platform>] [--concern <concern>]
+```
+
+Before final report, commit, release, or handoff, run the finish check and pass
+evidence for every required route gate:
+
+```text
+python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-finish-check.py --project <TARGET_REPO> --rules <AGENTPLAYBOOK_ROOT> --gate "request intake=<evidence>" --gate "orient=<evidence>" --gate "scope=<evidence>" --gate "act=<evidence>" --gate "verify=<evidence>" --gate "report=<evidence>"
+```
+
+The wrappers write local JSON evidence under `<TARGET_REPO>/.agentplaybook/`.
+That directory is local runtime evidence and should usually be gitignored.
+
+Missing preflight evidence, missing finish-check evidence, or missing gate
+evidence is non-compliant even when the final code or documentation appears
+correct. If the wrappers are unavailable, the fallback is still strict: run the
+workflow router, `git status --short --untracked-files=all`, VibeGuard before
+work, VibeGuard again before finishing, and report each required gate with
+concrete evidence. Do not claim wrapper evidence exists unless the wrapper was
+actually run.
+
+VibeGuard `YELLOW` / `Needs review` is not completion. The finish check may be
+allowed to pass only when the agent explicitly reports the review state and
+passes `--allow-vibeguard-review "<reason>"`. `RED`, command failure, or missing
+VibeGuard output remains a blocker.
+
 ## Supporting Documents
 
 Use `index.md` as the full document map. Do not duplicate the full index in

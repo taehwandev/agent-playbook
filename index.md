@@ -135,6 +135,10 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 
 - Workflow script command list:
   `python3 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py list`
+- Preflight evidence wrapper:
+  `python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-preflight.py --project <TARGET_REPO> --rules <AGENTPLAYBOOK_ROOT> --command <command> --request "<USER_REQUEST>"`
+- Finish evidence wrapper:
+  `python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-finish-check.py --project <TARGET_REPO> --rules <AGENTPLAYBOOK_ROOT> --gate "request intake=<evidence>" ...`
 - Agent task lifecycle: `workflows/agent-task-lifecycle.md`
 - Request triage: `workflows/request-triage.md`
 - Agent handoff/continuation: `workflows/agent-handoff-continuation.md`
@@ -163,6 +167,9 @@ reporting completion. Treat the route's gate ledger as a required execution
 record, not a summary to reconstruct after the work. If the script cannot run,
 stop and report the blocker or fallback approval before continuing with
 `index.md`. Show a short gate signal after each completed gate or task step.
+When wrapper scripts are available, run `agent-preflight.py` before editing and
+`agent-finish-check.py` before final report, commit, release, or handoff.
+Missing wrapper evidence or missing route gate evidence is non-compliant.
 
 For any new request, first classify clarity and effort with
 `common/task-intake-effort-routing.md`. Do not use the strongest model, longest

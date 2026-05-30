@@ -59,6 +59,8 @@ Website:
 https://agentplaybook.thdev.app/
 ```
 
+Korean update guide: [docs/ko/update-agentplaybook.md](docs/ko/update-agentplaybook.md)
+
 ## Quick Start
 
 Choose one setup path first. Existing local or repo-pinned roots are the
@@ -113,6 +115,35 @@ git submodule add https://github.com/taehwandev/AgentPlaybook.git .agents/AgentP
 python3 .agents/AgentPlaybook/scripts/workflow.py validate
 ```
 
+### Updating An Existing Install
+
+Use Git as the update mechanism. For a personal or shared local checkout, update
+the selected AgentPlaybook root between tasks:
+
+```bash
+cd "${AGENTPLAYBOOK_HOME}"
+git pull --ff-only
+python3 scripts/workflow.py validate
+npx --yes @taehwandev/vibeguard audit . --rules .
+```
+
+Target repos that link to this root do not need their own copied update. The
+next agent task should read the current files from the selected
+AgentPlaybook root. Do not auto-pull during an active task; update intentionally
+between tasks so the workflow rules do not change mid-run.
+
+For a team-pinned submodule, update the pinned commit through the target repo's
+normal review flow:
+
+```bash
+cd <target-repo>
+git submodule update --remote .agents/AgentPlaybook
+python3 .agents/AgentPlaybook/scripts/workflow.py validate
+git add .agents/AgentPlaybook
+```
+
+Public site: `https://agentplaybook.thdev.app/#update`
+
 ### Connect The Target Repo
 
 After choosing the root, add a short pointer to the target repo's canonical
@@ -128,9 +159,13 @@ Shared AgentPlaybook guidance:
 ${AGENTPLAYBOOK_HOME}/AGENTS.md
 ${AGENTPLAYBOOK_HOME}/index.md
 ${AGENTPLAYBOOK_HOME}/scripts/workflow.py
+${AGENTPLAYBOOK_HOME}/scripts/agent-preflight.py
+${AGENTPLAYBOOK_HOME}/scripts/agent-finish-check.py
 
 Use repo-local instructions first.
 For multi-step tasks, use the workflow script first when it exists.
+When the preflight and finish-check wrappers exist, use them to create local
+evidence before editing and before final report, commit, release, or handoff.
 Use the shared index only to select the smallest relevant document set.
 Do not load every shared document by default.
 ```
@@ -265,7 +300,9 @@ flow instead of copying the whole library:
 12. For follow-up work, run `workflow.py classify` when request clarity is
    uncertain, then `workflow.py route ... --request "<USER_REQUEST>"` and
    follow the gate ledger. Answer direct questions before routing.
-13. Before reporting success, verify the routing block, VibeGuard gate result,
+13. When wrapper scripts are available, run `agent-preflight.py` before edits and
+   `agent-finish-check.py` before final report, commit, release, or handoff.
+14. Before reporting success, verify the routing block, VibeGuard gate result,
    and any route gates that were required.
 
 ## Prompt A Local Agent
@@ -291,6 +328,8 @@ Then use AgentPlaybook:
 <AGENTPLAYBOOK_ROOT>/AGENTS.md
 <AGENTPLAYBOOK_ROOT>/index.md
 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py
+<AGENTPLAYBOOK_ROOT>/scripts/agent-preflight.py
+<AGENTPLAYBOOK_ROOT>/scripts/agent-finish-check.py
 
 Apply the required VibeGuard safety gate with <AGENTPLAYBOOK_ROOT> as the rule
 source before editing. Use the published VibeGuard package command; the
@@ -299,6 +338,9 @@ agent.
 For multi-step work, run the workflow route with `--request "<USER_REQUEST>"`
 and follow its gate ledger. If the user asks a direct question, answer it before
 starting project work.
+When the wrapper scripts exist, run `agent-preflight.py` before editing and
+`agent-finish-check.py` before final report, commit, release, or handoff. Missing
+wrapper evidence or missing route gate evidence is non-compliant.
 After each completed gate or task step, show:
 Gate signal: GREEN | gate: <gate> | evidence: <evidence> | next: <next gate>
 
@@ -383,11 +425,12 @@ Supported commands are `ambiguity`, `bugfix`, `docs`, `docs-review`, `feature`,
 Supported platforms are `android`, `application`, `flutter`, `ios`, `kmp`,
 `server`, and `web`. Supported concerns are `accessibility`, `api`, `auth`,
 `background`, `billing`, `asset`, `assets`, `cache`, `channel`, `component`,
-`component-api`, `compose`, `defensive`, `dependency`, `desktop`, `discovery`,
-`effort`, `error`, `errors`, `failure`, `generated`, `intake`, `interaction`,
-`invite`, `module`, `observability`, `persistence`, `platform`, `react`,
-`release`, `reusability`, `security`, `seo`, `stack`, `state`, `structure`,
-`swiftui`, `ui`, `uikit`, `widget`, `wiki`, and `worktree`.
+`component-api`, `compose`, `copy`, `defensive`, `dependency`, `desktop`,
+`discovery`, `effort`, `error`, `errors`, `failure`, `generated`, `intake`,
+`interaction`, `invite`, `module`, `observability`, `persistence`, `platform`,
+`react`, `prose`, `release`, `reusability`, `security`, `seo`, `stack`, `state`,
+`structure`, `swiftui`, `ui`, `uikit`, `voice`, `widget`, `wiki`, `worktree`,
+and `writing`.
 
 Use `classify` before route selection when the request may be vague or when the
 agent runtime can choose model/reasoning effort. The classifier is intentionally
@@ -409,6 +452,47 @@ return to the first missed gate only, roll back dependent agent-made changes
 when safe, and run the retrospective workflow. The missed gate gets up to two
 recovery retries; the whole route is not restarted.
 
+## Executable Evidence Gate
+
+For stronger enforcement, agents should use the wrapper scripts that turn the
+route, VibeGuard checks, git status, validation, and gate ledger into local JSON
+evidence.
+
+Before multi-step edits:
+
+```bash
+python3 "${AGENTPLAYBOOK_HOME}/scripts/agent-preflight.py" \
+  --project . \
+  --rules "${AGENTPLAYBOOK_HOME}" \
+  --command task \
+  --request "<USER_REQUEST>" \
+  --concern wiki
+```
+
+Before final report, commit, release, or handoff:
+
+```bash
+python3 "${AGENTPLAYBOOK_HOME}/scripts/agent-finish-check.py" \
+  --project . \
+  --rules "${AGENTPLAYBOOK_HOME}" \
+  --gate "request intake=<route/classification evidence>" \
+  --gate "orient=<instructions and route docs read>" \
+  --gate "scope=<scope decision evidence>" \
+  --gate "act=<diff or changed files evidence>" \
+  --gate "verify=<commands and results>" \
+  --gate "report=<final report prepared>"
+```
+
+The scripts write to `.agentplaybook/preflight.json` and
+`.agentplaybook/finish.json`. That directory is local runtime evidence and
+should usually be gitignored. Missing wrapper evidence or missing route gate
+evidence is non-compliant even if the resulting code or docs look correct.
+
+If final VibeGuard is `YELLOW` / `Needs review`, the agent must report that
+state and pass `--allow-vibeguard-review "<reason>"` only when the review state
+is acceptable. A failed VibeGuard command, `RED`, missing route evidence, or
+missing VibeGuard output remains a blocker.
+
 ## Structure
 
 ```text
@@ -418,7 +502,7 @@ common/           Platform-neutral engineering guidance
 platforms/        Android, KMP, Flutter, iOS, web, server, and application tracks
 product-patterns/ Reusable product mechanics such as auth, invite, and billing
 workflows/        Repeatable agent work paths
-scripts/          Executable workflow routers and validators
+scripts/          Executable workflow routers, preflight checks, and validators
 templates/        Repo-local routing snippets
 docs/             Static public site source
 ```
@@ -471,6 +555,9 @@ where state should live, and what evidence proves the work.
 - Product implementation: product-pattern implementation cards cover concrete
   auth/RBAC, invitation, and billing/entitlement models, state machines,
   enforcement layers, side effects, and tests.
+- Human-authored writing: `common/human-authored-writing.md` covers preserving
+  meaning and voice while reducing generic AI-writing signals in prose,
+  documentation, release notes, marketing copy, and email.
 
 For implementation work, route with the platform and concern instead of relying
 on only a broad architecture card:
@@ -511,6 +598,8 @@ This is the core design: small cards, loaded only when relevant.
   project-specific commands.
 - Run `scripts/workflow.py route ... --request "<USER_REQUEST>"` for multi-step
   workflows before selecting documents manually.
+- Use `scripts/agent-preflight.py` and `scripts/agent-finish-check.py` when
+  available; missing executable evidence is non-compliant.
 - Classify unclear requests before loading broad context or using deep model
   effort.
 - Discover the repo stack before choosing package managers, framework APIs, or
@@ -578,6 +667,10 @@ keeps the guidance easier for different agent runtimes and teams to parse.
 Public-facing site copy under `docs/` can be localized. The site currently
 supports English and Korean copy. Localized marketing or onboarding text should
 not become the source of truth for agent behavior.
+
+For a Korean quick guide to updating an existing checkout, use
+`docs/ko/update-agentplaybook.md`. The canonical policy remains in this README
+and the shared agent guidance.
 
 ## Metadata
 

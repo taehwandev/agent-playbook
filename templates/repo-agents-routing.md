@@ -18,6 +18,8 @@ Shared AgentPlaybook library:
 <AGENTPLAYBOOK_ROOT>/AGENTS.md
 <AGENTPLAYBOOK_ROOT>/index.md
 <AGENTPLAYBOOK_ROOT>/scripts/workflow.py
+<AGENTPLAYBOOK_ROOT>/scripts/agent-preflight.py
+<AGENTPLAYBOOK_ROOT>/scripts/agent-finish-check.py
 
 Use repo-local instructions first. Explicitly read the current target project's
 instruction file for this runtime before using AgentPlaybook: Codex-style agents
@@ -56,6 +58,15 @@ missing evidence and triggers missed-gate recovery: stop finalization, roll back
 only dependent agent-made changes after the missed gate when safe, return to the
 first missed gate only, and run the retrospective workflow. The missed gate gets
 up to two recovery retries; do not restart the whole route.
+When the wrapper scripts are available, run `agent-preflight.py` before editing,
+reviewing, committing, or reporting completion, and run `agent-finish-check.py`
+before final report, commit, release, or handoff. Pass evidence for every route
+gate to the finish check. The wrappers write local evidence under
+`.agentplaybook/`; this directory is runtime evidence and should usually be
+gitignored. Missing wrapper evidence or missing route gate evidence is
+non-compliant even when the final files look correct. VibeGuard YELLOW /
+`Needs review` must be reported explicitly and can pass the finish check only
+with an `--allow-vibeguard-review` reason.
 Do not load every shared document by default.
 Replace `<AGENTPLAYBOOK_ROOT>` with an existing local install path,
 `${AGENTPLAYBOOK_HOME}`, or a repo-pinned submodule path. Use legacy
@@ -88,6 +99,8 @@ Worktree hygiene: <AGENTPLAYBOOK_ROOT>/common/worktree-hygiene.md
 Defensive boundaries: <AGENTPLAYBOOK_ROOT>/common/defensive-boundaries.md
 UI visual verification: <AGENTPLAYBOOK_ROOT>/common/ui-visual-verification.md
 Workflow script: <AGENTPLAYBOOK_ROOT>/scripts/workflow.py
+Preflight evidence script: <AGENTPLAYBOOK_ROOT>/scripts/agent-preflight.py
+Finish evidence script: <AGENTPLAYBOOK_ROOT>/scripts/agent-finish-check.py
 Android Compose UI: <AGENTPLAYBOOK_ROOT>/platforms/android/android-compose-ui.md
 Android ViewModel/state: <AGENTPLAYBOOK_ROOT>/platforms/android/android-viewmodel-state.md
 KMP architecture: <AGENTPLAYBOOK_ROOT>/platforms/kmp/kmp-architecture.md

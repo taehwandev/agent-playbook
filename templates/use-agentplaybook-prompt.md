@@ -65,33 +65,43 @@ Rules:
    Use the lowest capable effort level. Do not use deep reasoning or a
    specialist agent for clear, low-risk requests unless local evidence expands
    the scope.
-6. Keep a gate execution ledger from the route output. Mark each required gate
+6. When available, run this wrapper before editing, reviewing, committing, or
+   reporting completion:
+   python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-preflight.py --project <TARGET_REPO> --rules <AGENTPLAYBOOK_ROOT> --command <COMMAND> --request "<USER_REQUEST>" [--platform <PLATFORM>] [--concern <CONCERN>]
+   It records the route, git status, and VibeGuard result in
+   <TARGET_REPO>/.agentplaybook/preflight.json.
+7. Keep a gate execution ledger from the route output. Mark each required gate
    when it is executed, include concrete evidence such as a command, file, diff,
    manual check, or decision note, and assign a traffic-light signal:
    `GREEN` for executed with evidence, `YELLOW` for blocked or paused, and
    `RED` for missed or missing evidence. Do not reconstruct the ledger from
    memory at the end.
-7. After each completed gate or task step, show:
+8. After each completed gate or task step, show:
    Gate signal: GREEN | gate: <gate> | evidence: <evidence> | next: <next gate>
-8. If any required gate was not executed, stop before final report, commit,
+9. If any required gate was not executed, stop before final report, commit,
    release, or handoff. Roll back only dependent agent-made changes after the
    missed gate when safe, preserve user-owned changes, return to the first
    missed gate only, and run the retrospective workflow. The missed gate gets
    up to two recovery retries; do not restart the whole route.
-9. When a gate is missed, the retrospective must include `AI mistake`,
+10. When a gate is missed, the retrospective must include `AI mistake`,
    `Proposed fix`, and `Discussion result`. Write the discussion result in the
    user's language for the task.
-10. Load only the listed documents and the smallest relevant platform, product,
+11. Load only the listed documents and the smallest relevant platform, product,
    or common cards. Do not load every shared document by default.
-11. Discover the repo stack before choosing package managers, framework APIs, or
+12. Discover the repo stack before choosing package managers, framework APIs, or
    project commands. Preserve user-owned worktree changes.
-12. When commands fail, read stdout/stderr and fix only the smallest relevant
+13. When commands fail, read stdout/stderr and fix only the smallest relevant
    issue. Do not blindly retry, delete tests, or silence errors.
-13. Ask only blocker questions. Prefer concrete options with tradeoffs and a
+14. Ask only blocker questions. Prefer concrete options with tradeoffs and a
    recommended default.
-14. Before finishing, confirm every required route gate is `GREEN` with ledger
-    evidence, rerun the relevant verification and VibeGuard safety gate, then
-    report changed files, checks run, skipped checks, and residual risk.
+15. Before finishing, confirm every required route gate is `GREEN` with ledger
+    evidence. When available, run:
+    python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-finish-check.py --project <TARGET_REPO> --rules <AGENTPLAYBOOK_ROOT> --gate "request intake=<evidence>" --gate "orient=<evidence>" --gate "scope=<evidence>" --gate "act=<evidence>" --gate "verify=<evidence>" --gate "report=<evidence>"
+    Missing wrapper evidence or missing route gate evidence is non-compliant.
+    If final VibeGuard is `YELLOW` / `Needs review`, report that state and pass
+    `--allow-vibeguard-review "<reason>"` only when the review state is
+    acceptable. Then report changed files, checks run, skipped checks, and
+    residual risk.
 ```
 
 ## Choosing The Route

@@ -220,6 +220,36 @@ Before finalizing, compare the route's `gates` with the ledger:
 - If a route gate is truly irrelevant, stop and correct the route before
   editing; do not silently skip the gate inside a completion report.
 
+## Executable Evidence Wrappers
+
+When available, use the wrapper scripts to make the route and gate ledger
+auditable instead of relying on memory.
+
+Before editing, reviewing, committing, or reporting completion:
+
+```text
+python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-preflight.py --project <TARGET_REPO> --rules <AGENTPLAYBOOK_ROOT> --command <command> --request "<USER_REQUEST>" [--platform <platform>] [--concern <concern>]
+```
+
+Before final report, commit, release, or handoff:
+
+```text
+python3 <AGENTPLAYBOOK_ROOT>/scripts/agent-finish-check.py --project <TARGET_REPO> --rules <AGENTPLAYBOOK_ROOT> --gate "request intake=<evidence>" --gate "orient=<evidence>" --gate "scope=<evidence>" --gate "act=<evidence>" --gate "verify=<evidence>" --gate "report=<evidence>"
+```
+
+`agent-preflight.py` records the route manifest, current git status, and
+VibeGuard audit result in `<TARGET_REPO>/.agentplaybook/preflight.json`.
+`agent-finish-check.py` requires evidence for every route gate, runs
+`workflow.py validate`, runs `git diff --check`, reruns VibeGuard, and writes
+`<TARGET_REPO>/.agentplaybook/finish.json`.
+
+Treat missing wrapper evidence as non-compliant. If the wrappers are unavailable,
+the agent must still run the same underlying checks manually and report the
+fallback explicitly. VibeGuard `YELLOW` / `Needs review` cannot be called
+complete unless the state is reported and an explicit
+`--allow-vibeguard-review` reason is recorded. Command failure, `RED`, missing
+route evidence, or missing VibeGuard output remains a blocker.
+
 ## Missed Gate Recovery
 
 If the agent missed any required gate:
