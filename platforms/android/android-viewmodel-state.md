@@ -70,6 +70,90 @@ Rules:
   or route callback for navigation, snackbar, permission launch, external
   activity, and file/share actions.
 
+## Implementation Pattern
+
+Use repo-local naming and DI first, but keep this contract intact:
+
+```kotlin
+data class ProfileUiState(
+    val status: ProfileStatus = ProfileStatus.Loading,
+    val canEdit: Boolean = false,
+)
+
+sealed interface ProfileStatus {
+    data object Loading : ProfileStatus
+    data object Empty : ProfileStatus
+    data class Content(val profile: ProfileViewData) : ProfileStatus
+    data class Error(val message: UiMessage) : ProfileStatus
+    data object PermissionDenied : ProfileStatus
+}
+
+sealed interface ProfileAction {
+    data object RetryClick : ProfileAction
+    data object BackClick : ProfileAction
+    data object EditClick : ProfileAction
+}
+
+sealed interface ProfileEffect {
+    data object NavigateBack : ProfileEffect
+    data class OpenEditor(val id: ProfileId) : ProfileEffect
+    data class ShowSnackbar(val message: UiMessage) : ProfileEffect
+}
+```
+
+```kotlin
+class ProfileViewModel(
+    private val loadProfile: LoadProfileUseCase,
+) : ViewModel() {
+    private val _state = MutableStateFlow(ProfileUiState())
+    val state: StateFlow<ProfileUiState> = _state.asStateFlow()
+
+    private val _effects = Channel<ProfileEffect>(Channel.BUFFERED)
+    val effects: Flow<ProfileEffect> = _effects.receiveAsFlow()
+
+    fun onAction(action: ProfileAction) {
+        when (action) {
+            ProfileAction.RetryClick -> load()
+            ProfileAction.BackClick -> emitEffect(ProfileEffect.NavigateBack)
+            ProfileAction.EditClick -> openEditor()
+        }
+    }
+
+    private fun load() {
+        viewModelScope.launch {
+            _state.update { it.copy(status = ProfileStatus.Loading) }
+            // Map domain result into typed UI state, including empty/error.
+        }
+    }
+
+    private fun openEditor() {
+        val content = _state.value.status as? ProfileStatus.Content ?: return
+        emitEffect(ProfileEffect.OpenEditor(content.profile.id))
+    }
+
+    private fun emitEffect(effect: ProfileEffect) {
+        viewModelScope.launch { _effects.send(effect) }
+    }
+}
+```
+
+Implementation rules:
+
+- Keep action handling centralized in the ViewModel or reducer; do not scatter
+  business actions across composables.
+- Use `Channel`/`receiveAsFlow`, `SharedFlow`, or repo-local event primitives
+  intentionally. Effects should not replay after rotation unless replay is the
+  product contract.
+- Convert repository/domain errors into typed UI messages or state. Do not pass
+  raw exceptions to Compose.
+- Put required content data inside the `Content` state, or use another explicit
+  state shape when stale content can coexist with refresh/error. Avoid nullable
+  payloads that contradict the status.
+- Prefer a single `onAction(ProfileAction)` surface when a screen has many
+  events. Explicit callbacks are fine for small screens.
+- Persist only durable inputs needed for process recreation. Do not persist
+  snackbars, transient navigation effects, or one-frame UI commands.
+
 ## Flow And Coroutine Rules
 
 - Use `viewModelScope` for work owned by the ViewModel.
@@ -116,6 +200,7 @@ Choose the closest checks configured in the repo:
 
 - ViewModel tests for state transitions, retry, submit, permission denied,
   stale result suppression, and one-off effects.
+- Reducer or action tests when the feature uses MVI-style state transitions.
 - Use case tests for product rules, auth/tenant/billing policy, and side-effect
   orchestration.
 - Repository tests for cache, mapper, error, migration, and source selection.

@@ -13,6 +13,10 @@ tests.
 For reusable UI extraction, also read `common/reusable-code-design.md` and
 `common/design-system.md`.
 
+For feature module boundaries, `api`/implementation splits, package ownership,
+and shared holder/design-system promotion, also read
+`android-module-structure.md`.
+
 ## Compose Layers
 
 Use this shape unless the repo has a stricter local pattern:
@@ -54,6 +58,95 @@ Stateless composables:
   field draft state.
 - Expose user intent as callbacks such as `onBackClick`, `onRetryClick`,
   `onQueryChange`, or `onAction` when the action set is already typed.
+
+## Route And Screen Template
+
+For a ViewModel-backed Compose screen, generate or review both the holder and the
+stateless screen. Replace `hiltViewModel()` with the repo's DI pattern.
+
+```kotlin
+@Composable
+fun ProfileRoute(
+    onBack: () -> Unit,
+    onOpenEditor: (ProfileId) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: ProfileViewModel = hiltViewModel(),
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(viewModel) {
+        viewModel.effects.collect { effect ->
+            when (effect) {
+                ProfileEffect.NavigateBack -> onBack()
+                is ProfileEffect.OpenEditor -> onOpenEditor(effect.id)
+                is ProfileEffect.ShowSnackbar -> {
+                    snackbarHostState.showSnackbar(effect.message.text)
+                }
+            }
+        }
+    }
+
+    ProfileScreen(
+        state = state,
+        onAction = viewModel::onAction,
+        snackbarHostState = snackbarHostState,
+        modifier = modifier,
+    )
+}
+```
+
+```kotlin
+@Composable
+fun ProfileScreen(
+    state: ProfileUiState,
+    onAction: (ProfileAction) -> Unit,
+    modifier: Modifier = Modifier,
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
+) {
+    Scaffold(
+        modifier = modifier,
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+    ) { contentPadding ->
+        when (val status = state.status) {
+            ProfileStatus.Loading -> ProfileLoading(
+                modifier = Modifier.padding(contentPadding),
+            )
+            ProfileStatus.Empty -> EmptyState(
+                onRetryClick = { onAction(ProfileAction.RetryClick) },
+                modifier = Modifier.padding(contentPadding),
+            )
+            is ProfileStatus.Error -> ErrorState(
+                message = status.message,
+                onRetryClick = { onAction(ProfileAction.RetryClick) },
+                modifier = Modifier.padding(contentPadding),
+            )
+            ProfileStatus.PermissionDenied -> PermissionDeniedState(
+                modifier = Modifier.padding(contentPadding),
+            )
+            is ProfileStatus.Content -> ProfileContent(
+                profile = status.profile,
+                canEdit = state.canEdit,
+                onBackClick = { onAction(ProfileAction.BackClick) },
+                onEditClick = { onAction(ProfileAction.EditClick) },
+                modifier = Modifier.padding(contentPadding),
+            )
+        }
+    }
+}
+```
+
+Rules for applying this template:
+
+- `Route` may know ViewModel, lifecycle collection, navigation outputs,
+  permission launchers, activity results, and snackbar/focus effects.
+- `Screen` must be previewable without DI, ViewModel, navigation, database,
+  network, or platform services.
+- Leaf components should receive the smallest model or values they need, not the
+  whole screen `UiState`.
+- If a callback count becomes noisy, introduce a typed `UiAction`; do not pass a
+  ViewModel into the screen to reduce parameters.
+- Keep `modifier` on the public composable and apply it to the root layout once.
 
 ## UI State
 
@@ -132,6 +225,71 @@ Previews should:
 
 If a preview cannot be created, state why and name the replacement verification
 such as a screenshot test, Compose UI test, or manual smoke path.
+
+## Preview Implementation
+
+Previews should be built from the stateless `Screen` or leaf component, with
+sample state owned by a preview fixture. Keep sample data deterministic and
+domain-safe.
+
+```kotlin
+private object ProfilePreviewData {
+    val content = ProfileUiState(
+        status = ProfileStatus.Content(
+            ProfileViewData(
+                id = ProfileId("preview"),
+                name = "Ada Lovelace",
+                subtitle = "Long subtitle that verifies wrapping and spacing",
+                avatarUrl = null,
+            ),
+        ),
+        canEdit = true,
+    )
+
+    val loading = ProfileUiState(status = ProfileStatus.Loading)
+    val empty = ProfileUiState(status = ProfileStatus.Empty)
+    val error = ProfileUiState(
+        status = ProfileStatus.Error(UiMessage("Unable to load profile")),
+    )
+}
+
+@Preview(name = "Profile content")
+@Composable
+private fun ProfileScreenContentPreview() {
+    AppTheme {
+        ProfileScreen(
+            state = ProfilePreviewData.content,
+            onAction = {},
+        )
+    }
+}
+
+@Preview(name = "Profile error")
+@Composable
+private fun ProfileScreenErrorPreview() {
+    AppTheme {
+        ProfileScreen(
+            state = ProfilePreviewData.error,
+            onAction = {},
+        )
+    }
+}
+```
+
+Preview requirements:
+
+- Add at least one content preview and one affected edge-state preview when the
+  change touches loading, empty, error, permission, offline, disabled, or long
+  text behavior.
+- Add dark mode, font scale, small-width, or locale previews when the change is
+  likely to break them and the repo already supports preview parameters or
+  screenshot coverage.
+- Keep preview data in `preview/`, `sample/`, or the same file for small local
+  components according to repo convention.
+- Do not create a fake ViewModel only to make a preview work. Preview the
+  stateless composable instead.
+- Do not hide missing previews behind "not runnable locally" unless a screenshot
+  test, Compose UI test, or manual smoke path covers the visual state.
 
 ## Package Structure
 

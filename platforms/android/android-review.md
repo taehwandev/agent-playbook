@@ -14,6 +14,9 @@ Use for Android app, Compose/ViewModel, permission, and UI flow review.
 - Check ViewModel, `UiState`, Flow, repository, and one-off event boundaries
   against `android-viewmodel-state.md` when state/data changed.
 - Check stateful holder vs stateless screen/component boundaries.
+- Check module/package boundaries against `android-module-structure.md` when new
+  modules, package moves, API contracts, build logic, or repository splits are
+  touched.
 - Confirm meaningful screen, section, and reusable component changes include
   previews or a documented replacement check.
 - Verify loading, empty, error, permission-denied, and offline states.
@@ -42,3 +45,7 @@ Use for Android app, Compose/ViewModel, permission, and UI flow review.
 - Rotation, process death, or lifecycle changes do not lose critical state.
 - Background jobs do not duplicate side effects after retry or process death.
 - Release build configuration does not expose debug endpoints, secrets, or broad exported components.
+- API modules do not leak implementation dependencies, DTOs, database rows, SDK
+  models, or feature implementation types.
+- Shared design-system/core modules do not import feature modules or product
+  policy.

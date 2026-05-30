@@ -11,6 +11,9 @@ Use when touching Compose state, ViewModel, Flow, repository, persistence, or pe
 For detailed ViewModel, `UiState`, Flow, repository, use case, persistence, and
 one-off event implementation rules, also use `android-viewmodel-state.md`.
 
+For repository module splits, API/implementation boundaries, and DTO/entity
+package ownership, also use `android-module-structure.md`.
+
 ## Defaults
 
 - Composable renders state and sends events.
@@ -23,6 +26,21 @@ one-off event implementation rules, also use `android-viewmodel-state.md`.
 - Use lifecycle-aware collection for UI-observed Flow.
 - Version persisted data that can survive app upgrades.
 
+## Repository Boundaries
+
+- Repository `api` modules expose interfaces and stable entities only.
+- Repository implementation modules own Retrofit APIs, Room DAOs, DataStore,
+  files, SDK clients, request/response DTOs, cache records, and mappers.
+- Feature modules depend on repository APIs or domain use cases, not repository
+  implementation packages.
+- Map DTO/cache/database models into repository entities before data crosses the
+  module boundary.
+- Put flavor, dev, fake, or assertion implementations in explicit
+  flavor/dev/testing/assertion modules instead of branching through production
+  repository contracts.
+- Use a domain use case when multiple repositories or product policy must be
+  orchestrated; do not add pass-through use cases for one repository call.
+
 ## Check
 
 - Does collection respect lifecycle?
@@ -31,3 +49,7 @@ one-off event implementation rules, also use `android-viewmodel-state.md`.
 - Does logout, account switch, or permission change clear cached state?
 - Are Room migrations, DataStore changes, and offline cache invalidation covered?
 - Are StateFlow, SharedFlow, Channel, and one-off events chosen intentionally?
+- Are repository entities separate from DTOs, database rows, SDK models, and UI
+  display models?
+- Does any feature import a repository implementation package instead of the API
+  contract?
