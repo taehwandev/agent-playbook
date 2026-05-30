@@ -1,0 +1,338 @@
+"""Static route, platform, and concern catalogs for workflow.py."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Dict, Tuple
+
+
+@dataclass(frozen=True)
+class Profile:
+    docs: Tuple[str, ...]
+    gates: Tuple[str, ...]
+    notes: Tuple[str, ...] = ()
+
+CORE_DOCS = (
+    "AGENTS.md",
+    "index.md",
+    "common/agent-operating-skill.md",
+    "common/stack-discovery.md",
+    "common/llm-coding-discipline.md",
+    "common/code-conventions.md",
+    "common/tool-failure-recovery.md",
+    "common/agent-interaction.md",
+    "common/agent-editing-safety.md",
+)
+
+
+COMMANDS: Dict[str, Profile] = {
+    "triage": Profile(
+        docs=(
+            "workflows/request-triage.md",
+            "common/task-intake-effort-routing.md",
+            "workflows/ambiguity-gate.md",
+        ),
+        gates=("classify request", "select effort", "question drill if needed", "route recommendation"),
+        notes=("Use before loading broad context when request clarity or effort level is uncertain.",),
+    ),
+    "task": Profile(
+        docs=("workflows/agent-task-lifecycle.md",),
+        gates=("orient", "scope", "act", "verify", "report"),
+        notes=("Use for general multi-step agent work.",),
+    ),
+    "product": Profile(
+        docs=(
+            "workflows/scripted-agent-workflow.md",
+            "workflows/ambiguity-gate.md",
+            "workflows/product-architecture-delivery.md",
+            "workflows/multi-perspective-review.md",
+            "workflows/development-cycle.md",
+            "common/product-spec-to-implementation.md",
+            "common/architecture-selection.md",
+            "common/architecture-design.md",
+        ),
+        gates=(
+            "PRD",
+            "ARD",
+            "pre-code review",
+            "code work",
+            "review",
+            "tests",
+            "UI tests when applicable",
+            "commit readiness",
+        ),
+        notes=("Use when product intent must become architecture and code.",),
+    ),
+    "prd": Profile(
+        docs=(
+            "workflows/ambiguity-gate.md",
+            "workflows/prd-creation.md",
+            "common/product-spec-to-implementation.md",
+        ),
+        gates=(
+            "local product docs",
+            "ambiguity check",
+            "PRD draft",
+            "acceptance criteria",
+            "open decisions",
+            "handoff",
+        ),
+        notes=("Use when the deliverable is a PRD or product requirements note before ARD or code.",),
+    ),
+    "ambiguity": Profile(
+        docs=("workflows/ambiguity-gate.md", "common/product-spec-to-implementation.md"),
+        gates=("classify unknowns", "research repo-answerable items", "ask blockers", "record assumptions"),
+        notes=("Use before PRD, ARD, task breakdown, or implementation when unknowns can change behavior or risk.",),
+    ),
+    "feature": Profile(
+        docs=("workflows/feature-implementation.md", "workflows/product-architecture-delivery.md", "workflows/development-cycle.md", "common/product-spec-to-implementation.md"),
+        gates=("PRD/ARD applicability", "acceptance criteria", "implementation", "verification", "handoff"),
+    ),
+    "bugfix": Profile(
+        docs=("workflows/bugfix-debugging.md", "workflows/development-cycle.md"),
+        gates=("reproduce", "isolate", "fix", "regression check", "handoff"),
+    ),
+    "refactor": Profile(
+        docs=("workflows/refactor-cleanup.md", "common/refactoring.md"),
+        gates=("behavior baseline", "small refactor", "equivalence check", "handoff"),
+    ),
+    "docs": Profile(
+        docs=("workflows/documentation-update.md",),
+        gates=("source of truth", "edit", "link/path check", "handoff"),
+    ),
+    "docs-review": Profile(
+        docs=(
+            "workflows/review-and-commit.md",
+            "workflows/documentation-update.md",
+            "workflows/multi-perspective-review.md",
+            "common/code-review.md",
+            "common/llm-wiki-documentation.md",
+        ),
+        gates=("source review", "structure review", "link/path check", "verification", "handoff"),
+        notes=("Use for reviewing durable docs, wiki pages, playbooks, and runbooks.",),
+    ),
+    "planning": Profile(
+        docs=("workflows/planning-research.md",),
+        gates=("question", "sources", "options", "recommendation"),
+    ),
+    "review": Profile(
+        docs=(
+            "workflows/review-and-commit.md",
+            "workflows/multi-perspective-review.md",
+            "common/code-review.md",
+        ),
+        gates=("diff review", "risk review", "verification", "commit readiness"),
+    ),
+    "multi-agent": Profile(
+        docs=("workflows/multi-agent-collaboration.md", "workflows/agent-handoff-continuation.md"),
+        gates=("roles", "write scopes", "agent briefs", "integration review", "handoff"),
+        notes=("Use when work is delegated, parallelized, or split into builder/verifier roles.",),
+    ),
+    "release": Profile(
+        docs=(
+            "workflows/release-readiness.md",
+            "common/release-deployment.md",
+            "common/release-versioning.md",
+        ),
+        gates=("package", "config", "smoke", "rollback", "handoff"),
+    ),
+    "retrospective": Profile(
+        docs=("workflows/retrospective-learning.md",),
+        gates=("trigger", "lesson", "promotion check", "doc update"),
+    ),
+}
+
+
+PLATFORMS: Dict[str, Tuple[str, ...]] = {
+    "android": (
+        "platforms/android/android-architecture.md",
+        "platforms/android/android-viewmodel-state.md",
+        "platforms/android/android-state-data.md",
+        "platforms/android/android-review.md",
+    ),
+    "kmp": (
+        "platforms/kmp/kmp-architecture.md",
+        "platforms/kmp/kmp-compose-ui.md",
+        "platforms/kmp/kmp-state-data.md",
+        "platforms/kmp/kmp-platform-integration.md",
+        "platforms/kmp/kmp-review.md",
+    ),
+    "flutter": (
+        "platforms/flutter/flutter-architecture.md",
+        "platforms/flutter/flutter-widget-ui.md",
+        "platforms/flutter/flutter-state-data.md",
+        "platforms/flutter/flutter-platform-integration.md",
+        "platforms/flutter/flutter-review.md",
+    ),
+    "ios": (
+        "platforms/ios/ios-architecture.md",
+        "platforms/ios/ios-state-concurrency.md",
+        "platforms/ios/ios-review.md",
+    ),
+    "web": (
+        "platforms/web/web-architecture.md",
+        "platforms/web/web-react-ui.md",
+        "platforms/web/web-state-data.md",
+        "platforms/web/web-review.md",
+    ),
+    "server": (
+        "platforms/server/server-architecture.md",
+        "platforms/server/server-api-implementation.md",
+        "platforms/server/server-data-jobs.md",
+        "platforms/server/server-review.md",
+    ),
+    "application": (
+        "platforms/application/application-architecture.md",
+        "platforms/application/application-command-ui.md",
+        "platforms/application/application-system-integration.md",
+        "platforms/application/application-review.md",
+    ),
+}
+
+
+PUBLIC_DISCOVERY_DOCS = ("common/public-discovery.md",)
+
+
+REQUEST_CONCERN_HINTS: Tuple[Tuple[str, Tuple[str, ...]], ...] = (
+    (
+        "seo",
+        (
+            r"\bseo\b",
+            r"\bsearch engine optimization\b",
+            r"\bai search\b",
+            r"\bai search optimization\b",
+            r"\bgenerative ai search\b",
+            r"\bgenerative ai\b",
+            r"\bai overviews?\b",
+            r"\bai mode\b",
+            r"\baeo\b",
+            r"\bgeo\b",
+            r"\banswer engine(?: optimization)?\b",
+            r"\bllms(?:\.txt|-txt)?\b",
+            r"\bsitemap\b",
+            r"\brobots(?:\.txt)?\b",
+            r"\bcanonical\b",
+            r"\bopen graph\b",
+            r"\bopengraph\b",
+            r"\bog image\b",
+            r"\bstructured data\b",
+            "\uac80\uc0c9 \ucd5c\uc801\ud654",
+            "ai \uac80\uc0c9",
+            "\uc0dd\uc131\ud615 ai",
+            "\uc0dd\uc131\ud615 \uac80\uc0c9",
+            "\uc0ac\uc774\ud2b8\ub9f5",
+            "\ub85c\ubd07.txt",
+            "\uce90\ub178\ub2c8\uceec",
+            "\uc624\ud508 \uadf8\ub798\ud504",
+            "\uad6c\uc870\ud654 \ub370\uc774\ud130",
+        ),
+    ),
+)
+
+
+CONCERNS: Dict[str, Tuple[str, ...]] = {
+    "security": ("common/secure-development-baseline.md", "common/security-privacy-review.md"),
+    "intake": ("common/task-intake-effort-routing.md", "workflows/request-triage.md"),
+    "effort": ("common/task-intake-effort-routing.md",),
+    "api": ("common/api-contract-compatibility.md",),
+    "asset": ("common/asset-lifecycle.md",),
+    "assets": ("common/asset-lifecycle.md",),
+    "structure": ("common/code-structure-ownership.md",),
+    "module": ("common/code-structure-ownership.md",),
+    "reusability": ("common/reusable-code-design.md", "common/component-api-design.md"),
+    "component": ("common/component-api-design.md",),
+    "component-api": ("common/component-api-design.md",),
+    "state": ("common/state-modeling.md",),
+    "error": ("common/error-modeling.md",),
+    "errors": ("common/error-modeling.md",),
+    "ui": ("common/design-system.md", "common/component-api-design.md", "common/ui-visual-verification.md"),
+    "accessibility": ("common/accessibility-i18n.md",),
+    "writing": ("common/human-authored-writing.md",),
+    "prose": ("common/human-authored-writing.md",),
+    "voice": ("common/human-authored-writing.md",),
+    "copy": ("common/human-authored-writing.md", "common/accessibility-i18n.md"),
+    "persistence": ("common/data-persistence-sync.md",),
+    "cache": ("common/server-side-caching.md",),
+    "release": ("common/release-deployment.md", "common/release-versioning.md"),
+    "dependency": ("common/dependency-policy.md",),
+    "generated": ("common/generated-files-policy.md",),
+    "worktree": ("common/worktree-hygiene.md",),
+    "stack": ("common/stack-discovery.md",),
+    "failure": ("common/tool-failure-recovery.md",),
+    "interaction": ("common/agent-interaction.md",),
+    "defensive": ("common/defensive-boundaries.md",),
+    "observability": ("common/observability-error-handling.md", "common/error-modeling.md"),
+    "discovery": PUBLIC_DISCOVERY_DOCS,
+    "seo": PUBLIC_DISCOVERY_DOCS,
+    "ai-mode": PUBLIC_DISCOVERY_DOCS,
+    "ai-overviews": PUBLIC_DISCOVERY_DOCS,
+    "ai-search": PUBLIC_DISCOVERY_DOCS,
+    "ai-search-optimization": PUBLIC_DISCOVERY_DOCS,
+    "aeo": PUBLIC_DISCOVERY_DOCS,
+    "answer-engine": PUBLIC_DISCOVERY_DOCS,
+    "answer-engine-optimization": PUBLIC_DISCOVERY_DOCS,
+    "canonical": PUBLIC_DISCOVERY_DOCS,
+    "generative-ai": PUBLIC_DISCOVERY_DOCS,
+    "generative-ai-search": PUBLIC_DISCOVERY_DOCS,
+    "geo": PUBLIC_DISCOVERY_DOCS,
+    "llms": PUBLIC_DISCOVERY_DOCS,
+    "llms-txt": PUBLIC_DISCOVERY_DOCS,
+    "open-graph": PUBLIC_DISCOVERY_DOCS,
+    "robots": PUBLIC_DISCOVERY_DOCS,
+    "sitemap": PUBLIC_DISCOVERY_DOCS,
+    "structured-data": PUBLIC_DISCOVERY_DOCS,
+    "wiki": ("workflows/documentation-update.md", "common/llm-wiki-documentation.md"),
+    "auth": ("product-patterns/auth-rbac-permissions.md", "product-patterns/auth-rbac-implementation.md"),
+    "invite": ("product-patterns/invitation-workflows.md", "product-patterns/invitation-implementation.md"),
+    "billing": (
+        "product-patterns/billing-entitlements.md",
+        "product-patterns/billing-entitlements-implementation.md",
+    ),
+}
+
+
+PLATFORM_CONCERNS: Dict[Tuple[str, str], Tuple[str, ...]] = {
+    ("android", "security"): ("platforms/android/android-security.md",),
+    ("android", "compose"): ("platforms/android/android-compose-ui.md",),
+    ("android", "state"): ("platforms/android/android-viewmodel-state.md",),
+    ("android", "ui"): ("platforms/android/android-compose-ui.md",),
+    ("android", "background"): ("platforms/android/android-background-work.md",),
+    ("kmp", "security"): ("platforms/kmp/kmp-security.md",),
+    ("kmp", "compose"): ("platforms/kmp/kmp-compose-ui.md",),
+    ("kmp", "state"): ("platforms/kmp/kmp-state-data.md",),
+    ("kmp", "ui"): ("platforms/kmp/kmp-compose-ui.md",),
+    ("kmp", "platform"): ("platforms/kmp/kmp-platform-integration.md",),
+    ("kmp", "desktop"): (
+        "platforms/kmp/kmp-platform-integration.md",
+        "platforms/application/application-command-ui.md",
+        "platforms/application/application-system-integration.md",
+    ),
+    ("flutter", "security"): ("platforms/flutter/flutter-security.md",),
+    ("flutter", "widget"): ("platforms/flutter/flutter-widget-ui.md",),
+    ("flutter", "state"): ("platforms/flutter/flutter-state-data.md",),
+    ("flutter", "ui"): ("platforms/flutter/flutter-widget-ui.md",),
+    ("flutter", "platform"): ("platforms/flutter/flutter-platform-integration.md",),
+    ("flutter", "channel"): ("platforms/flutter/flutter-platform-integration.md",),
+    ("ios", "security"): ("platforms/ios/ios-security.md",),
+    ("ios", "swiftui"): ("platforms/ios/ios-swiftui-ui.md",),
+    ("ios", "uikit"): ("platforms/ios/ios-uikit-ui.md",),
+    ("ios", "state"): ("platforms/ios/ios-state-concurrency.md",),
+    ("ios", "ui"): ("platforms/ios/ios-swiftui-ui.md",),
+    ("web", "accessibility"): ("platforms/web/web-accessibility-i18n.md",),
+    ("web", "react"): ("platforms/web/web-react-ui.md",),
+    ("web", "state"): ("platforms/web/web-state-data.md",),
+    ("web", "ui"): ("platforms/web/web-react-ui.md",),
+    ("web", "security"): ("platforms/web/web-security.md",),
+    ("server", "api"): ("platforms/server/server-api-implementation.md",),
+    ("server", "security"): ("platforms/server/server-security.md",),
+    ("application", "desktop"): ("platforms/application/application-command-ui.md",),
+    ("application", "ui"): ("platforms/application/application-command-ui.md",),
+    ("application", "security"): ("platforms/application/application-security.md",),
+}
+
+
+BASELINE_CONCERNS: Dict[str, str] = {
+    "stack": "already included in every route through CORE_DOCS.",
+    "failure": "already included in every route through CORE_DOCS.",
+    "interaction": "already included in every route through CORE_DOCS.",
+}
