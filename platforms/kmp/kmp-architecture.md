@@ -16,6 +16,8 @@ coroutines, repositories, persistence, and data flow, also use
 files, clipboard, permissions, or background resources, also use
 `kmp-platform-integration.md`. For target-specific shells, also load the
 matching Android, iOS, or application card.
+For shared modules, source-set hierarchy, umbrella frameworks, and Gradle module
+splits, also use `kmp-module-structure.md`.
 
 ## Boundaries
 

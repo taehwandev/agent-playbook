@@ -15,6 +15,9 @@ For UIKit screens, coordinators, view controllers, presenters, table/collection
 views, diffable data sources, forms, or UIKit navigation, also use
 `ios-uikit-ui.md`.
 
+For targets, local Swift packages, feature folders, access control, and
+contract/module splits, also use `ios-module-structure.md`.
+
 For navigation, async work, persistence, permissions, or actor boundaries, also use `ios-state-concurrency.md`.
 
 For credentials, Keychain, local storage, Universal Links, URL schemes,
@@ -25,6 +28,11 @@ entitlements, WebViews, or release builds, also use `ios-security.md`.
 ```text
 View/ViewController -> ViewModel/State -> Use Case -> Repository/Client -> Platform Adapter
 ```
+
+Targets and Swift packages should support this direction. Feature
+implementations depend on contracts, domain, data protocols, design system, and
+platform adapters; shared design/domain modules do not import feature
+implementations.
 
 ## Rules
 

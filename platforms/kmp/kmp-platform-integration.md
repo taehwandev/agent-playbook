@@ -10,6 +10,9 @@ Use when Kotlin Multiplatform work touches source sets, `expect`/`actual`,
 native interop, platform services, files, shell/process execution, clipboard,
 notifications, permissions, secure storage, background work, or app lifecycle.
 
+For source-set hierarchy, shared module splits, and umbrella framework shape,
+also use `kmp-module-structure.md`.
+
 ## Adapter Choice
 
 Prefer the smallest boundary that keeps shared code honest:

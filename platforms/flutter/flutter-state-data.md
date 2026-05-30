@@ -12,6 +12,8 @@ or async effects.
 
 For general state-shape guidance, also use `common/state-modeling.md` and
 `common/error-modeling.md`.
+For repository package boundaries, local packages, and plugin/service ownership,
+also use `flutter-project-structure.md`.
 
 ## Defaults
 

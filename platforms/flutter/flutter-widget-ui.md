@@ -12,6 +12,8 @@ or widget tests.
 
 For reusable UI extraction, also read `common/reusable-code-design.md`,
 `common/component-api-design.md`, and `common/design-system.md`.
+For feature folders, local packages, package exports, and design-system
+promotion decisions, also read `flutter-project-structure.md`.
 
 ## Widget Layers
 

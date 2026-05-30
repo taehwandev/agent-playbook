@@ -13,6 +13,8 @@ For architecture choice, also read `../../common/architecture-design.md`. For
 state lifetimes, async work, cancellation, persistence, and actor boundaries,
 also read `ios-state-concurrency.md`. For reusable UI extraction, also read
 `../../common/reusable-code-design.md` and `../../common/design-system.md`.
+For targets, local Swift packages, feature contracts, and access-control
+boundaries, also read `ios-module-structure.md`.
 
 ## SwiftUI Layers
 

@@ -21,6 +21,9 @@ modules, source-set changes, platform actuals, or target app integration.
 ## Check
 
 - Does the route use the target repo's local KMP/Gradle/module rules?
+- Are module and source-set boundaries checked against
+  `kmp-module-structure.md` when Gradle modules, umbrella frameworks, or package
+  moves changed?
 - Are source-set dependencies intentional and compileable for every affected target?
 - Is shared code free of accidental Android, desktop, iOS, JVM-only, or native-only APIs?
 - Do actual implementations satisfy the same contract or return typed unsupported failures?

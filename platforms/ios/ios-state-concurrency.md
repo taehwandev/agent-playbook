@@ -11,6 +11,9 @@ Use when touching SwiftUI/UIKit state, navigation, async work, or platform permi
 For SwiftUI `UiState`, ViewModel, screen composition, and preview rules, also use
 `ios-swiftui-ui.md`.
 
+For repository/client contracts, adapter packages, local Swift packages, and
+target ownership, also use `ios-module-structure.md`.
+
 ## Defaults
 
 - View owns only local presentation state.

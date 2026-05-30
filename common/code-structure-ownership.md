@@ -55,6 +55,25 @@ yes:
 If all answers are no, keep the code local or in one module and revisit the
 boundary when pressure appears.
 
+## Modernization Drill
+
+When modernizing an old or oversized codebase, separate structure moves from
+behavior changes:
+
+1. Inventory current imports, public exports, target/module membership,
+   generated files, resources, tests, and runtime entry points.
+2. Name the current owner and the intended owner before moving files.
+3. Extract the smallest stable contract first: route data, component API,
+   repository interface, platform adapter, use case, or typed model.
+4. Compile or typecheck the contract boundary before moving implementation.
+5. Move one feature, package, module, or source set at a time.
+6. Keep compatibility shims only with an owner, removal condition, and test.
+7. Remove old imports, duplicate exports, and dead target membership after the
+   new boundary is verified.
+
+Avoid combining broad moves with product behavior changes. If behavior must
+change to make the split correct, call it out as a separate acceptance point.
+
 ### Single Module
 
 Use one module or package when:
@@ -100,6 +119,21 @@ real/fake providers, DI bindings, platform integrations
 
 Do not create an `api` module only to mirror architecture. If no caller can use
 the API without the implementation, the split is probably too early.
+
+## Boundary Pressure Signals
+
+Split or introduce a stronger boundary when these signals repeat:
+
+- feature files import data-source, SDK, or platform implementation packages
+- UI code reaches raw transport, database, file, or channel payloads
+- shared packages need feature-specific flags, copy, analytics, or route
+  decisions
+- tests must boot unrelated app shells to exercise one state transition
+- one implementation dependency forces all callers to carry a heavy optional SDK
+- build changes require touching many unrelated target or package manifests
+- a "common" folder has several unrelated owners and no stable public contract
+
+When only one signal appears once, prefer a local cleanup before a module split.
 
 ## Package Layout
 

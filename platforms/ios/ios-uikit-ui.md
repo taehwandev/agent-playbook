@@ -12,6 +12,8 @@ sources, forms, navigation, or UI tests.
 
 For shared state and async rules, also read `ios-state-concurrency.md`. For
 SwiftUI-specific screens, read `ios-swiftui-ui.md` instead.
+For targets, local Swift packages, feature contracts, and access-control
+boundaries, also read `ios-module-structure.md`.
 
 ## UIKit Layers
 

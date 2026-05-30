@@ -15,6 +15,9 @@ async data, repositories, storage, and streams, also use
 `flutter-state-data.md`. For platform channels, plugins, lifecycle,
 permissions, isolates, or target-specific behavior, also use
 `flutter-platform-integration.md`.
+For feature folders, local packages, monorepo package boundaries, package
+exports, plugins, or federated plugin splits, also use
+`flutter-project-structure.md`.
 
 ## Boundaries
 
@@ -25,6 +28,10 @@ Route/Page -> State Owner -> Use Case/Controller -> Repository
 
 Adapt names to the repo's state management choice, such as Riverpod, BLoC,
 Provider, ChangeNotifier, ValueNotifier, Redux, or a local architecture.
+
+Package and folder boundaries should preserve this direction. Widgets depend on
+state owners and contracts; domain/data packages do not depend on widgets,
+routes, `BuildContext`, or plugin implementation packages.
 
 ## Rules
 

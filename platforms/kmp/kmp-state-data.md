@@ -13,6 +13,8 @@ Multiplatform project.
 For platform APIs and actual implementations, also use
 `kmp-platform-integration.md`. For broader state shape rules, also use
 `common/state-modeling.md` and `common/error-modeling.md`.
+For repository module splits, source-set ownership, and umbrella/shared module
+boundaries, also use `kmp-module-structure.md`.
 
 ## Defaults
 

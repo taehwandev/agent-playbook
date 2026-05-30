@@ -11,6 +11,9 @@ callbacks, permissions, app lifecycle, background execution, isolates, secure
 storage, files, share sheets, notifications, WebViews, desktop APIs, or web
 platform behavior.
 
+For plugin package shape, package exports, and federated plugin splits, also use
+`flutter-project-structure.md`.
+
 ## Boundary Shape
 
 ```text

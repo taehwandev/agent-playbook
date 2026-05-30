@@ -15,6 +15,9 @@ Use for iOS SwiftUI/UIKit, navigation, concurrency, permission, and UI flow revi
   `ios-swiftui-ui.md` when SwiftUI screens changed.
 - Check UIKit coordinator/view-controller/ViewModel/list/form boundaries
   against `ios-uikit-ui.md` when UIKit screens changed.
+- Check target/package boundaries against `ios-module-structure.md` when new
+  targets, local Swift packages, access-control changes, package exports, or
+  feature contracts are touched.
 - Confirm `UiState` represents loading, content, empty, error, permission
   denied, offline, disabled, and submitted states when applicable.
 - Verify main actor boundaries for UI updates.

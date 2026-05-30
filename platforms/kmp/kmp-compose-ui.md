@@ -11,6 +11,8 @@ state holders, reusable UI components, previews, resources, or UI tests.
 
 For reusable UI extraction, also read `common/reusable-code-design.md`,
 `common/component-api-design.md`, and `common/design-system.md`.
+For shared Compose module placement, source-set ownership, and feature/shared UI
+splits, also read `kmp-module-structure.md`.
 
 ## Compose Layers
 
