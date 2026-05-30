@@ -548,20 +548,31 @@ where state should live, and what evidence proves the work.
 - Android Compose: `platforms/android/android-compose-ui.md` covers
   route/screen/component splits, `UiState`, architecture tracks, previews,
   package layout, and verification.
+- Android module/package structure:
+  `platforms/android/android-module-structure.md` covers feature modules,
+  API/implementation splits, repository boundaries, build-logic conventions,
+  shared core/design-system ownership, and migration strategy.
 - Android ViewModel/state: `platforms/android/android-viewmodel-state.md`
   covers ViewModel contracts, `StateFlow`, one-off events, use cases,
   repositories, persistence, and coroutine tests.
 - KMP/Compose Multiplatform: `platforms/kmp/kmp-architecture.md`,
+  `platforms/kmp/kmp-module-structure.md`,
   `platforms/kmp/kmp-compose-ui.md`, `platforms/kmp/kmp-state-data.md`, and
-  `platforms/kmp/kmp-platform-integration.md` cover source sets,
-  `expect`/`actual`, shared Compose UI, state/data boundaries, adapters,
-  target capabilities, and verification across affected targets.
+  `platforms/kmp/kmp-platform-integration.md` cover shared modules, source sets,
+  umbrella frameworks, `expect`/`actual`, shared Compose UI, state/data
+  boundaries, adapters, target capabilities, and verification across affected
+  targets.
 - Flutter: `platforms/flutter/flutter-architecture.md`,
+  `platforms/flutter/flutter-project-structure.md`,
   `platforms/flutter/flutter-widget-ui.md`,
   `platforms/flutter/flutter-state-data.md`, and
-  `platforms/flutter/flutter-platform-integration.md` cover widget layers,
-  state management, repositories, platform channels, plugins, target
-  capabilities, lifecycle, and verification across affected targets.
+  `platforms/flutter/flutter-platform-integration.md` cover feature folders,
+  package boundaries, widget layers, state management, repositories, platform
+  channels, plugins, federated plugin splits, target capabilities, lifecycle,
+  and verification across affected targets.
+- iOS module/package structure: `platforms/ios/ios-module-structure.md` covers
+  targets, local Swift packages, access control, feature contracts, app
+  extensions, package layout, and migration strategy.
 - iOS SwiftUI: `platforms/ios/ios-swiftui-ui.md` covers route/coordinator,
   screen/section/view splits, ViewModel contracts, `UiState`, clean
   architecture, previews, navigation effects, and tests.

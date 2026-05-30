@@ -75,6 +75,8 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 ## Platform
 
 - Android architecture: `platforms/android/android-architecture.md`
+- Android module/package structure:
+  `platforms/android/android-module-structure.md`
 - Android ViewModel, UiState, Flow, repository, persistence, one-off events:
   `platforms/android/android-viewmodel-state.md`
 - Android Compose UI structure, stateful/stateless split, previews, packages:
@@ -84,18 +86,24 @@ Pick the smallest relevant document set. Repo-local guidance wins over this shar
 - Android security: `platforms/android/android-security.md`
 - Android review: `platforms/android/android-review.md`
 - KMP architecture: `platforms/kmp/kmp-architecture.md`
+- KMP module/source-set structure:
+  `platforms/kmp/kmp-module-structure.md`
 - KMP Compose Multiplatform UI: `platforms/kmp/kmp-compose-ui.md`
 - KMP state/data: `platforms/kmp/kmp-state-data.md`
 - KMP platform integration: `platforms/kmp/kmp-platform-integration.md`
 - KMP security: `platforms/kmp/kmp-security.md`
 - KMP review: `platforms/kmp/kmp-review.md`
 - Flutter architecture: `platforms/flutter/flutter-architecture.md`
+- Flutter project/package structure:
+  `platforms/flutter/flutter-project-structure.md`
 - Flutter widget UI: `platforms/flutter/flutter-widget-ui.md`
 - Flutter state/data: `platforms/flutter/flutter-state-data.md`
 - Flutter platform integration: `platforms/flutter/flutter-platform-integration.md`
 - Flutter security: `platforms/flutter/flutter-security.md`
 - Flutter review: `platforms/flutter/flutter-review.md`
 - iOS architecture: `platforms/ios/ios-architecture.md`
+- iOS target/package structure:
+  `platforms/ios/ios-module-structure.md`
 - iOS SwiftUI UI structure, ViewModel contracts, UiState, previews, packages:
   `platforms/ios/ios-swiftui-ui.md`
 - iOS UIKit UI structure, coordinators, view controllers, lists, forms:
@@ -299,25 +307,38 @@ For Android Compose screen or component work, load
 stateful/stateless boundaries, previews, component package structure, and
 design-system promotion decisions.
 
+For Android module, package, feature API, repository API, build-logic, or
+shared-core ownership work, load
+`platforms/android/android-module-structure.md` before implementation.
+
 For Android ViewModel, `UiState`, Flow, repository, persistence, or one-off
 event work, load `platforms/android/android-viewmodel-state.md` before
 implementation.
 
 For KMP or Compose Multiplatform work, load
-`platforms/kmp/kmp-architecture.md`. For shared Compose UI, also load
-`platforms/kmp/kmp-compose-ui.md`; for shared state, repositories,
-coroutines, persistence, or adapters, load `platforms/kmp/kmp-state-data.md`;
-for source sets, `expect`/`actual`, native interop, files, shell, clipboard,
-permissions, or target capabilities, load
+`platforms/kmp/kmp-architecture.md`. For shared modules, source-set hierarchy,
+umbrella frameworks, Gradle module splits, or KMP package ownership, also load
+`platforms/kmp/kmp-module-structure.md`; for shared Compose UI, also load
+`platforms/kmp/kmp-compose-ui.md`; for shared state, repositories, coroutines,
+persistence, or adapters, load `platforms/kmp/kmp-state-data.md`; for source
+sets, `expect`/`actual`, native interop, files, shell, clipboard, permissions,
+or target capabilities, load
 `platforms/kmp/kmp-platform-integration.md`.
 
 For Flutter work, load `platforms/flutter/flutter-architecture.md`. For
-widgets, forms, routes, design-system components, or golden/widget tests, also
-load `platforms/flutter/flutter-widget-ui.md`; for state owners, streams,
+feature folders, local packages, package exports, plugin package shape, or
+federated plugin splits, also load
+`platforms/flutter/flutter-project-structure.md`; for widgets, forms, routes,
+design-system components, or golden/widget tests, also load
+`platforms/flutter/flutter-widget-ui.md`; for state owners, streams,
 repositories, storage, or async effects, load
 `platforms/flutter/flutter-state-data.md`; for MethodChannel, EventChannel,
 plugins, permissions, lifecycle, isolates, desktop, mobile, or web target
 behavior, load `platforms/flutter/flutter-platform-integration.md`.
+
+For iOS targets, local Swift packages, package exports, access control, feature
+contracts, or target membership work, load
+`platforms/ios/ios-module-structure.md` before implementation.
 
 For iOS SwiftUI screen or component work, load
 `platforms/ios/ios-swiftui-ui.md` before implementation. This includes

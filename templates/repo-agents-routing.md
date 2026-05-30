@@ -110,11 +110,15 @@ Workflow script: <AGENTPLAYBOOK_ROOT>/scripts/workflow.py
 Preflight evidence script: <AGENTPLAYBOOK_ROOT>/scripts/agent-preflight.py
 Finish evidence script: <AGENTPLAYBOOK_ROOT>/scripts/agent-finish-check.py
 Android Compose UI: <AGENTPLAYBOOK_ROOT>/platforms/android/android-compose-ui.md
+Android module/package structure: <AGENTPLAYBOOK_ROOT>/platforms/android/android-module-structure.md
 Android ViewModel/state: <AGENTPLAYBOOK_ROOT>/platforms/android/android-viewmodel-state.md
 KMP architecture: <AGENTPLAYBOOK_ROOT>/platforms/kmp/kmp-architecture.md
+KMP module/source-set structure: <AGENTPLAYBOOK_ROOT>/platforms/kmp/kmp-module-structure.md
 KMP Compose UI: <AGENTPLAYBOOK_ROOT>/platforms/kmp/kmp-compose-ui.md
 Flutter architecture: <AGENTPLAYBOOK_ROOT>/platforms/flutter/flutter-architecture.md
+Flutter project/package structure: <AGENTPLAYBOOK_ROOT>/platforms/flutter/flutter-project-structure.md
 Flutter widget UI: <AGENTPLAYBOOK_ROOT>/platforms/flutter/flutter-widget-ui.md
+iOS target/package structure: <AGENTPLAYBOOK_ROOT>/platforms/ios/ios-module-structure.md
 iOS SwiftUI UI: <AGENTPLAYBOOK_ROOT>/platforms/ios/ios-swiftui-ui.md
 iOS UIKit UI: <AGENTPLAYBOOK_ROOT>/platforms/ios/ios-uikit-ui.md
 Web React UI: <AGENTPLAYBOOK_ROOT>/platforms/web/web-react-ui.md
